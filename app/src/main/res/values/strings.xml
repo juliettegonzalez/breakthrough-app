@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">BreakthroughApp</string>
     <string name="game_name">Breakthrough</string>
+
+    <!-- Welcome screen -->
+    <string name="new_game_btn">Nouveau jeu</string>
+    <string name="rules_btn">Règles du jeu</string>
+    <string name="credits_link">Crédits</string>
+
 </resources>
