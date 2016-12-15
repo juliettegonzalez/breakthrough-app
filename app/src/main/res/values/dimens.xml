@@ -11,4 +11,8 @@
     <dimen name="start_button_margin">6dp</dimen>
     <dimen name="start_button_padding">20dp</dimen>
 
+    <!-- Selection screen -->
+    <dimen name="selection_title_size">20sp</dimen>
+    <dimen name="selection_panel_margin">30dp</dimen>
+
 </resources>

@@ -6,5 +6,16 @@
     <string name="new_game_btn">Nouveau jeu</string>
     <string name="rules_btn">Règles du jeu</string>
     <string name="credits_link">Crédits</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Selection screen -->
+    <string name="selection_game_title">Quel joueur es-tu ?</string>
+    <string name="dragon_pawn">Dragon</string>
+    <string name="grandpa_pawn">Papi</string>
+    <string name="king_pawn">Roi</string>
+    <string name="wizard_pawn">Magicien</string>
+
+
 
 </resources>

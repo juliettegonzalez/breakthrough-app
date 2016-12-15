@@ -1,9 +1,12 @@
 package com.juliettegonzalez.breakthroughapp;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +22,15 @@ public class MainActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.title_text_view)).setTypeface(caviarDreams_bold);
 
         getSupportActionBar().hide();
+
+        Button newGameBtn = (Button) findViewById(R.id.new_game_btn);
+        newGameBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
