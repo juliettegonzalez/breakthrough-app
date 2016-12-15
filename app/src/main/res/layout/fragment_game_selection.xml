@@ -46,12 +46,15 @@
                 android:id="@+id/dragon_pawn_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dragon_pawn" />
+                android:padding="@dimen/pawn_btn_padding"
+                android:background="@drawable/white_rounded_button"
+                android:src="@drawable/ic_dragon_pawn_black"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/pawn_description_padding"
                 android:textColor="@android:color/white"
                 android:text="@string/dragon_pawn"/>
 
@@ -63,16 +66,20 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/activity_horizontal_margin"
             android:orientation="vertical">
-            <Button
+
+            <ImageButton
                 android:id="@+id/grandpa_pawn_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/grandpa_pawn"/>
+                android:padding="@dimen/pawn_btn_padding"
+                android:background="@drawable/white_rounded_button"
+                android:src="@drawable/ic_grandpa_pawn_black"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/pawn_description_padding"
                 android:textColor="@android:color/white"
                 android:text="@string/grandpa_pawn"/>
 
@@ -84,16 +91,20 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/activity_horizontal_margin"
             android:orientation="vertical">
-            <Button
+
+            <ImageButton
                 android:id="@+id/king_pawn_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/king_pawn"/>
+                android:padding="@dimen/pawn_btn_padding"
+                android:background="@drawable/white_rounded_button"
+                android:src="@drawable/ic_king_pawn_black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/pawn_description_padding"
                 android:textColor="@android:color/white"
                 android:text="@string/king_pawn"/>
 
@@ -105,23 +116,36 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/activity_horizontal_margin"
             android:orientation="vertical">
-            <Button
+
+            <ImageButton
                 android:id="@+id/wizard_pawn_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/wizard_pawn"/>
+                android:padding="@dimen/pawn_btn_padding"
+                android:background="@drawable/white_rounded_button"
+                android:src="@drawable/ic_wizard_pawn_black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/pawn_description_padding"
                 android:textColor="@android:color/white"
                 android:text="@string/wizard_pawn"/>
 
         </LinearLayout>
     </GridLayout>
 
-
+    <Button
+        android:id="@+id/start_game_btn"
+        android:layout_width="@dimen/start_button_size"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/pawnSelectionGrid"
+        android:paddingTop="@dimen/start_button_padding"
+        android:paddingBottom="@dimen/start_button_padding"
+        android:backgroundTint="@android:color/white"
+        android:text="@string/start_game_btn"/>
 
 
 </RelativeLayout>

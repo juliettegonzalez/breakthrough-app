@@ -14,5 +14,7 @@
     <!-- Selection screen -->
     <dimen name="selection_title_size">20sp</dimen>
     <dimen name="selection_panel_margin">30dp</dimen>
+    <dimen name="pawn_btn_padding">10dp</dimen>
+    <dimen name="pawn_description_padding">5dp</dimen>
 
 </resources>
