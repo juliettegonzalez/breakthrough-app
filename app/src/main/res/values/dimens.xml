@@ -17,4 +17,10 @@
     <dimen name="pawn_btn_padding">10dp</dimen>
     <dimen name="pawn_description_padding">5dp</dimen>
 
+
+    <!-- Board screen -->
+    <dimen name="square_padding">5dp</dimen>
+    <dimen name="square_margin">3dp</dimen>
+    <dimen name="pawn_size">24dp</dimen>
+
 </resources>

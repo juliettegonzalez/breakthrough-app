@@ -18,7 +18,7 @@ public class GameActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        GameSelectionFragment gameSelectionFragment = new GameSelectionFragment();
+        PawnSelectionFragment gameSelectionFragment = new PawnSelectionFragment();
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment, gameSelectionFragment)
                 .commit();

@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.juliettegonzalez.breakthroughapp.BoardFragment">
+
+    <GridLayout
+        android:id="@+id/board_grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="8"
+        android:rowCount="8"
+        android:layout_centerInParent="true">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/piece"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/square_margin"
+            android:padding="@dimen/square_padding"
+            android:orientation="vertical"
+            android:background="@drawable/square_shape"
+            android:elevation="2dp"
+            android:clickable="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_dragon_pawn_black"/>
+
+        </LinearLayout>
+
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/game_state_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/board_grid"
+        android:layout_centerHorizontal="true"
+        android:text="C'est à ton tour!"/>
+
+</RelativeLayout>

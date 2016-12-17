@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/colorBackground"
-    tools:context="com.juliettegonzalez.breakthroughapp.GameSelectionFragment"
+    tools:context="com.juliettegonzalez.breakthroughapp.PawnSelectionFragment"
     tools:showIn="@layout/activity_game">
 
     <TextView

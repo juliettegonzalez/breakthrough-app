@@ -2,25 +2,27 @@ package com.juliettegonzalez.breakthroughapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class GameSelectionFragment extends Fragment {
+public class PawnSelectionFragment extends Fragment {
 
     ImageButton mDragonPawnBtn, mGrandpaPawnBtn, mKingPawnBtn, mWizardPawnBtn;
 
-    public GameSelectionFragment() {
+    public PawnSelectionFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_game_selection, container, false);
+        View view = inflater.inflate(R.layout.fragment_pawn_selection, container, false);
 
         mDragonPawnBtn = (ImageButton) view.findViewById(R.id.dragon_pawn_btn);
         mGrandpaPawnBtn = (ImageButton) view.findViewById(R.id.grandpa_pawn_btn);
@@ -37,7 +39,20 @@ public class GameSelectionFragment extends Fragment {
             }
         });
 
-        // TODO : redirection vers le nouveau fragment du Board ?
+
+        Button startGameBtn = (Button) view.findViewById(R.id.start_game_btn);
+        startGameBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                BoardFragment boardFragment = BoardFragment.newInstance("coucou");
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragment, boardFragment)
+                        .addToBackStack("pawnSelection")
+                        .commit();
+            }
+        });
 
 
         return view;
