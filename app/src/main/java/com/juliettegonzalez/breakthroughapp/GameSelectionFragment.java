@@ -37,6 +37,8 @@ public class GameSelectionFragment extends Fragment {
             }
         });
 
+        // TODO : redirection vers le nouveau fragment du Board ?
+
 
         return view;
     }
