@@ -9,15 +9,21 @@
     android:orientation="vertical"
     tools:context="com.juliettegonzalez.breakthroughapp.BoardFragment">
 
-    <GridLayout
+    <GridView
         android:id="@+id/board_grid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:columnCount="8"
-        android:rowCount="8"
-        android:layout_centerInParent="true">
+        android:numColumns="8"
+        android:verticalSpacing="5dp"
+        android:layout_centerInParent="true"
+        >
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <!--
+
+
+        android:scrollbars="none"
+        -->
+        <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/piece"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,20 +36,19 @@
 
             <ImageView
                 android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_dragon_pawn_black"/>
+                android:layout_height="24dp" />
 
         </LinearLayout>
+-->
 
+    </GridView>
 
-    </GridLayout>
-
-    <TextView
+    <!--<TextView
         android:id="@+id/game_state_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/board_grid"
         android:layout_centerHorizontal="true"
-        android:text="C'est à ton tour!"/>
+        android:text="C'est à ton tour!"/>-->
 
 </RelativeLayout>

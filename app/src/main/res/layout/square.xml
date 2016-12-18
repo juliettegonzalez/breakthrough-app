@@ -3,14 +3,14 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/square_margin"
     android:padding="@dimen/square_padding"
+    android:layout_margin="@dimen/square_margin"
     android:background="@drawable/square_shape"
     android:elevation="2dp">
 
     <ImageView
+        android:id="@+id/square_pawn"
         android:layout_width="@dimen/pawn_size"
-        android:layout_height="@dimen/pawn_size"
-        android:src="@drawable/ic_dragon_pawn_black"/>
+        android:layout_height="@dimen/pawn_size" />
 
 </LinearLayout>

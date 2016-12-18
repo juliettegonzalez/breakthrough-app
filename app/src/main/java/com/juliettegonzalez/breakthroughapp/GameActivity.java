@@ -1,5 +1,6 @@
 package com.juliettegonzalez.breakthroughapp;
 
+import android.content.pm.ActivityInfo;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,8 @@ public class GameActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         PawnSelectionFragment gameSelectionFragment = new PawnSelectionFragment();
