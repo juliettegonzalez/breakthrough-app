@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.juliettegonzalez.breakthroughapp.AI.MainGame;
 import com.juliettegonzalez.breakthroughapp.AI.Player;
@@ -25,7 +24,9 @@ public class BoardFragment extends Fragment {
     private MainGame mGame;
     private GridView mBoardGrid;
     private List<SquareBoard> mSquareBoardList = new ArrayList<>();
+
     private View selectedView = null;
+    private ArrayList<View> possibleMoveView = new ArrayList<>();
 
 
     public BoardFragment() {}
@@ -81,15 +82,30 @@ public class BoardFragment extends Fragment {
                     selectedView = view;
 
                     mGame.setmSelectedPawn(selectedSquare);
-                    Toast.makeText(getActivity(),
-                            "You Clicked at Pawn (" + selectedSquare.getI() + "," + selectedSquare.getJ() + ")",
-                            Toast.LENGTH_SHORT).show();
+                    ArrayList<SquareBoard> possibleMoves = mGame.getPossibleMoves();
+                    clearSuggestions();
+
+                    if (!possibleMoves.isEmpty()){
+                        for (SquareBoard square : possibleMoves) {
+                            possibleMoveView.add(mBoardGrid.getChildAt(mSquareBoardList.indexOf(square)));
+                            mBoardGrid.getChildAt(mSquareBoardList.indexOf(square)).setBackgroundResource(R.drawable.square_suggested_shape);
+                        }
+                    }
                 }
 
             }
         });
 
         return view;
+    }
+
+    public void clearSuggestions(){
+        if (!possibleMoveView.isEmpty()){
+            for (View suggestedView : possibleMoveView) {
+                suggestedView.setBackgroundResource(R.drawable.square_shape);
+            }
+            possibleMoveView.clear();
+        }
     }
 
 }

@@ -1,5 +1,7 @@
 package com.juliettegonzalez.breakthroughapp.AI;
 
+import java.util.ArrayList;
+
 /**
  * Created by juliettegonzalez on 18/12/2016.
  */
@@ -51,17 +53,31 @@ public class MainGame {
 
     /**
      * Return the possible moves for the selected pawn
-     * @return
+     * @return ArrayList<SquareBoard>
      */
-    /*public ArrayList<SquareBoard> possibleMoves(){
+    public ArrayList<SquareBoard> getPossibleMoves(){
+        ArrayList<SquareBoard> possibleMoves = new ArrayList<>();
 
-    }*/
+        int posI =  mSelectedPawn.getI();
+        int posJ = mSelectedPawn.getJ();
+
+        if (board.getMatrix()[posI-1][posJ].isFree())
+            possibleMoves.add(board.getMatrix()[posI-1][posJ]);
+
+        if (posJ > 0 &&
+                board.getMatrix()[posI-1][posJ-1].isFree())
+            possibleMoves.add(board.getMatrix()[posI-1][posJ-1]);
+
+        if (posJ < Board.MAX_LENGHT_BOARD-1 &&
+                board.getMatrix()[posI-1][posJ+1].isFree())
+            possibleMoves.add(board.getMatrix()[posI-1][posJ+1]);
+
+        return possibleMoves;
+    }
 
 
     //TODO : who's turn
 
     //TODO : make AI plays
-
-    //TODO: suggested moves
 
 }

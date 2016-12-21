@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 
 public class Board {
-    private static final int MAX_LENGHT_BOARD = 8;
+    public static final int MAX_LENGHT_BOARD = 8;
     private SquareBoard[][] matrix = new SquareBoard[MAX_LENGHT_BOARD][MAX_LENGHT_BOARD];
 
     /**
@@ -33,6 +33,10 @@ public class Board {
         }
     }
 
+    public SquareBoard[][] getMatrix() {
+        return matrix;
+    }
+
     public ArrayList<SquareBoard> matrixToList(){
         ArrayList<SquareBoard> squareBoardList = new ArrayList<>();
 
@@ -43,6 +47,8 @@ public class Board {
         }
         return squareBoardList;
     }
+
+
 
     //TODO: winning Board
     //TODO: move pawn
