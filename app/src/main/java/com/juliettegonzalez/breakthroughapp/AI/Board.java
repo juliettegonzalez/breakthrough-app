@@ -1,7 +1,6 @@
 package com.juliettegonzalez.breakthroughapp.AI;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by juliettegonzalez on 18/12/2016.
@@ -34,8 +33,8 @@ public class Board {
         }
     }
 
-    public List<SquareBoard> matrixToList(){
-        List<SquareBoard> squareBoardList = new ArrayList<>();
+    public ArrayList<SquareBoard> matrixToList(){
+        ArrayList<SquareBoard> squareBoardList = new ArrayList<>();
 
         for(int i=0;i<MAX_LENGHT_BOARD;i++){
             for(int j=0;j<MAX_LENGHT_BOARD;j++){
@@ -47,5 +46,5 @@ public class Board {
 
     //TODO: winning Board
     //TODO: move pawn
-    //TODO: suggested moves
+
 }

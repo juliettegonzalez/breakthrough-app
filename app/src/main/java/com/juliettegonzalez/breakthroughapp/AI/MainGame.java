@@ -6,36 +6,62 @@ package com.juliettegonzalez.breakthroughapp.AI;
 
 public class MainGame {
 
-    private Player player1;
-    private Player computer;
-    private Player currentPlayer;
+    private Player mPlayer1;
+    private Player mComputer;
+    private Player mCurrentPlayer;
+    private SquareBoard mSelectedPawn;
     private Board board;
 
     public MainGame(Player player1, Player computer){
-        this.player1 = player1;
-        this.computer = computer;
-        this.currentPlayer = player1;
+        this.mPlayer1 = player1;
+        this.mComputer = computer;
+        this.mCurrentPlayer = player1;
+        this.mSelectedPawn = null;
         this.board = new Board(player1, computer);
     }
 
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
+    public Player getmCurrentPlayer() {
+        return mCurrentPlayer;
     }
 
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
+    public void setmCurrentPlayer(Player mCurrentPlayer) {
+        this.mCurrentPlayer = mCurrentPlayer;
     }
 
-    public Player getPlayer1() {
-        return player1;
+    public Player getmPlayer1() {
+        return mPlayer1;
     }
 
-    public Player getComputer() {
-        return computer;
+    public Player getmComputer() {
+        return mComputer;
+    }
+
+    public SquareBoard getmSelectedPawn() {
+        return mSelectedPawn;
+    }
+
+    public void setmSelectedPawn(SquareBoard mSelectedPawn) {
+        this.mSelectedPawn = mSelectedPawn;
     }
 
     public Board getBoard() {
         return board;
     }
+
+    /**
+     * Return the possible moves for the selected pawn
+     * @return
+     */
+    /*public ArrayList<SquareBoard> possibleMoves(){
+
+    }*/
+
+
+    //TODO : who's turn
+
+    //TODO : make AI plays
+
+    //TODO: suggested moves
+
 }

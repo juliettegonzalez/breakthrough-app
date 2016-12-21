@@ -5,7 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.juliettegonzalez.breakthroughapp.AI.MainGame;
 import com.juliettegonzalez.breakthroughapp.AI.Player;
@@ -23,6 +25,7 @@ public class BoardFragment extends Fragment {
     private MainGame mGame;
     private GridView mBoardGrid;
     private List<SquareBoard> mSquareBoardList = new ArrayList<>();
+    private View selectedView = null;
 
 
     public BoardFragment() {}
@@ -66,13 +69,25 @@ public class BoardFragment extends Fragment {
         mBoardGrid = (GridView) view.findViewById(R.id.board_grid);
         mBoardGrid.setAdapter(squareBoardAdapter);
 
-        /*final LinearLayout piece = (LinearLayout) view.findViewById(R.id.piece);
-        piece.setOnClickListener(new View.OnClickListener() {
+        mBoardGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                piece.setBackgroundResource(R.drawable.square_shape_selected);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SquareBoard selectedSquare = mSquareBoardList.get(position);
+
+                if (selectedSquare.getOwner() != null && selectedSquare.getOwner().equals(mGame.getmPlayer1())){
+                    if (view != selectedView && selectedView != null) selectedView.setBackgroundResource(R.drawable.square_shape);
+
+                    view.setBackgroundResource(R.drawable.square_shape_selected);
+                    selectedView = view;
+
+                    mGame.setmSelectedPawn(selectedSquare);
+                    Toast.makeText(getActivity(),
+                            "You Clicked at Pawn (" + selectedSquare.getI() + "," + selectedSquare.getJ() + ")",
+                            Toast.LENGTH_SHORT).show();
+                }
+
             }
-        });*/
+        });
 
         return view;
     }
