@@ -62,7 +62,7 @@ public class BoardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_board, container, false);
 
         Player player1 = new Player(false, Player.Color.BLACK, Player.PawnType.DRAGON);
-        Player computer = new Player(true, Player.Color.WHITE, Player.PawnType.GRANDPA);
+        final Player computer = new Player(true, Player.Color.WHITE, Player.PawnType.GRANDPA);
 
         mGame = new MainGame(player1, computer);
         mSquareBoardList = mGame.getBoard().matrixToList();
@@ -99,7 +99,8 @@ public class BoardFragment extends Fragment {
                     }
 
                     // Moving a pawn
-                    if (mGame.getmSelectedPawn() != null && selectedSquare.isFree()){
+                    if (mGame.getmSelectedPawn() != null &&
+                            (selectedSquare.isFree() || (selectedSquare.getOwner() == computer))){
                         if (mGame.movePawn(selectedSquare)){
                             clearSuggestions();
                             selectedView.setBackgroundResource(R.drawable.square_shape);

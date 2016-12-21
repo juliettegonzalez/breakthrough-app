@@ -1,6 +1,7 @@
 package com.juliettegonzalez.breakthroughapp.AI;
 
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by juliettegonzalez on 18/12/2016.
@@ -65,15 +66,19 @@ public class MainGame {
         int posI =  mSelectedPawn.getI();
         int posJ = mSelectedPawn.getJ();
 
+        //TODO : pb a l'élimination du dernier pion adverse
+
         if (board.getMatrix()[posI-1][posJ].isFree())
             possibleMoves.add(board.getMatrix()[posI-1][posJ]);
 
         if (posJ > 0 &&
-                board.getMatrix()[posI-1][posJ-1].isFree())
+                (board.getMatrix()[posI-1][posJ-1].isFree() ||
+                        board.getMatrix()[posI-1][posJ-1].getOwner() == mComputer))
             possibleMoves.add(board.getMatrix()[posI-1][posJ-1]);
 
         if (posJ < Board.MAX_LENGHT_BOARD-1 &&
-                board.getMatrix()[posI-1][posJ+1].isFree())
+                (board.getMatrix()[posI-1][posJ+1].isFree()||
+                board.getMatrix()[posI-1][posJ+1].getOwner() == mComputer))
             possibleMoves.add(board.getMatrix()[posI-1][posJ+1]);
 
         return possibleMoves;
@@ -89,6 +94,8 @@ public class MainGame {
                 mCurrentPlayer = mComputer;
 
                 //Make the computer play !
+                //TODO : remplacer par réelle intelligence
+                aiPlays();
 
 
                 return true;
@@ -104,19 +111,46 @@ public class MainGame {
     public void aiPlays(){
         ArrayList<SquareBoard> possibleMoves = new ArrayList<>();
 
-        int posI =  mSelectedPawn.getI();
-        int posJ = mSelectedPawn.getJ();
+        int posI, posJ;
+        do {
+            posI =  ThreadLocalRandom.current().nextInt(0, Board.MAX_LENGHT_BOARD);
+            posJ = ThreadLocalRandom.current().nextInt(0, Board.MAX_LENGHT_BOARD);
+        }while (board.getMatrix()[posI][posJ].getOwner() != mComputer || !isPossibleToMove(board.getMatrix()[posI][posJ]));
 
-        if (board.getMatrix()[posI-1][posJ].isFree())
-            possibleMoves.add(board.getMatrix()[posI-1][posJ]);
+        if (board.getMatrix()[posI+1][posJ].isFree()){
+            board.getMatrix()[posI+1][posJ].setOwner(mComputer);
+            board.getMatrix()[posI][posJ].setFree();
+        }else if (posJ > 0 &&
+                board.getMatrix()[posI+1][posJ-1].isFree()){
+            board.getMatrix()[posI+1][posJ-1].setOwner(mComputer);
+            board.getMatrix()[posI][posJ].setFree();
+        }else if (posJ < Board.MAX_LENGHT_BOARD-1 &&
+                board.getMatrix()[posI+1][posJ+1].isFree()){
+            board.getMatrix()[posI+1][posJ+1].setOwner(mComputer);
+            board.getMatrix()[posI][posJ].setFree();
+        }
+
+        mCurrentPlayer = mPlayer1;
+
+    }
+
+    public boolean isPossibleToMove(SquareBoard square){
+
+        int posI = square.getI();
+        int posJ = square.getJ();
+
+        if (board.getMatrix()[posI+1][posJ].isFree())
+            return true;
 
         if (posJ > 0 &&
-                board.getMatrix()[posI-1][posJ-1].isFree())
-            possibleMoves.add(board.getMatrix()[posI-1][posJ-1]);
+                board.getMatrix()[posI+1][posJ-1].isFree())
+            return true;
 
         if (posJ < Board.MAX_LENGHT_BOARD-1 &&
-                board.getMatrix()[posI-1][posJ+1].isFree())
-            possibleMoves.add(board.getMatrix()[posI-1][posJ+1]);
+                board.getMatrix()[posI+1][posJ+1].isFree())
+            return true;
+
+        return false;
     }
 
     //TODO : who's turn
