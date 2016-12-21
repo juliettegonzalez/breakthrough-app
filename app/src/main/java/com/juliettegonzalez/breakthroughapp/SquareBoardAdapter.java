@@ -91,6 +91,8 @@ public class SquareBoardAdapter extends ArrayAdapter<SquareBoard> {
                     }
                     break;
             }
+        }else{
+            drawerHolder.pawnIcon.setBackgroundResource(0);
         }
 
         return view;

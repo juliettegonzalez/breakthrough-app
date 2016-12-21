@@ -51,6 +51,10 @@ public class MainGame {
         return board;
     }
 
+    public boolean isHumanTurn(){
+        return mCurrentPlayer == mPlayer1;
+    }
+
     /**
      * Return the possible moves for the selected pawn
      * @return ArrayList<SquareBoard>
@@ -75,6 +79,45 @@ public class MainGame {
         return possibleMoves;
     }
 
+    public boolean movePawn(SquareBoard destination){
+        if (mSelectedPawn != null){
+            ArrayList<SquareBoard> possibleMoves = getPossibleMoves();
+            if(possibleMoves.contains(destination)){
+                destination.setOwner(mCurrentPlayer);
+                mSelectedPawn.setFree();
+                mSelectedPawn = null;
+                mCurrentPlayer = mComputer;
+
+                //Make the computer play !
+
+
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
+
+    public void aiPlays(){
+        ArrayList<SquareBoard> possibleMoves = new ArrayList<>();
+
+        int posI =  mSelectedPawn.getI();
+        int posJ = mSelectedPawn.getJ();
+
+        if (board.getMatrix()[posI-1][posJ].isFree())
+            possibleMoves.add(board.getMatrix()[posI-1][posJ]);
+
+        if (posJ > 0 &&
+                board.getMatrix()[posI-1][posJ-1].isFree())
+            possibleMoves.add(board.getMatrix()[posI-1][posJ-1]);
+
+        if (posJ < Board.MAX_LENGHT_BOARD-1 &&
+                board.getMatrix()[posI-1][posJ+1].isFree())
+            possibleMoves.add(board.getMatrix()[posI-1][posJ+1]);
+    }
 
     //TODO : who's turn
 

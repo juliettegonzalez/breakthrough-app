@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 
 import com.juliettegonzalez.breakthroughapp.AI.MainGame;
@@ -75,24 +76,38 @@ public class BoardFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SquareBoard selectedSquare = mSquareBoardList.get(position);
 
-                if (selectedSquare.getOwner() != null && selectedSquare.getOwner().equals(mGame.getmPlayer1())){
-                    if (view != selectedView && selectedView != null) selectedView.setBackgroundResource(R.drawable.square_shape);
+                // Forbid click if not player's turn
+                if (mGame.isHumanTurn()){
+                    // Getting suggestion
+                    if (selectedSquare.getOwner() != null &&
+                            selectedSquare.getOwner().equals(mGame.getmPlayer1())){
+                        if (view != selectedView && selectedView != null) selectedView.setBackgroundResource(R.drawable.square_shape);
 
-                    view.setBackgroundResource(R.drawable.square_shape_selected);
-                    selectedView = view;
+                        view.setBackgroundResource(R.drawable.square_shape_selected);
+                        selectedView = view;
 
-                    mGame.setmSelectedPawn(selectedSquare);
-                    ArrayList<SquareBoard> possibleMoves = mGame.getPossibleMoves();
-                    clearSuggestions();
+                        mGame.setmSelectedPawn(selectedSquare);
+                        ArrayList<SquareBoard> possibleMoves = mGame.getPossibleMoves();
+                        clearSuggestions();
 
-                    if (!possibleMoves.isEmpty()){
-                        for (SquareBoard square : possibleMoves) {
-                            possibleMoveView.add(mBoardGrid.getChildAt(mSquareBoardList.indexOf(square)));
-                            mBoardGrid.getChildAt(mSquareBoardList.indexOf(square)).setBackgroundResource(R.drawable.square_suggested_shape);
+                        if (!possibleMoves.isEmpty()){
+                            for (SquareBoard square : possibleMoves) {
+                                possibleMoveView.add(mBoardGrid.getChildAt(mSquareBoardList.indexOf(square)));
+                                mBoardGrid.getChildAt(mSquareBoardList.indexOf(square)).setBackgroundResource(R.drawable.square_suggested_shape);
+                            }
+                        }
+                    }
+
+                    // Moving a pawn
+                    if (mGame.getmSelectedPawn() != null && selectedSquare.isFree()){
+                        if (mGame.movePawn(selectedSquare)){
+                            clearSuggestions();
+                            selectedView.setBackgroundResource(R.drawable.square_shape);
+                            selectedView = null;
+                            ((BaseAdapter) mBoardGrid.getAdapter()).notifyDataSetChanged();
                         }
                     }
                 }
-
             }
         });
 
