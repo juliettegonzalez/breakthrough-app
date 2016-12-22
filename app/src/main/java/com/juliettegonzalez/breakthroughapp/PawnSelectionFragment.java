@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,15 +19,29 @@ public class PawnSelectionFragment extends Fragment {
 
     ImageButton mDragonPawnBtn, mGrandpaPawnBtn, mKingPawnBtn, mWizardPawnBtn;
     ImageButton mSelectedPawnBtn = null;
-    Player.PawnType mSelectedPawn = null;
+    public static Player.PawnType mSelectedPawn = null;
 
     public PawnSelectionFragment() {
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_new_game).setVisible(false);
+        menu.findItem(R.id.action_quit_game).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pawn_selection, container, false);
+
 
         mDragonPawnBtn = (ImageButton) view.findViewById(R.id.dragon_pawn_btn);
         mGrandpaPawnBtn = (ImageButton) view.findViewById(R.id.grandpa_pawn_btn);

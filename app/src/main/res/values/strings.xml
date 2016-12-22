@@ -7,7 +7,7 @@
     <string name="rules_btn">Règles du jeu</string>
     <string name="credits_link">Crédits</string>
     <string name="title_activity_game">GameActivity</string>
-    <string name="action_settings">Settings</string>
+
 
     <!-- Selection screen -->
     <string name="selection_game_title">Quel joueur es-tu ?</string>
@@ -17,8 +17,9 @@
     <string name="wizard_pawn">Magicien</string>
     <string name="start_game_btn">C\'est parti !</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Option Menu -->
+    <string name="action_new_game">Nouveau jeu</string>
+    <string name="action_quit_game">Quitter</string>
 
 
 </resources>
