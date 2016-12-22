@@ -19,8 +19,8 @@
 
 
     <!-- Board screen -->
-    <dimen name="square_padding">5dp</dimen>
+    <dimen name="square_padding">3dp</dimen>
     <dimen name="square_margin">3dp</dimen>
-    <dimen name="pawn_size">28dp</dimen>
+    <dimen name="pawn_size">29dp</dimen>
 
 </resources>

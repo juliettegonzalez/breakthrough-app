@@ -1,5 +1,7 @@
 package com.juliettegonzalez.breakthroughapp.AI;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * Created by juliettegonzalez on 18/12/2016.
  */
@@ -37,4 +39,16 @@ public class Player {
     public PawnType getPawnType() {
         return pawnType;
     }
+
+    public static PawnType getRandomPawn(PawnType playerPawn){
+        PawnType ranPawn = null;
+
+        do {
+            int rand = ThreadLocalRandom.current().nextInt(0, 4);
+            ranPawn = PawnType.values()[rand];
+        }while (ranPawn == playerPawn);
+
+        return ranPawn;
+    }
+
 }

@@ -1,12 +1,15 @@
 package com.juliettegonzalez.breakthroughapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 
 import com.juliettegonzalez.breakthroughapp.AI.MainGame;
@@ -19,8 +22,8 @@ import java.util.List;
 
 public class BoardFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private String mParam1;
+    private static final String ARG_PAWN = "player_pawn";
+    private Player.PawnType mPlayerPawn;
 
     private MainGame mGame;
     private GridView mBoardGrid;
@@ -36,13 +39,13 @@ public class BoardFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
+     * @param playerPawn Parameter 1.
      * @return A new instance of fragment BoardFragment.
      */
-    public static BoardFragment newInstance(String param1) {
+    public static BoardFragment newInstance(Player.PawnType playerPawn) {
         BoardFragment fragment = new BoardFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putSerializable(ARG_PAWN, playerPawn);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,7 +54,7 @@ public class BoardFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mPlayerPawn = (Player.PawnType) getArguments().getSerializable(ARG_PAWN);
         }
     }
 
@@ -61,11 +64,13 @@ public class BoardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_board, container, false);
 
-        Player player1 = new Player(false, Player.Color.BLACK, Player.PawnType.KING);
-        final Player computer = new Player(true, Player.Color.WHITE, Player.PawnType.DRAGON);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        Player player1 = new Player(false, Player.Color.BLACK, mPlayerPawn);
+        final Player computer = new Player(true, Player.Color.WHITE, Player.getRandomPawn(mPlayerPawn));
 
         mGame = new MainGame(player1, computer);
-        mSquareBoardList = mGame.getBoard().matrixToList();
+        mSquareBoardList = mGame.getmBoard().matrixToList();
         SquareBoardAdapter squareBoardAdapter = new SquareBoardAdapter(getActivity(), R.layout.square, mSquareBoardList);
 
         mBoardGrid = (GridView) view.findViewById(R.id.board_grid);
@@ -109,6 +114,33 @@ public class BoardFragment extends Fragment {
                         }
                     }
                 }
+            }
+        });
+
+        // Implement the listener
+        mGame.setGameStateListener(new MainGame.GameStateListener() {
+            @Override
+            public void onGameEnd(Player winner) {
+
+                // Send alertdialog
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
+                LayoutInflater inflater =  LayoutInflater.from(getActivity());
+                builder.setView(inflater.inflate(R.layout.end_game_alertdialog, null));
+                android.app.AlertDialog alertDialog = builder.create();
+
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.show();
+
+                Button backBtn = (Button) alertDialog.findViewById(R.id.back_alertdialog_btn);
+                backBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+
             }
         });
 

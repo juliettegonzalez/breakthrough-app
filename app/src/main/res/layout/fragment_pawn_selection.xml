@@ -145,6 +145,7 @@
         android:paddingTop="@dimen/start_button_padding"
         android:paddingBottom="@dimen/start_button_padding"
         android:backgroundTint="@android:color/white"
+        android:enabled="false"
         android:text="@string/start_game_btn"/>
 
 
