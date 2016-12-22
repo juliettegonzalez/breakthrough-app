@@ -64,28 +64,28 @@ public class SquareBoardAdapter extends ArrayAdapter<SquareBoard> {
             switch (type) {
                 case DRAGON:
                     if (dItem.getOwner().getColor() == Player.Color.WHITE){
-                        drawerHolder.pawnIcon.setBackgroundResource(R.drawable.ic_dragon_pawn_black);
+                        drawerHolder.pawnIcon.setBackgroundResource(R.drawable.ic_dragon_pawn_white);
                     }else{
                         drawerHolder.pawnIcon.setBackgroundResource(R.drawable.ic_dragon_pawn_black);
                     }
                     break;
                 case GRANDPA:
                     if (dItem.getOwner().getColor() == Player.Color.WHITE){
-                        drawerHolder.pawnIcon.setBackgroundResource(R.drawable.ic_grandpa_pawn_black);
+                        drawerHolder.pawnIcon.setBackgroundResource(R.drawable.ic_grandpa_pawn_white);
                     }else{
                         drawerHolder.pawnIcon.setBackgroundResource(R.drawable.ic_grandpa_pawn_black);
                     }
                     break;
                 case KING:
                     if (dItem.getOwner().getColor() == Player.Color.WHITE){
-                        drawerHolder.pawnIcon.setBackgroundResource(R.drawable.ic_king_pawn_black);
+                        drawerHolder.pawnIcon.setBackgroundResource(R.drawable.ic_king_pawn_white);
                     }else{
                         drawerHolder.pawnIcon.setBackgroundResource(R.drawable.ic_king_pawn_black);
                     }
                     break;
                 case WIZARD:
                     if (dItem.getOwner().getColor() == Player.Color.WHITE){
-                        drawerHolder.pawnIcon.setBackgroundResource(R.drawable.ic_wizard_pawn_black);
+                        drawerHolder.pawnIcon.setBackgroundResource(R.drawable.ic_wizard_pawn_white);
                     }else{
                         drawerHolder.pawnIcon.setBackgroundResource(R.drawable.ic_wizard_pawn_black);
                     }

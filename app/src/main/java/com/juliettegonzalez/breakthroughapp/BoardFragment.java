@@ -61,8 +61,8 @@ public class BoardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_board, container, false);
 
-        Player player1 = new Player(false, Player.Color.BLACK, Player.PawnType.DRAGON);
-        final Player computer = new Player(true, Player.Color.WHITE, Player.PawnType.GRANDPA);
+        Player player1 = new Player(false, Player.Color.BLACK, Player.PawnType.KING);
+        final Player computer = new Player(true, Player.Color.WHITE, Player.PawnType.DRAGON);
 
         mGame = new MainGame(player1, computer);
         mSquareBoardList = mGame.getBoard().matrixToList();
