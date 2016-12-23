@@ -32,5 +32,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button rulesBtn = (Button) findViewById(R.id.rules_btn);
+        rulesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RulesActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
