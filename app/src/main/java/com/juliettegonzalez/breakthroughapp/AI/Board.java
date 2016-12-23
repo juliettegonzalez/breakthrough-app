@@ -50,6 +50,10 @@ public class Board {
         return squareBoardList;
     }
 
+    public SquareBoard getSquareAt(int i, int j){
+        return matrix[i][j];
+    }
+
 
 
     //TODO: winning Board

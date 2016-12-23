@@ -31,15 +31,19 @@ public class SquareBoard {
         this.owner = owner;
     }
 
-    public void setFree(){
-        this.owner = null;
-    }
-
     public boolean isFree(){
         return this.owner == null;
     }
 
+    public void setFree(){
+        this.owner.getPawns().remove(this);
+        this.owner = null;
+    }
+
     public void movePawn(SquareBoard destination){
+        destination.setOwner(this.owner);
+        this.owner.getPawns().add(destination);
+        this.setFree();
 
     }
 

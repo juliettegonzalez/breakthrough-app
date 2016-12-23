@@ -57,7 +57,7 @@ public class Player {
     }
 
     public static PawnType getRandomPawn(PawnType playerPawn){
-        PawnType ranPawn = null;
+        PawnType ranPawn;
 
         do {
             int rand = ThreadLocalRandom.current().nextInt(0, 4);

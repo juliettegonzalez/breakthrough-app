@@ -91,7 +91,7 @@ public class BoardFragment extends Fragment {
                         view.setBackgroundResource(R.drawable.square_shape_selected);
                         selectedView = view;
 
-                        mGame.setmSelectedPawn(selectedSquare);
+                        mGame.setmSelectedSquare(selectedSquare);
                         ArrayList<SquareBoard> possibleMoves = mGame.getPossibleMoves();
                         clearSuggestions();
 
@@ -104,7 +104,7 @@ public class BoardFragment extends Fragment {
                     }
 
                     // Moving a pawn
-                    if (mGame.getmSelectedPawn() != null &&
+                    if (mGame.getmSelectedSquare() != null &&
                             (selectedSquare.isFree() || (selectedSquare.getOwner() == computer))){
                         if (mGame.movePawn(selectedSquare)){
                             clearSuggestions();
