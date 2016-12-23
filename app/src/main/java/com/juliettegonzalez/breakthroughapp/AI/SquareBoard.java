@@ -39,4 +39,8 @@ public class SquareBoard {
         return this.owner == null;
     }
 
+    public void movePawn(SquareBoard destination){
+
+    }
+
 }

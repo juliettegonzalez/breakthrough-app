@@ -19,6 +19,7 @@ public class Board {
         for (int i=0; i<2; i++){
             for (int j=0; j<MAX_LENGHT_BOARD; j++){
                 matrix[i][j] = new SquareBoard(i, j, computer);
+                computer.addPawn(matrix[i][j]);
             }
         }
         for (int i=2; i<(MAX_LENGHT_BOARD-2); i++){
@@ -29,6 +30,7 @@ public class Board {
         for (int i=(MAX_LENGHT_BOARD-2); i<MAX_LENGHT_BOARD; i++){
             for (int j=0; j<MAX_LENGHT_BOARD; j++){
                 matrix[i][j] = new SquareBoard(i, j, player1);
+                player1.addPawn(matrix[i][j]);
             }
         }
     }
