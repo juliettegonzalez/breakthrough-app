@@ -11,7 +11,7 @@ public class Board {
     private SquareBoard[][] matrix = new SquareBoard[MAX_LENGHT_BOARD][MAX_LENGHT_BOARD];
 
     /**
-     * Create initial board matrix
+     * Create initial matrix matrix
      * @param player1
      * @param computer
      */
@@ -35,9 +35,15 @@ public class Board {
         }
     }
 
-    public SquareBoard[][] getMatrix() {
-        return matrix;
+
+    public SquareBoard getSquareAt(int i, int j){
+        return matrix[i][j];
     }
+
+    /*public SquareBoard[][] getMatrix() {
+        return matrix;
+    }*/
+
 
     public ArrayList<SquareBoard> matrixToList(){
         ArrayList<SquareBoard> squareBoardList = new ArrayList<>();
@@ -48,10 +54,6 @@ public class Board {
             }
         }
         return squareBoardList;
-    }
-
-    public SquareBoard getSquareAt(int i, int j){
-        return matrix[i][j];
     }
 
 }

@@ -48,6 +48,10 @@ public class Player {
         return pawns;
     }
 
+    public int getNumberPawns(){
+        return pawns.size();
+    }
+
     public void setPawns(List<SquareBoard> pawns) {
         this.pawns = pawns;
     }

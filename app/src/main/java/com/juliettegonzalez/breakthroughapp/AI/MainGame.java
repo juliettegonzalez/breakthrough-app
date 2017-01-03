@@ -16,6 +16,7 @@ public class MainGame {
     private Player mCurrentPlayer;
     private SquareBoard mSelectedSquare;
     private Board mBoard;
+    private Matrix mMatrix;
 
     public interface GameStateListener {
         void onGameEnd(Player winner);
@@ -29,6 +30,7 @@ public class MainGame {
         this.mCurrentPlayer = player1;
         this.mSelectedSquare = null;
         this.mBoard = new Board(player1, computer);
+        this.mMatrix = new Matrix();
         this.listener = null;
     }
 
@@ -110,13 +112,19 @@ public class MainGame {
                 }
 
                 mSelectedSquare.movePawn(destination);
+
+                // Update AI
+                int[][] movment = {{mSelectedSquare.getI(), mSelectedSquare.getJ()},
+                        {destination.getI(), destination.getJ()}};
+                mMatrix.applyMove(movment);
+
                 mSelectedSquare = null;
 
                 //Make the computer play !
                 if (!isGameWon()) {
                     mCurrentPlayer = mComputer;
                     //TODO : remplacer par réelle intelligence
-                    aiPlays();
+                    aiTurn();
                 }
 
                 return true;
@@ -127,6 +135,38 @@ public class MainGame {
             return false;
         }
     }
+
+
+    /**
+     * AI PART
+     */
+
+    public void aiTurn(){
+        long startTime = System.currentTimeMillis();
+        int actualDepth = 0;
+        long newTime,duration;
+        Node nextMove;
+        do{
+            actualDepth++;
+            nextMove = new Node(actualDepth,null,null, mMatrix, 0);
+            nextMove.process();
+            newTime = System.currentTimeMillis();
+            duration = newTime - startTime;
+        }while(duration < 20000);
+
+        mMatrix.applyMove(nextMove.move);
+
+        int iInit = nextMove.move[0][0];
+        int jInit = nextMove.move[0][1];
+        int iDest = nextMove.move[1][0];
+        int jDest = nextMove.move[1][1];
+        mBoard.getSquareAt(iInit, jInit).movePawn(mBoard.getSquareAt(iDest, jDest));
+
+
+        if (!isGameWon()) mCurrentPlayer = mPlayer1;
+    }
+
+
 
     public boolean isGameWon(){
         // Check player's victory
@@ -161,8 +201,9 @@ public class MainGame {
 
 
     /**
-     * AI PART
+     * OLD AI
      */
+
 
     public void aiPlays(){
         Log.v("DEBUG", "AI's turn");
