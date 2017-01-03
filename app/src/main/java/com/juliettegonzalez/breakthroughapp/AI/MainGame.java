@@ -146,20 +146,29 @@ public class MainGame {
         int actualDepth = 0;
         long newTime,duration;
         Node nextMove;
+        Node bestMove = new Node(actualDepth,null,null, mMatrix, 0);
+        bestMove.value = Integer.MIN_VALUE;
         do{
             actualDepth++;
             nextMove = new Node(actualDepth,null,null, mMatrix, 0);
             nextMove.process();
+
             newTime = System.currentTimeMillis();
             duration = newTime - startTime;
+
+            if(nextMove.move!=null && nextMove.value!=null && nextMove.value >= bestMove.value){
+                bestMove = nextMove;
+            }
         }while(duration < 20000);
 
-        mMatrix.applyMove(nextMove.move);
+        mMatrix.applyMove(bestMove.move);
 
-        int iInit = nextMove.move[0][0];
-        int jInit = nextMove.move[0][1];
-        int iDest = nextMove.move[1][0];
-        int jDest = nextMove.move[1][1];
+        int iInit = bestMove.move[0][0];
+        int jInit = bestMove.move[0][1];
+        int iDest = bestMove.move[1][0];
+        int jDest = bestMove.move[1][1];
+        Log.d("DEBUG", "Départ = ("+ iInit + "," + jInit + ")");
+        Log.d("DEBUG", "Destination = ("+ iDest + "," + jDest + ")");
         mBoard.getSquareAt(iInit, jInit).movePawn(mBoard.getSquareAt(iDest, jDest));
 
 

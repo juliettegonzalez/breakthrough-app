@@ -23,7 +23,7 @@ public class Node {
 
     public void process(){
 
-        if (this.move != null){
+        if (move != null){
             matrix.applyMove(move);
             matrix.changePlayer();
             depth--;
@@ -73,8 +73,8 @@ public class Node {
                     cut = true;
                 }
             }
-            if (node != null && this.parent != null){
-                propagate(this);
+            if (node != null && node.parent != null){
+                propagate(node);
             }
 
         }else{
