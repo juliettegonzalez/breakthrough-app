@@ -49,20 +49,20 @@ public class Node {
 
             Node node = null;
             for (int i=0;i<pawns.length;i++){
-                int[][] newMove1 = {pawns[i], {pawns[i][0]-1, pawns[i][1]+offsetY}}; //Front left move
-                if (!cut && newMove1[1][0]>=0 && matrix.validMove(newMove1, false)){
+                int[][] newMove1 = {pawns[i], {pawns[i][0]+offsetY, pawns[i][1]-1}}; //Front left move
+                if (!cut && newMove1[1][1]>=0 && matrix.validMove(newMove1, false)){
                     node = new Node(depth, this, newMove1, matrix, childLevel);
                     node.process();
                 }
 
-                int[][] newMove2 = {pawns[i], {pawns[i][0], pawns[i][1]+offsetY}}; //Front move
+                int[][] newMove2 = {pawns[i], {pawns[i][0]+offsetY, pawns[i][1]}}; //Front move
                 if (!cut && matrix.validMove(newMove2, true)){
                     node = new Node(depth, this, newMove2, matrix, childLevel);
                     node.process();
                 }
 
-                int[][] newMove3 = {pawns[i], {pawns[i][0]+1, pawns[i][1]+offsetY}}; //Front right move
-                if (!cut && newMove3[1][0]<=7 && matrix.validMove(newMove3, false)){
+                int[][] newMove3 = {pawns[i], {pawns[i][0]+offsetY, pawns[i][1]+1}}; //Front right move
+                if (!cut && newMove3[1][1]<=7 && matrix.validMove(newMove3, false)){
                     node = new Node(depth, this, newMove3, matrix, childLevel);
                     node.process();
                 }

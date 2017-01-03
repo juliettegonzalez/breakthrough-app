@@ -11,8 +11,8 @@ public class Matrix {
     private boolean currentPlayer;
 
     public Matrix(){
-        int[][] whiteB = {{1,1,0,0,0,0,0,0},{1,1,0,0,0,0,0,0},{1,1,0,0,0,0,0,0},{1,1,0,0,0,0,0,0},{1,1,0,0,0,0,0,0},{1,1,0,0,0,0,0,0},{1,1,0,0,0,0,0,0},{1,1,0,0,0,0,0,0}};
-        int[][] blackB = {{0,0,0,0,0,0,1,1},{0,0,0,0,0,0,1,1},{0,0,0,0,0,0,1,1},{0,0,0,0,0,0,1,1},{0,0,0,0,0,0,1,1},{0,0,0,0,0,0,1,1},{0,0,0,0,0,0,1,1},{0,0,0,0,0,0,1,1}};
+        int[][] whiteB = {{1,1,1,1,1,1,1,1},{1,1,1,1,1,1,1,1},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0}};
+        int[][] blackB = {{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{1,1,1,1,1,1,1,1},{1,1,1,1,1,1,1,1}};
         whiteBoard = whiteB;
         blackBoard = blackB;
         currentPlayer = true;
@@ -68,7 +68,7 @@ public class Matrix {
 
     public boolean validMove(int[][] move, boolean straight){
         //débordement en Y
-        if((move[1][1] < 0)||(8 < move[1][1])){return false;}
+        if((move[1][0] < 0)||(8 < move[1][0])){return false;}
         //pion personnel déjà présent
         int[][] board = getMatrix(currentPlayer);
         if(board[move[1][0]][move[1][1]] == 1){return false;}
@@ -109,8 +109,8 @@ public class Matrix {
     }
 
     public boolean winningPosition() {
-        for(int i = 0; i < 8; i++){
-            if((whiteBoard[i][7]==1)||(blackBoard[i][0]==1)) {
+        for(int j = 0; j < 8; j++){
+            if((whiteBoard[7][j]==1)||(blackBoard[0][j]==1)) {
                 return true;
             }
         }
@@ -119,8 +119,8 @@ public class Matrix {
 
     //on suppose que l'on sait déjà qu'il y a un vainqueur
     public boolean winner() {
-        for(int i = 0; i < 8; i++){
-            if(whiteBoard[i][7]==1) {
+        for(int j = 0; j < 8; j++){
+            if(whiteBoard[7][j]==1) {
                 return true;
             }
         }
