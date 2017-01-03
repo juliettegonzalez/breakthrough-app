@@ -54,9 +54,4 @@ public class Board {
         return matrix[i][j];
     }
 
-
-
-    //TODO: winning Board
-    //TODO: move pawn
-
 }
