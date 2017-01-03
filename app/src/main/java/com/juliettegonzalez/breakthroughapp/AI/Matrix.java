@@ -68,7 +68,7 @@ public class Matrix {
 
     public boolean validMove(int[][] move, boolean straight){
         //débordement en Y
-        if((move[1][0] < 0)||(8 < move[1][0])){return false;}
+        if((move[1][0] < 0)||(7 < move[1][0])){return false;}
         //pion personnel déjà présent
         int[][] board = getMatrix(currentPlayer);
         if(board[move[1][0]][move[1][1]] == 1){return false;}
