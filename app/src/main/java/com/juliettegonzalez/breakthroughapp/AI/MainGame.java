@@ -3,6 +3,7 @@ package com.juliettegonzalez.breakthroughapp.AI;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -107,6 +108,7 @@ public class MainGame {
             if(possibleMoves.contains(destination)){
                 if (destination.getOwner() == mComputer) {
                     // Eating the enemy
+                    Log.d("DEBUG", "Eating computer");
                     mComputer.getPawns().remove(destination);
                     destination.setFree();
                 }
@@ -114,15 +116,16 @@ public class MainGame {
                 mSelectedSquare.movePawn(destination);
 
                 // Update AI
-                int[][] movment = {{mSelectedSquare.getI(), mSelectedSquare.getJ()},
+                int[][] movement = {{mSelectedSquare.getI(), mSelectedSquare.getJ()},
                         {destination.getI(), destination.getJ()}};
-                mMatrix.applyMove(movment);
+                mMatrix.applyMove(movement);
 
                 mSelectedSquare = null;
 
                 //Make the computer play !
                 if (!isGameWon()) {
                     mCurrentPlayer = mComputer;
+                    mMatrix.changePlayer();
                     //TODO : remplacer par réelle intelligence
                     aiTurn();
                 }
@@ -148,9 +151,10 @@ public class MainGame {
         Node nextMove;
         Node bestMove = new Node(actualDepth,null,null, mMatrix, 0);
         bestMove.value = Integer.MIN_VALUE;
+        Matrix copy = new Matrix(mMatrix);
         do{
             actualDepth++;
-            nextMove = new Node(actualDepth,null,null, mMatrix, 0);
+            nextMove = new Node(actualDepth,null,null, copy, 0);
             nextMove.process();
 
             newTime = System.currentTimeMillis();
@@ -159,9 +163,35 @@ public class MainGame {
             if(nextMove.move!=null && nextMove.value!=null && nextMove.value >= bestMove.value){
                 bestMove = nextMove;
             }
-        }while(duration < 20000);
+        }while(duration < 5000);
 
+        Log.d("DEBUG", "aiTurn beforeMove AI Board (Yvo) " + Arrays.deepToString(mMatrix.getMatrix(true)));
+        Log.d("DEBUG", "aiTurn beforeMove Player Board (Yvo) " + Arrays.deepToString(mMatrix.getMatrix(false)));
         mMatrix.applyMove(bestMove.move);
+        Log.d("DEBUG", "movement" + Arrays.deepToString(bestMove.move));
+
+        Log.d("DEBUG", "aiTurn afterMove AI Board (Yvo) " + Arrays.deepToString(mMatrix.getMatrix(true)));
+        Log.d("DEBUG", "aiTurn afterMove Player Board (Yvo) " + Arrays.deepToString(mMatrix.getMatrix(false)));
+
+        for(int i = 0; i < mComputer.getNumberPawns();i++){
+            int xPawn = mComputer.getPawns().get(i).getI();
+            int yPawn = mComputer.getPawns().get(i).getJ();
+            Log.d("DEBUG", "AI Pawn (Juliette) "+ i + " : " + xPawn + ", " + yPawn);
+        }
+        int[][] computerPawns = mMatrix.getPawns(true);
+        for(int i = 0; i < mMatrix.getNumberPawns(true);i++){
+            Log.d("DEBUG", "AI Pawn (Yvo) "+ i + " : " + computerPawns[i][0] + ", " + computerPawns[i][1]);
+        }
+
+        for(int i = 0; i < mPlayer1.getNumberPawns();i++){
+            int xPawn = mPlayer1.getPawns().get(i).getI();
+            int yPawn = mPlayer1.getPawns().get(i).getJ();
+            Log.d("DEBUG", "Player Pawn (Juliette) "+ i + " : " + xPawn + ", " + yPawn);
+        }
+        int[][] playerPawns = mMatrix.getPawns(false);
+        for(int i = 0; i < mMatrix.getNumberPawns(false);i++){
+            Log.d("DEBUG", "Player Pawn (Yvo) "+ i + " : " + playerPawns[i][0] + ", " + playerPawns[i][1]);
+        }
 
         int iInit = bestMove.move[0][0];
         int jInit = bestMove.move[0][1];
@@ -169,10 +199,22 @@ public class MainGame {
         int jDest = bestMove.move[1][1];
         Log.d("DEBUG", "Départ = ("+ iInit + "," + jInit + ")");
         Log.d("DEBUG", "Destination = ("+ iDest + "," + jDest + ")");
-        mBoard.getSquareAt(iInit, jInit).movePawn(mBoard.getSquareAt(iDest, jDest));
+
+        SquareBoard destination = mBoard.getSquareAt(iDest, jDest);
+        if (destination.getOwner() == mPlayer1) {
+            // Eating the enemy
+            Log.d("DEBUG", "Eating player");
+            mPlayer1.getPawns().remove(destination);
+            destination.setFree();
+        }
+
+        mBoard.getSquareAt(iInit, jInit).movePawn(destination);
 
 
-        if (!isGameWon()) mCurrentPlayer = mPlayer1;
+        if (!isGameWon()){
+            mCurrentPlayer = mPlayer1;
+            mMatrix.changePlayer();
+        }
     }
 
 

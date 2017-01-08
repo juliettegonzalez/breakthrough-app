@@ -1,5 +1,9 @@
 package com.juliettegonzalez.breakthroughapp.AI;
 
+import android.util.Log;
+
+import java.util.Arrays;
+
 /**
  * Created by juliettegonzalez on 03/01/2017.
  */
@@ -51,19 +55,22 @@ public class Node {
             for (int i=0;i<pawns.length;i++){
                 int[][] newMove1 = {pawns[i], {pawns[i][0]+offsetY, pawns[i][1]-1}}; //Front left move
                 if (!cut && newMove1[1][1]>=0 && matrix.validMove(newMove1, false)){
-                    node = new Node(depth, this, newMove1, matrix, childLevel);
+                    Log.d("DEBUG", "Node 1, depth : " + depth + ", level : "+ childLevel +", move : "+ Arrays.deepToString(newMove1));
+                    node = new Node(depth, this, newMove1, new Matrix(matrix), childLevel);
                     node.process();
                 }
 
                 int[][] newMove2 = {pawns[i], {pawns[i][0]+offsetY, pawns[i][1]}}; //Front move
                 if (!cut && matrix.validMove(newMove2, true)){
-                    node = new Node(depth, this, newMove2, matrix, childLevel);
+                    Log.d("DEBUG", "Node 2, depth : " + depth + ", level : "+ childLevel +", move : "+ Arrays.deepToString(newMove2));
+                    node = new Node(depth, this, newMove2, new Matrix(matrix), childLevel);
                     node.process();
                 }
 
                 int[][] newMove3 = {pawns[i], {pawns[i][0]+offsetY, pawns[i][1]+1}}; //Front right move
                 if (!cut && newMove3[1][1]<=7 && matrix.validMove(newMove3, false)){
-                    node = new Node(depth, this, newMove3, matrix, childLevel);
+                    Log.d("DEBUG", "Node 3, depth : " + depth + ", level : "+ childLevel +", move : "+ Arrays.deepToString(newMove3));
+                    node = new Node(depth, this, newMove3, new Matrix(matrix), childLevel);
                     node.process();
                 }
                 if (cut){
@@ -73,8 +80,8 @@ public class Node {
                     cut = true;
                 }
             }
-            if (node != null && node.parent != null){
-                propagate(node);
+            if (node != null && this.parent != null){
+                propagate(this);
             }
 
         }else{
