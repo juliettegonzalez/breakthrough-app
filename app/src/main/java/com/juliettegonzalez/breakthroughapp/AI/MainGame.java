@@ -151,10 +151,11 @@ public class MainGame {
         Node nextMove;
         Node bestMove = new Node(actualDepth,null,null, mMatrix, 0);
         bestMove.value = Integer.MIN_VALUE;
-        Matrix copy = new Matrix(mMatrix);
         do{
             actualDepth++;
-            nextMove = new Node(actualDepth,null,null, copy, 0);
+            //Log.d("DEBUG", "Depth increased "+actualDepth);
+            Matrix copy = new Matrix(mMatrix);
+            nextMove = new Node(actualDepth,null,null,copy, 0);
             nextMove.process();
 
             newTime = System.currentTimeMillis();
@@ -163,16 +164,11 @@ public class MainGame {
             if(nextMove.move!=null && nextMove.value!=null && nextMove.value >= bestMove.value){
                 bestMove = nextMove;
             }
-        }while(duration < 5000);
 
-        Log.d("DEBUG", "aiTurn beforeMove AI Board (Yvo) " + Arrays.deepToString(mMatrix.getMatrix(true)));
-        Log.d("DEBUG", "aiTurn beforeMove Player Board (Yvo) " + Arrays.deepToString(mMatrix.getMatrix(false)));
+        }while(duration < 2000);
         mMatrix.applyMove(bestMove.move);
-        Log.d("DEBUG", "movement" + Arrays.deepToString(bestMove.move));
 
-        Log.d("DEBUG", "aiTurn afterMove AI Board (Yvo) " + Arrays.deepToString(mMatrix.getMatrix(true)));
-        Log.d("DEBUG", "aiTurn afterMove Player Board (Yvo) " + Arrays.deepToString(mMatrix.getMatrix(false)));
-
+        /*
         for(int i = 0; i < mComputer.getNumberPawns();i++){
             int xPawn = mComputer.getPawns().get(i).getI();
             int yPawn = mComputer.getPawns().get(i).getJ();
@@ -192,13 +188,14 @@ public class MainGame {
         for(int i = 0; i < mMatrix.getNumberPawns(false);i++){
             Log.d("DEBUG", "Player Pawn (Yvo) "+ i + " : " + playerPawns[i][0] + ", " + playerPawns[i][1]);
         }
+        */
 
         int iInit = bestMove.move[0][0];
         int jInit = bestMove.move[0][1];
         int iDest = bestMove.move[1][0];
         int jDest = bestMove.move[1][1];
-        Log.d("DEBUG", "Départ = ("+ iInit + "," + jInit + ")");
-        Log.d("DEBUG", "Destination = ("+ iDest + "," + jDest + ")");
+        //Log.d("DEBUG", "Départ = ("+ iInit + "," + jInit + ")");
+        //Log.d("DEBUG", "Destination = ("+ iDest + "," + jDest + ")");
 
         SquareBoard destination = mBoard.getSquareAt(iDest, jDest);
         if (destination.getOwner() == mPlayer1) {

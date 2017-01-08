@@ -104,6 +104,9 @@ public class Matrix{
     }
 
     public void applyMove(int[][] move){
+        if(move==null){
+            return;
+        }
         int[][] board = getMatrix(currentPlayer);
         board[move[0][0]][move[0][1]] = 0;
         board[move[1][0]][move[1][1]] = 1;
@@ -118,13 +121,16 @@ public class Matrix{
         //TODO : heuristique, appréciation de la position
         //Heuristique actuelle très naive
         if(winningPosition()){
-            if(winner()) {
+            if(winner()==currentPlayer) {
                 return(Integer.MAX_VALUE);
             }else {
                 return(Integer.MIN_VALUE);
             }
         }else {
-            return 0;
+            int score = 0;
+            score += getNumberPawns(currentPlayer);
+            score -= getNumberPawns(!currentPlayer);
+            return score;
         }
     }
 
