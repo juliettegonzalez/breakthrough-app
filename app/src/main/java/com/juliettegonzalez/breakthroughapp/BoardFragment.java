@@ -1,6 +1,7 @@
 package com.juliettegonzalez.breakthroughapp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -107,10 +108,7 @@ public class BoardFragment extends Fragment {
                     if (mGame.getmSelectedSquare() != null &&
                             (selectedSquare.isFree() || (selectedSquare.getOwner() == computer))){
                         if (mGame.movePawn(selectedSquare)){
-                            clearSuggestions();
-                            selectedView.setBackgroundResource(R.drawable.square_shape);
-                            selectedView = null;
-                            ((BaseAdapter) mBoardGrid.getAdapter()).notifyDataSetChanged();
+                            new AIPlayTask().execute();
                         }
                     }
                 }
@@ -153,6 +151,31 @@ public class BoardFragment extends Fragment {
                 suggestedView.setBackgroundResource(R.drawable.square_shape);
             }
             possibleMoveView.clear();
+        }
+    }
+
+
+    private class AIPlayTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            clearSuggestions();
+            selectedView.setBackgroundResource(R.drawable.square_shape);
+            selectedView = null;
+            ((BaseAdapter) mBoardGrid.getAdapter()).notifyDataSetChanged();
+        }
+
+        protected Void doInBackground(Void... params) {
+            mGame.aiPlaying();
+            return null;
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+        }
+
+        protected void onPostExecute(Void result) {
+            ((BaseAdapter) mBoardGrid.getAdapter()).notifyDataSetChanged();
         }
     }
 

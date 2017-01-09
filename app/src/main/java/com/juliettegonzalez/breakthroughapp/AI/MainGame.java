@@ -3,7 +3,6 @@ package com.juliettegonzalez.breakthroughapp.AI;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -122,12 +121,10 @@ public class MainGame {
 
                 mSelectedSquare = null;
 
-                //Make the computer play !
+                //End of player's turn
                 if (!isGameWon()) {
                     mCurrentPlayer = mComputer;
                     mMatrix.changePlayer();
-                    //TODO : remplacer par réelle intelligence
-                    aiTurn();
                 }
 
                 return true;
@@ -144,7 +141,7 @@ public class MainGame {
      * AI PART
      */
 
-    public void aiTurn(){
+    public void aiPlaying(){
         long startTime = System.currentTimeMillis();
         int actualDepth = 0;
         long newTime,duration;
