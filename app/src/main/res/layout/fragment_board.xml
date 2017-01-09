@@ -16,7 +16,8 @@
         android:numColumns="8"
         android:verticalSpacing="5dp"
         android:padding="10dp"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/board_top_margin"
+        android:layout_alignParentTop="true"
         >
     </GridView>
 

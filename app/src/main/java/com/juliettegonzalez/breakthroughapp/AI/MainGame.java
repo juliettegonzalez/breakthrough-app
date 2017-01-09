@@ -123,8 +123,7 @@ public class MainGame {
 
                 //End of player's turn
                 if (!isGameWon()) {
-                    mCurrentPlayer = mComputer;
-                    mMatrix.changePlayer();
+
                 }
 
                 return true;
@@ -134,6 +133,11 @@ public class MainGame {
         }else{
             return false;
         }
+    }
+
+    public void endTurn(){
+        mCurrentPlayer = mComputer;
+        mMatrix.changePlayer();
     }
 
 

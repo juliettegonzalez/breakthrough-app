@@ -21,5 +21,8 @@
     <string name="action_new_game">Nouveau jeu</string>
     <string name="action_quit_game">Quitter</string>
 
+    <!-- Board view -->
+    <string name="winning_message">Bravo tu as battu l\'IA !</string>
+    <string name="losing_message">Désolé, l\'IA t\'as battue...</string>
 
 </resources>

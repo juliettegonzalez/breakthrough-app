@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.juliettegonzalez.breakthroughapp.AI.MainGame;
 import com.juliettegonzalez.breakthroughapp.AI.Player;
@@ -108,7 +109,15 @@ public class BoardFragment extends Fragment {
                     if (mGame.getmSelectedSquare() != null &&
                             (selectedSquare.isFree() || (selectedSquare.getOwner() == computer))){
                         if (mGame.movePawn(selectedSquare)){
-                            new AIPlayTask().execute();
+                            clearSuggestions();
+                            selectedView.setBackgroundResource(R.drawable.square_shape);
+                            selectedView = null;
+                            ((BaseAdapter) mBoardGrid.getAdapter()).notifyDataSetChanged();
+
+                            if (!mGame.isGameWon()){
+                                mGame.endTurn();
+                                new AIPlayTask().execute();
+                            }
                         }
                     }
                 }
@@ -128,6 +137,13 @@ public class BoardFragment extends Fragment {
 
                 alertDialog.setCanceledOnTouchOutside(false);
                 alertDialog.show();
+
+                if (winner.isComputer()) {
+                    ((TextView) alertDialog.findViewById(R.id.end_game_message)).setText(R.string.losing_message);
+                }else{
+                    ((TextView) alertDialog.findViewById(R.id.end_game_message)).setText(R.string.winning_message);
+                }
+
 
                 Button backBtn = (Button) alertDialog.findViewById(R.id.back_alertdialog_btn);
                 backBtn.setOnClickListener(new View.OnClickListener() {
@@ -160,10 +176,6 @@ public class BoardFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            clearSuggestions();
-            selectedView.setBackgroundResource(R.drawable.square_shape);
-            selectedView = null;
-            ((BaseAdapter) mBoardGrid.getAdapter()).notifyDataSetChanged();
         }
 
         protected Void doInBackground(Void... params) {
