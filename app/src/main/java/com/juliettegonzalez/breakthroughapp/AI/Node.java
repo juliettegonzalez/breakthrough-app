@@ -1,5 +1,9 @@
 package com.juliettegonzalez.breakthroughapp.AI;
 
+import android.util.Log;
+
+import java.util.Arrays;
+
 /**
  * Created by juliettegonzalez on 03/01/2017.
  */
@@ -24,12 +28,17 @@ public class Node {
     public void process(){
 
         if (move != null){
-            matrix.applyMove(move);
-            matrix.changePlayer();
+            //Log.d("DEBUG", "Maj move, depth left : "+(depth-1));
+            Matrix mat = new Matrix(matrix);
+            mat.applyMove(move);
+            mat.changePlayer();
             depth--;
+            matrix = new Matrix(mat);
         }
 
+
         if (depth > 0){
+            //Log.d("DEBUG", "Higher depths, level : " + (level+1));
             int childLevel = level + 1;
             int offsetY = matrix.isComputerAI() ? 1 : -1;
             int[][] pawns = matrix.getPawns(matrix.isComputerAI());
@@ -42,7 +51,7 @@ public class Node {
                     value = Integer.MAX_VALUE;
                 }
                 if (this.parent != null){
-                    this.propagate(this);
+                    propagate(this);
                 }
                 return;
             }
@@ -51,35 +60,49 @@ public class Node {
             for (int i=0;i<pawns.length;i++){
                 int[][] newMove1 = {pawns[i], {pawns[i][0]+offsetY, pawns[i][1]-1}}; //Front left move
                 if (!cut && newMove1[1][1]>=0 && matrix.validMove(newMove1, false)){
-                    node = new Node(depth, this, newMove1, matrix, childLevel);
+                    //Log.d("DEBUG", "Node 1, depth : " + depth + ", level : "+ childLevel +", move : "+ Arrays.deepToString(newMove1));
+                    node = new Node(depth, this, newMove1, new Matrix(matrix), childLevel);
+                    //Log.d("DEBUG", "N1 : Depth : "+depth+", level : "+childLevel);
                     node.process();
                 }
 
                 int[][] newMove2 = {pawns[i], {pawns[i][0]+offsetY, pawns[i][1]}}; //Front move
                 if (!cut && matrix.validMove(newMove2, true)){
-                    node = new Node(depth, this, newMove2, matrix, childLevel);
+                    //Log.d("DEBUG", "Node 2, depth : " + depth + ", level : "+ childLevel +", move : "+ Arrays.deepToString(newMove2));
+                    node = new Node(depth, this, newMove2, new Matrix(matrix), childLevel);
+                    //Log.d("DEBUG", "N2 : Depth : "+depth+", level : "+childLevel);
                     node.process();
                 }
 
                 int[][] newMove3 = {pawns[i], {pawns[i][0]+offsetY, pawns[i][1]+1}}; //Front right move
                 if (!cut && newMove3[1][1]<=7 && matrix.validMove(newMove3, false)){
-                    node = new Node(depth, this, newMove3, matrix, childLevel);
+                    //Log.d("DEBUG", "Node 3, depth : " + depth + ", level : "+ childLevel +", move : "+ Arrays.deepToString(newMove3));
+                    node = new Node(depth, this, newMove3, new Matrix(matrix), childLevel);
+                    //Log.d("DEBUG", "N3 : Depth : "+depth+", level : "+childLevel);
                     node.process();
                 }
                 if (cut){
+                    //Log.d("DEBUG", "Cut");
                     break;
                 }
                 else if(i == pawns.length-1){
                     cut = true;
                 }
             }
-            if (node != null && node.parent != null){
-                propagate(node);
+            if (node != null && this.parent != null){
+                propagate(this);
             }
 
         }else{
             value = matrix.analyze();
-            if (parent != null){
+           /* String actualPlayer;
+            if(matrix.isComputerAI()){
+                actualPlayer = "computer";
+            }else{
+                actualPlayer = "human";
+            }
+            Log.d("DEBUG", "Analyze "+actualPlayer+" level "+level+", Move : "+ Arrays.deepToString(move) +", score : "+ value);
+            */if (parent != null){
                 propagate(this);
             }
         }
@@ -87,7 +110,7 @@ public class Node {
 
     public void propagate(Node node){
         //negamax
-        if (node.parent.value == null || ((node.matrix.isComputerAI()) && node.value > node.parent.value) || ((!node.matrix.isComputerAI()) && node.value < node.parent.value)){
+        if (node.parent.value == null || ((node.level%2==0) && node.value < node.parent.value) || ((node.level%2==1) && node.value > node.parent.value)){
             node.parent.value = node.value;
 
             //coupe

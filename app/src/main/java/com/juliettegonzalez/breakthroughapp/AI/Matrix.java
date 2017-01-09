@@ -1,10 +1,14 @@
 package com.juliettegonzalez.breakthroughapp.AI;
 
+import android.util.Log;
+
+import java.util.Arrays;
+
 /**
  * Created by juliettegonzalez on 03/01/2017.
  */
 
-public class Matrix {
+public class Matrix{
 
     private int[][] whiteBoard;
     private int[][] blackBoard;
@@ -15,7 +19,26 @@ public class Matrix {
         int[][] blackB = {{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{1,1,1,1,1,1,1,1},{1,1,1,1,1,1,1,1}};
         whiteBoard = whiteB;
         blackBoard = blackB;
-        currentPlayer = true;
+        currentPlayer = false;
+    }
+
+    //constructeur de recopie
+    public Matrix(Matrix mat){
+        int[][] whiteB = new int[8][8];
+        int[][] blackB = new int[8][8];
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                whiteB[i][j] = mat.getMatrix(true)[i][j];
+                blackB[i][j] = mat.getMatrix(false)[i][j];
+            }
+        }
+        whiteBoard = whiteB;
+        blackBoard = blackB;
+        if(mat.isComputerAI()){
+            currentPlayer = true;
+        }else{
+            currentPlayer = false;
+        }
     }
 
     public int[][] getMatrix(boolean player){
@@ -81,8 +104,11 @@ public class Matrix {
     }
 
     public void applyMove(int[][] move){
+        if(move==null){
+            return;
+        }
         int[][] board = getMatrix(currentPlayer);
-        board[move[0][0]][move[1][0]] = 0;
+        board[move[0][0]][move[0][1]] = 0;
         board[move[1][0]][move[1][1]] = 1;
         board = getMatrix(!currentPlayer);
         if(board[move[1][0]][move[1][1]] == 1){
@@ -90,21 +116,21 @@ public class Matrix {
         }
     }
 
-    /*public Board copy(){
-        return(new Board(whiteBoard,blackBoard,currentPlayer));
-    }*/
 
     public int analyze(){
         //TODO : heuristique, appréciation de la position
         //Heuristique actuelle très naive
         if(winningPosition()){
-            if(winner()) {
+            if(winner()==currentPlayer) {
                 return(Integer.MAX_VALUE);
             }else {
                 return(Integer.MIN_VALUE);
             }
         }else {
-            return 0;
+            int score = 0;
+            score += getNumberPawns(currentPlayer);
+            score -= getNumberPawns(!currentPlayer);
+            return score;
         }
     }
 
@@ -114,6 +140,9 @@ public class Matrix {
                 return true;
             }
         }
+        if(getNumberPawns(true) == 0 || getNumberPawns(false) == 0){
+            return(true);
+        }
         return false;
     }
 
@@ -122,9 +151,15 @@ public class Matrix {
         for(int j = 0; j < 8; j++){
             if(whiteBoard[7][j]==1) {
                 return true;
+            }else if(blackBoard[0][j]==1){
+                return false;
             }
         }
-        return false;
+        if(getNumberPawns(true) == 0){
+            return false;
+        }else{
+            return true;
+        }
     }
 
 }
