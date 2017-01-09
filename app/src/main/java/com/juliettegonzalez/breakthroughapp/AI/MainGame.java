@@ -165,7 +165,8 @@ public class MainGame {
                 bestMove = nextMove;
             }
 
-        }while(duration < 2000);
+        }while(actualDepth < 5);
+        //}while(duration < 5000);
         mMatrix.applyMove(bestMove.move);
 
         /*

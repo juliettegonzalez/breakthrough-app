@@ -82,7 +82,17 @@ public class Node {
                     node.process();
                 }
                 if (cut){
-                    //Log.d("DEBUG", "Cut");
+                    if(i == pawns.length){
+                        Log.d("DEBUG", "Cut fin de branche");
+                    }else{
+                        String actualPlayer;
+                        if(matrix.isComputerAI()){
+                            actualPlayer = "computer";
+                        }else{
+                            actualPlayer = "human";
+                        }
+                        Log.d("DEBUG", "Real Cut, player : "+ actualPlayer +", value : "+ value +", parent value : "+ parent.value);
+                    }
                     break;
                 }
                 else if(i == pawns.length-1){
@@ -110,15 +120,28 @@ public class Node {
 
     public void propagate(Node node){
         //negamax
+        //if (node.parent.value == null || ((node.level%2==0) && node.value < node.parent.value) || ((node.level%2==1) && node.value > node.parent.value) || ((node.value.equals(node.parent.value)) && (Math.random() < 0.5))){
         if (node.parent.value == null || ((node.level%2==0) && node.value < node.parent.value) || ((node.level%2==1) && node.value > node.parent.value)){
+            String actualPlayer;
+            if(node.matrix.isComputerAI()){
+                actualPlayer = "computer";
+            }else{
+                actualPlayer = "human";
+            }
+            if(node.parent.value == null){
+                actualPlayer+=" new value";
+            }
             node.parent.value = node.value;
 
+
+
+
             //coupe
-            boolean IAPlayer = (node.matrix.isComputerAI());
             if (node.level > 1 && node.parent.parent.value != null &&
-                    ((IAPlayer && node.parent.value <= node.parent.parent.value) ||
-                            (!IAPlayer && node.parent.value >= node.parent.parent.value))){
+                    ((node.level%2==0 && node.parent.value <= node.parent.parent.value) ||
+                            (node.level%2==1 && node.parent.value >= node.parent.parent.value))){
                 node.parent.cut = true;
+                Log.d("DEBUG", "Propagate Cut, player : "+ actualPlayer +", value : "+ node.value +", parent value : "+ node.parent.value +", grand-parent value : "+ node.parent.parent.value);
             }
 
             if (node.level == 1){
