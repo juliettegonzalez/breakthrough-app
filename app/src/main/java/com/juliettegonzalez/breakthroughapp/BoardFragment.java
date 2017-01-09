@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.hanks.htextview.HTextView;
 import com.juliettegonzalez.breakthroughapp.AI.MainGame;
 import com.juliettegonzalez.breakthroughapp.AI.Player;
 import com.juliettegonzalez.breakthroughapp.AI.SquareBoard;
@@ -31,6 +32,7 @@ public class BoardFragment extends Fragment {
     private GridView mBoardGrid;
     private List<SquareBoard> mSquareBoardList = new ArrayList<>();
 
+    private HTextView gameStateTextView;
     private View selectedView = null;
     private ArrayList<View> possibleMoveView = new ArrayList<>();
 
@@ -77,6 +79,10 @@ public class BoardFragment extends Fragment {
 
         mBoardGrid = (GridView) view.findViewById(R.id.board_grid);
         mBoardGrid.setAdapter(squareBoardAdapter);
+
+        // Update message of the game's state
+        gameStateTextView = (HTextView) view.findViewById(R.id.game_state_text);
+        gameStateTextView.animateText(getString(R.string.player_message));
 
         mBoardGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -175,6 +181,7 @@ public class BoardFragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
+            gameStateTextView.animateText(getString(R.string.ai_message));
             super.onPreExecute();
         }
 
@@ -188,6 +195,7 @@ public class BoardFragment extends Fragment {
 
         protected void onPostExecute(Void result) {
             ((BaseAdapter) mBoardGrid.getAdapter()).notifyDataSetChanged();
+            gameStateTextView.animateText(getString(R.string.player_message));
         }
     }
 
