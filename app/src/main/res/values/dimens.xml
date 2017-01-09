@@ -23,7 +23,7 @@
     <dimen name="square_margin">3dp</dimen>
     <dimen name="pawn_size">29dp</dimen>
     <dimen name="board_top_margin">26dp</dimen>
-    <dimen name="text_size">22sp</dimen>
+    <dimen name="text_size">20sp</dimen>
     <dimen name="text_margin_bottom">48dp</dimen>
 
 </resources>

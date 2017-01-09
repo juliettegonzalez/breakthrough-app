@@ -32,7 +32,7 @@
         android:layout_marginBottom="@dimen/text_margin_bottom"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/text_size"
-        htext:fontAsset="fonts/CaviarDreams.ttf"
+        htext:fontAsset="fonts/CaviarDreams_Bold.ttf"
         htext:animateType="scale" />
 
 </RelativeLayout>
