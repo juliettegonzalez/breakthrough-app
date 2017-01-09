@@ -4,10 +4,6 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.juliettegonzalez.breakthroughapp.MainActivity">
 
     <TextView
@@ -32,38 +28,50 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:background="@drawable/rectangle_rounded_corner"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:transitionName="@string/transition_home">
 
-        <Button
-            android:id="@+id/new_game_btn"
-            android:layout_width="@dimen/start_button_size"
+        <LinearLayout
+            android:id="@+id/expand_hidden_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/start_button_margin"
-            android:paddingTop="@dimen/start_button_padding"
-            android:paddingBottom="@dimen/start_button_padding"
-            android:backgroundTint="@android:color/white"
-            android:text="@string/new_game_btn"/>
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/rules_btn"
-            android:layout_width="@dimen/start_button_size"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/start_button_margin"
-            android:paddingTop="@dimen/start_button_padding"
-            android:paddingBottom="@dimen/start_button_padding"
-            android:backgroundTint="@android:color/white"
-            android:text="@string/rules_btn"/>
+            <Button
+                android:id="@+id/new_game_btn"
+                android:layout_width="@dimen/start_button_size"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/start_button_margin"
+                android:paddingTop="@dimen/start_button_padding"
+                android:paddingBottom="@dimen/start_button_padding"
+                android:backgroundTint="@android:color/white"
+                android:text="@string/new_game_btn"/>
+
+            <Button
+                android:id="@+id/rules_btn"
+                android:layout_width="@dimen/start_button_size"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/start_button_margin"
+                android:paddingTop="@dimen/start_button_padding"
+                android:paddingBottom="@dimen/start_button_padding"
+                android:backgroundTint="@android:color/white"
+                android:text="@string/rules_btn"/>
+
+        </LinearLayout>
 
 
     </LinearLayout>
 
     <TextView
+        android:id="@+id/credits_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:clickable="true"
         android:text="@string/credits_link"/>
 
 

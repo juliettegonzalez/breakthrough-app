@@ -26,4 +26,12 @@
     <dimen name="text_size">20sp</dimen>
     <dimen name="text_margin_bottom">48dp</dimen>
 
+
+    <!-- Credits screen -->
+    <dimen name="header_title">25sp</dimen>
+    <dimen name="credits_subtitle_pictures">19sp</dimen>
+    <dimen name="credits_subtitle_margin">7dp</dimen>
+    <dimen name="credits_pictures">11sp</dimen>
+
+
 </resources>

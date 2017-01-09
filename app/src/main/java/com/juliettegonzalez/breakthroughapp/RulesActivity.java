@@ -39,13 +39,16 @@ public class RulesActivity extends AppIntro2 {
 
         // Hide Skip/Done button.
         setProgressButtonEnabled(true);
-        //setButtonState(skipButton, false);
-        //skipButtonEnabled = false;
+        setButtonState(skipButton, true);
+        skipButtonEnabled = true;
     }
 
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
         // Do something when users tap on Skip button.
     }
 

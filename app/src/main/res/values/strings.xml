@@ -7,6 +7,7 @@
     <string name="rules_btn">Règles du jeu</string>
     <string name="credits_link">Crédits</string>
     <string name="title_activity_game">GameActivity</string>
+    <string name="transition_home">transition_new_game</string>
 
 
     <!-- Selection screen -->
@@ -23,8 +24,15 @@
 
     <!-- Board view -->
     <string name="winning_message">Bravo tu as battu l\'IA !</string>
-    <string name="losing_message">Désolé, l\'IA t\'as battue...</string>
+    <string name="losing_message">Désolé, l\'IA t\'as battu...</string>
     <string name="player_message">C\'est à toi de jouer !</string>
-    <string name="ai_message">L\'IA réfléchie... </string>
+    <string name="ai_message">L\'IA réfléchit... </string>
+
+    <!-- Credits view -->
+    <string name="credits_header">Crédits</string>
+    <string name="credits_subtitle_pictures">Illustrations</string>
+    <string name="credits_pictures">Les illustrations pour les quatres catégories de pions ont été designés par Till Teenck sous licence Creative Commons et sont issus du site The Noun Project.</string>
+    <string name="credits_subtitle_app">Application</string>
+    <string name="credits_app">L\'application et intelligence artificielle du jeu ont été réalisées conjointement par Yvonnig Jan et Juliette Gonzalez dans le cadre d\'un projet d\'étude sur l\'intelligence artificielle.</string>
 
 </resources>

@@ -7,8 +7,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.juliettegonzalez.breakthroughapp.AI.Player;
 
@@ -17,6 +21,8 @@ import com.juliettegonzalez.breakthroughapp.AI.Player;
  */
 public class PawnSelectionFragment extends Fragment {
 
+    LinearLayout dragonBtnSelection, grandpaBtnSelection, kingBtnSelection, wizardBtnSelection;
+    RelativeLayout content_game;
     ImageButton mDragonPawnBtn, mGrandpaPawnBtn, mKingPawnBtn, mWizardPawnBtn;
     ImageButton mSelectedPawnBtn = null;
     public static Player.PawnType mSelectedPawn = null;
@@ -41,6 +47,33 @@ public class PawnSelectionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pawn_selection, container, false);
+
+        dragonBtnSelection = (LinearLayout) view.findViewById(R.id.dragon_btn_selection);
+        grandpaBtnSelection = (LinearLayout) view.findViewById(R.id.grandpa_btn_selection);
+        kingBtnSelection = (LinearLayout) view.findViewById(R.id.king_btn_selection);
+        wizardBtnSelection = (LinearLayout) view.findViewById(R.id.wizard_btn_selection);
+        content_game = (RelativeLayout) view.findViewById(R.id.content_game);
+
+        content_game.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                content_game.getViewTreeObserver().removeOnPreDrawListener(this);
+                dragonBtnSelection.setTranslationY(-60);
+                dragonBtnSelection.setAlpha(0);
+
+                grandpaBtnSelection.setTranslationY(-60);
+                grandpaBtnSelection.setAlpha(0);
+
+                kingBtnSelection.setTranslationY(-60);
+                kingBtnSelection.setAlpha(0);
+
+                wizardBtnSelection.setTranslationY(-60);
+                wizardBtnSelection.setAlpha(0);
+
+                startIntroAnimation();
+                return true;
+            }
+        });
 
 
         mDragonPawnBtn = (ImageButton) view.findViewById(R.id.dragon_pawn_btn);
@@ -108,9 +141,38 @@ public class PawnSelectionFragment extends Fragment {
 
 
 
-
-
         return view;
+    }
+
+    private void startIntroAnimation() {
+
+        dragonBtnSelection.animate()
+                .translationY(0).alpha(1.f)
+                .setInterpolator(new BounceInterpolator())
+                .setDuration(850)
+                .start();
+
+        grandpaBtnSelection.animate()
+                .translationY(0).alpha(1.f)
+                .setStartDelay(10)
+                .setInterpolator(new BounceInterpolator())
+                .setDuration(850)
+                .start();
+
+        kingBtnSelection.animate()
+                .translationY(0).alpha(1.f)
+                .setStartDelay(5)
+                .setInterpolator(new BounceInterpolator())
+                .setDuration(850)
+                .start();
+
+        wizardBtnSelection.animate()
+                .translationY(0).alpha(1.f)
+                .setStartDelay(15)
+                .setInterpolator(new BounceInterpolator())
+                .setDuration(850)
+                .start();
+
     }
 
 }
