@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LinearLayout expand_start_layout;
-    private LinearLayout expand_hidden_content;
+    private static LinearLayout expand_start_layout;
+    private static LinearLayout expand_hidden_content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +31,18 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-
         expand_start_layout = (LinearLayout) findViewById(R.id.expand_start_layout);
         expand_hidden_content = (LinearLayout) findViewById(R.id.expand_hidden_content);
 
 
-        Button newGameBtn = (Button) findViewById(R.id.new_game_btn);
+        final Button newGameBtn = (Button) findViewById(R.id.new_game_btn);
         newGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startTransition();
+                int[] location = new int[2];
+                location[0] = getResources().getDisplayMetrics().widthPixels / 2;
+                location[1] = getResources().getDisplayMetrics().heightPixels / 2;
+                startTransition(location);
             }
         });
 
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void startTransition(){
+    private void startTransition(final int[] location){
         expand_hidden_content.animate()
                 .alpha(0)
                 .setDuration(200)
@@ -84,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onAnimationEnd(Animator animation) {
                                         Intent intent = new Intent(MainActivity.this, GameActivity.class);
+
+                                        intent.putExtra(GameActivity.REVEAL_X, location[0]);
+                                        intent.putExtra(GameActivity.REVEAL_Y, location[1]);
+
                                         startActivity(intent);
                                         overridePendingTransition(0,0);
                                     }
@@ -92,5 +98,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .start();
+    }
+
+
+    public static void cancelTransition(){
+        expand_hidden_content.setAlpha(1);
+        expand_start_layout.setScaleY(1);
+        expand_start_layout.setScaleX(1);
     }
 }

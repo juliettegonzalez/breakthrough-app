@@ -19,19 +19,19 @@ public class RulesActivity extends AppIntro2 {
         addSlide(AppIntroFragment.newInstance("Breakthrough",
                 "Breakthrough est un jeu de stratégie sur un plateau 8x8",
                 R.drawable.rules_board,
-                getResources().getColor(R.color.colorAccent)));
+                getResources().getColor(R.color.colorAccentMid)));
         addSlide(AppIntroFragment.newInstance("Déplacement",
                 "Les pions peuvent se déplacer uniquement en avant, tout droit ou en diagonale",
                 R.drawable.rules_move,
-                getResources().getColor(R.color.colorAccent)));
+                getResources().getColor(R.color.colorAccentMid)));
         addSlide(AppIntroFragment.newInstance("Manger un adversaire",
                 "Il est possible de manger un adversaire uniquement s'il est en diagonale, sinon il est impossible de bouger",
                 R.drawable.rules_eat,
-                getResources().getColor(R.color.colorAccent)));
+                getResources().getColor(R.color.colorAccentMid)));
         addSlide(AppIntroFragment.newInstance("Gagner",
                 "Pour gagner, il faut atteindre la ligne adverse ou manger tous les adversaires",
                 R.drawable.rules_win,
-                getResources().getColor(R.color.colorAccent)));
+                getResources().getColor(R.color.colorAccentMid)));
 
 
         // SHOW or HIDE the statusbar
