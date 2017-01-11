@@ -2,10 +2,13 @@ package com.juliettegonzalez.breakthroughapp;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static LinearLayout expand_start_layout;
     private static LinearLayout expand_hidden_content;
+    private BottomSheetBehavior mBottomSheetBehavior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +59,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         TextView creditLink = (TextView) findViewById(R.id.credits_link);
         creditLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CreditsActivity.class);
-                startActivity(intent);
-
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                final Dialog dialog = new BottomSheetDialog(MainActivity.this);
+                dialog.setContentView(R.layout.activity_credits);
+                dialog.show();
             }
         });
 

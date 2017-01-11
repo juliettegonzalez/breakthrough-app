@@ -8,17 +8,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="com.juliettegonzalez.breakthroughapp.CreditsActivity">
+    android:orientation="vertical">
 
 
     <TextView
         android:id="@+id/credits_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/credits_title_margin"
         android:textSize="@dimen/header_title"
         android:textColor="@color/colorTextDark"
+        android:fontFamily="sans-serif-medium"
         android:text="@string/credits_header"/>
 
     <!-- Illustrations -->
@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/credits_pictures"
         android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-light"
         android:text="@string/credits_pictures"/>
 
 
@@ -59,6 +60,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/credits_pictures"
         android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-light"
         android:text="@string/credits_app"/>
 
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.juliettegonzalez.breakthroughapp;
 import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.pm.ActivityInfo;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
+import android.widget.TextView;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -30,8 +32,12 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        Typeface caviarDreams_bold = Typeface.createFromAsset(getAssets(), "fonts/CaviarDreams_Bold.ttf");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.game_name);
+        toolbar.setTitle("");
+        ((TextView) toolbar.findViewById(R.id.actionbar_header_title)).setTypeface(caviarDreams_bold);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
