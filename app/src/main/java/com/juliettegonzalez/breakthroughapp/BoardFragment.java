@@ -12,7 +12,9 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
+import com.hanks.htextview.HTextView;
 import com.juliettegonzalez.breakthroughapp.AI.MainGame;
 import com.juliettegonzalez.breakthroughapp.AI.Player;
 import com.juliettegonzalez.breakthroughapp.AI.SquareBoard;
@@ -30,6 +32,7 @@ public class BoardFragment extends Fragment {
     private GridView mBoardGrid;
     private List<SquareBoard> mSquareBoardList = new ArrayList<>();
 
+    private HTextView gameStateTextView;
     private View selectedView = null;
     private ArrayList<View> possibleMoveView = new ArrayList<>();
 
@@ -77,6 +80,10 @@ public class BoardFragment extends Fragment {
         mBoardGrid = (GridView) view.findViewById(R.id.board_grid);
         mBoardGrid.setAdapter(squareBoardAdapter);
 
+        // Update message of the game's state
+        gameStateTextView = (HTextView) view.findViewById(R.id.game_state_text);
+        gameStateTextView.animateText(getString(R.string.player_message));
+
         mBoardGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -108,7 +115,15 @@ public class BoardFragment extends Fragment {
                     if (mGame.getmSelectedSquare() != null &&
                             (selectedSquare.isFree() || (selectedSquare.getOwner() == computer))){
                         if (mGame.movePawn(selectedSquare)){
-                            new AIPlayTask().execute();
+                            clearSuggestions();
+                            selectedView.setBackgroundResource(R.drawable.square_shape);
+                            selectedView = null;
+                            ((BaseAdapter) mBoardGrid.getAdapter()).notifyDataSetChanged();
+
+                            if (!mGame.isGameWon()){
+                                mGame.endTurn();
+                                new AIPlayTask().execute();
+                            }
                         }
                     }
                 }
@@ -128,6 +143,13 @@ public class BoardFragment extends Fragment {
 
                 alertDialog.setCanceledOnTouchOutside(false);
                 alertDialog.show();
+
+                if (winner.isComputer()) {
+                    ((TextView) alertDialog.findViewById(R.id.end_game_message)).setText(R.string.losing_message);
+                }else{
+                    ((TextView) alertDialog.findViewById(R.id.end_game_message)).setText(R.string.winning_message);
+                }
+
 
                 Button backBtn = (Button) alertDialog.findViewById(R.id.back_alertdialog_btn);
                 backBtn.setOnClickListener(new View.OnClickListener() {
@@ -159,11 +181,8 @@ public class BoardFragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
+            gameStateTextView.animateText(getString(R.string.ai_message));
             super.onPreExecute();
-            clearSuggestions();
-            selectedView.setBackgroundResource(R.drawable.square_shape);
-            selectedView = null;
-            ((BaseAdapter) mBoardGrid.getAdapter()).notifyDataSetChanged();
         }
 
         protected Void doInBackground(Void... params) {
@@ -176,6 +195,7 @@ public class BoardFragment extends Fragment {
 
         protected void onPostExecute(Void result) {
             ((BaseAdapter) mBoardGrid.getAdapter()).notifyDataSetChanged();
+            gameStateTextView.animateText(getString(R.string.player_message));
         }
     }
 
