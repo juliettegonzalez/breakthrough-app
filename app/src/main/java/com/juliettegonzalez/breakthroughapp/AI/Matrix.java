@@ -2,6 +2,8 @@ package com.juliettegonzalez.breakthroughapp.AI;
 
 import android.util.Log;
 
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -39,6 +41,19 @@ public class Matrix{
         }else{
             currentPlayer = false;
         }
+    }
+
+    public int toBitboard(int[][] board){
+        byte[] array = new byte[64];
+
+        for(int i = 0; i < 7; i++) {
+            for(int j = 0; j < 7; j++){
+                array[j+i*8] = (byte) board[i][j];
+            }
+        }
+        ByteBuffer wrapper = ByteBuffer.wrap(array);
+        int num = wrapper.getInt();
+        return num;
     }
 
     public int[][] getMatrix(boolean player){
@@ -117,19 +132,27 @@ public class Matrix{
     }
 
 
-    public int analyze(){
+    public double analyze(){
         //TODO : heuristique, appréciation de la position
         //Heuristique actuelle très naive
         if(winningPosition()){
             if(winner()==currentPlayer) {
-                return(Integer.MAX_VALUE);
+                Log.d("DEBUG", "Computer winning");
+                return 1000.0;
             }else {
-                return(Integer.MIN_VALUE);
+                Log.d("DEBUG", "Player winning");
+                return -1000.0;
             }
         }else {
-            int score = 0;
+            double score = 0.0;
             score += getNumberPawns(currentPlayer);
             score -= getNumberPawns(!currentPlayer);
+            //score += Math.random()-0.5
+            if(0 < score){
+                Log.d("DEBUG","Computer stronger");
+            }else if(score < 0){
+                Log.d("DEBUG","Player stronger");
+            }
             return score;
         }
     }

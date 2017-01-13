@@ -4,13 +4,10 @@ import android.util.Log;
 
 import java.util.Arrays;
 
-/**
- * Created by juliettegonzalez on 03/01/2017.
- */
 
 public class Node {
     public Node parent;
-    public Integer value;
+    public Double value;
     public int level;
     public int[][] move;
     public Matrix matrix;
@@ -30,6 +27,7 @@ public class Node {
         if (move != null){
             //Log.d("DEBUG", "Maj move, depth left : "+(depth-1));
             Matrix mat = new Matrix(matrix);
+            //Log.d("DEBUG","tab matrix : "+Arrays.deepToString(matrix.getMatrix(true))+", bitboard : "+matrix.toBitboard(matrix.getMatrix(true)));
             mat.applyMove(move);
             mat.changePlayer();
             depth--;
@@ -46,9 +44,9 @@ public class Node {
             if (pawns.length == 0){
                 // Check if computer
                 if (matrix.isComputerAI()){
-                    value = Integer.MIN_VALUE;
+                    value = -1000.0;
                 }else{
-                    value = Integer.MAX_VALUE;
+                    value = 1000.0;
                 }
                 if (this.parent != null){
                     propagate(this);
@@ -82,18 +80,14 @@ public class Node {
                     node.process();
                 }
                 if (cut){
-                    if(i == pawns.length){
-                        Log.d("DEBUG", "Cut fin de branche");
+                    /*String actualPlayer;
+                    if(matrix.isComputerAI()){
+                        actualPlayer = "computer";
                     }else{
-                        String actualPlayer;
-                        if(matrix.isComputerAI()){
-                            actualPlayer = "computer";
-                        }else{
-                            actualPlayer = "human";
-                        }
-                        Log.d("DEBUG", "Real Cut, player : "+ actualPlayer +", value : "+ value +", parent value : "+ parent.value);
+                        actualPlayer = "human";
                     }
-                    break;
+                    Log.d("DEBUG", "Real Cut, player : "+ actualPlayer +", value : "+ value +", parent value : "+ parent.value);
+                    */break;
                 }
                 else if(i == pawns.length-1){
                     cut = true;
@@ -105,6 +99,9 @@ public class Node {
 
         }else{
             value = matrix.analyze();
+            if(!matrix.isComputerAI()){
+                value = -value;
+            }
            /* String actualPlayer;
             if(matrix.isComputerAI()){
                 actualPlayer = "computer";
@@ -130,6 +127,8 @@ public class Node {
             }
             if(node.parent.value == null){
                 actualPlayer+=" new value";
+            }else{
+                actualPlayer+=", old value : "+node.parent.value;
             }
             node.parent.value = node.value;
 
@@ -141,7 +140,7 @@ public class Node {
                     ((node.level%2==0 && node.parent.value <= node.parent.parent.value) ||
                             (node.level%2==1 && node.parent.value >= node.parent.parent.value))){
                 node.parent.cut = true;
-                Log.d("DEBUG", "Propagate Cut, player : "+ actualPlayer +", value : "+ node.value +", parent value : "+ node.parent.value +", grand-parent value : "+ node.parent.parent.value);
+                Log.d("DEBUG", "Propagate Cut, player : "+ actualPlayer +", value : "+ node.value +", grand-parent value : "+ node.parent.parent.value);
             }
 
             if (node.level == 1){

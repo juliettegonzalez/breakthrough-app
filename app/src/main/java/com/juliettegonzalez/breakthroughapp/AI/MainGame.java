@@ -147,7 +147,7 @@ public class MainGame {
         long newTime,duration;
         Node nextMove;
         Node bestMove = new Node(actualDepth,null,null, mMatrix, 0);
-        bestMove.value = Integer.MIN_VALUE;
+        bestMove.value = -1000.0;
         do{
             actualDepth++;
             //Log.d("DEBUG", "Depth increased "+actualDepth);
