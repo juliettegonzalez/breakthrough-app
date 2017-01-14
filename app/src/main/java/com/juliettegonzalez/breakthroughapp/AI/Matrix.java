@@ -137,10 +137,10 @@ public class Matrix{
         //Heuristique actuelle très naive
         if(winningPosition()){
             if(winner()==currentPlayer) {
-                Log.d("DEBUG", "Computer winning");
+                //Log.d("DEBUG", "Computer winning");
                 return 1000.0;
             }else {
-                Log.d("DEBUG", "Player winning");
+                //Log.d("DEBUG", "Player winning");
                 return -1000.0;
             }
         }else {
@@ -149,9 +149,9 @@ public class Matrix{
             score -= getNumberPawns(!currentPlayer);
             //score += Math.random()-0.5
             if(0 < score){
-                Log.d("DEBUG","Computer stronger");
+                //Log.d("DEBUG","Computer stronger");
             }else if(score < 0){
-                Log.d("DEBUG","Player stronger");
+                //Log.d("DEBUG","Player stronger");
             }
             return score;
         }

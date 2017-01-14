@@ -93,14 +93,29 @@ public class Node {
                     cut = true;
                 }
             }
+
+
             if (node != null && this.parent != null){
+
                 propagate(this);
             }
+
 
         }else{
             value = matrix.analyze();
             if(!matrix.isComputerAI()){
                 value = -value;
+            }
+            if(value == -1000){
+                value = -1000.0 + level;
+                //Log.d("DEBUG", "Player winning");
+            }
+            if(value == 1000){
+                value = 1000.0 - level;
+                /*Log.d("DEBUG", "Computer winning");
+                Log.d("DEBUG", "value : " + (value));
+                Log.d("DEBUG", "parent value : " + (parent.value));
+                Log.d("DEBUG", "level : " + (level));*/
             }
            /* String actualPlayer;
             if(matrix.isComputerAI()){
@@ -119,7 +134,7 @@ public class Node {
         //negamax
         //if (node.parent.value == null || ((node.level%2==0) && node.value < node.parent.value) || ((node.level%2==1) && node.value > node.parent.value) || ((node.value.equals(node.parent.value)) && (Math.random() < 0.5))){
         if (node.parent.value == null || ((node.level%2==0) && node.value < node.parent.value) || ((node.level%2==1) && node.value > node.parent.value)){
-            String actualPlayer;
+            /*String actualPlayer;
             if(node.matrix.isComputerAI()){
                 actualPlayer = "computer";
             }else{
@@ -129,7 +144,7 @@ public class Node {
                 actualPlayer+=" new value";
             }else{
                 actualPlayer+=", old value : "+node.parent.value;
-            }
+            }*/
             node.parent.value = node.value;
 
 
@@ -140,7 +155,8 @@ public class Node {
                     ((node.level%2==0 && node.parent.value <= node.parent.parent.value) ||
                             (node.level%2==1 && node.parent.value >= node.parent.parent.value))){
                 node.parent.cut = true;
-                Log.d("DEBUG", "Propagate Cut, player : "+ actualPlayer +", value : "+ node.value +", grand-parent value : "+ node.parent.parent.value);
+                //Log.d("DEBUG","same ? "+ ((node.level%2==0)&&(node.matrix.isComputerAI())));
+                //Log.d("DEBUG", "Propagate Cut, player : "+ actualPlayer +", value : "+ node.value +", grand-parent value : "+ node.parent.parent.value);
             }
 
             if (node.level == 1){

@@ -107,7 +107,7 @@ public class MainGame {
             if(possibleMoves.contains(destination)){
                 if (destination.getOwner() == mComputer) {
                     // Eating the enemy
-                    Log.d("DEBUG", "Eating computer");
+                    //Log.d("DEBUG", "Eating computer");
                     mComputer.getPawns().remove(destination);
                     destination.setFree();
                 }
@@ -202,7 +202,7 @@ public class MainGame {
         SquareBoard destination = mBoard.getSquareAt(iDest, jDest);
         if (destination.getOwner() == mPlayer1) {
             // Eating the enemy
-            Log.d("DEBUG", "Eating player");
+            //Log.d("DEBUG", "Eating player");
             mPlayer1.getPawns().remove(destination);
             destination.setFree();
         }
