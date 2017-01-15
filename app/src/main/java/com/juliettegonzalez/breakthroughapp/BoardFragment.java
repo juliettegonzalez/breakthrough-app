@@ -194,6 +194,10 @@ public class BoardFragment extends Fragment {
         }
 
         protected void onPostExecute(Void result) {
+            if (!mGame.isGameWon()){
+                mGame.endTurn();
+            }
+
             ((BaseAdapter) mBoardGrid.getAdapter()).notifyDataSetChanged();
             gameStateTextView.animateText(getString(R.string.player_message));
         }

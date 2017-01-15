@@ -136,7 +136,11 @@ public class MainGame {
     }
 
     public void endTurn(){
-        mCurrentPlayer = mComputer;
+        if (mCurrentPlayer == mPlayer1){
+            mCurrentPlayer = mComputer;
+        }else{
+            mCurrentPlayer = mPlayer1;
+        }
         mMatrix.changePlayer();
     }
 
@@ -212,12 +216,6 @@ public class MainGame {
         }
 
         mBoard.getSquareAt(iInit, jInit).movePawn(destination);
-
-
-        if (!isGameWon()){
-            mCurrentPlayer = mPlayer1;
-            mMatrix.changePlayer();
-        }
     }
 
 

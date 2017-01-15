@@ -24,7 +24,7 @@ public class RulesActivity extends AppIntro2 {
                 "Les pions peuvent se déplacer uniquement en avant, tout droit ou en diagonale",
                 R.drawable.rules_move,
                 getResources().getColor(R.color.colorAccentMid)));
-        addSlide(AppIntroFragment.newInstance("Manger un adversaire",
+        addSlide(AppIntroFragment.newInstance("Attaquer",
                 "Il est possible de manger un adversaire uniquement s'il est en diagonale, sinon il est impossible de bouger",
                 R.drawable.rules_eat,
                 getResources().getColor(R.color.colorAccentMid)));
