@@ -28,7 +28,7 @@ public class BNode {
     }
 
     public void process(){
-
+        System.gc();
         if (move != null){
             //Log.d("DEBUG", "Maj move, depth left : "+(depth-1));
             BMatrix mat = new BMatrix(matrix);
@@ -48,13 +48,14 @@ public class BNode {
             if(matrix.getNumberPawns(matrix.isComputerAI())==0){
                 // Check if computer
                 if (matrix.isComputerAI()){
-                    value = -1000.0;
+                    value = -1000.0 + level;
                 }else{
-                    value = 1000.0;
+                    value = 1000.0 - level;
                 }
                 if (this.parent != null){
                     propagate(this);
                 }
+                MainGame.mMap.put(matrix,value);
                 return;
             }
             int pPawns = 0;
@@ -139,6 +140,7 @@ public class BNode {
                 Log.d("DEBUG", "parent value : " + (parent.value));
                 Log.d("DEBUG", "level : " + (level));*/
             }
+            MainGame.mMap.put(matrix,value);
            /* String actualPlayer;
             if(matrix.isComputerAI()){
                 actualPlayer = "computer";

@@ -2,7 +2,9 @@ package com.juliettegonzalez.breakthroughapp.AI;
 
 import android.util.Log;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -17,6 +19,7 @@ public class MainGame {
     private SquareBoard mSelectedSquare;
     private Board mBoard;
     private BMatrix mMatrix;
+    public static HashMap<BMatrix,Double> mMap;
 
     public interface GameStateListener {
         void onGameEnd(Player winner);
@@ -32,6 +35,7 @@ public class MainGame {
         this.mBoard = new Board(player1, computer);
         this.mMatrix = new BMatrix();
         this.listener = null;
+        this.mMap = new HashMap<BMatrix,Double>();
     }
 
 
@@ -169,6 +173,7 @@ public class MainGame {
             if(nextMove.move!=null && nextMove.value!=null && nextMove.value >= bestMove.value){
                 bestMove = nextMove;
             }
+            System.gc();
             //Log.d("DEBUG","bestMove (white) : "+bestMove.move.getMatrix(true).toString(16));
             //Log.d("DEBUG","bestMove (black) : "+bestMove.move.getMatrix(false).toString(16));
         }while(actualDepth < 5);

@@ -98,16 +98,17 @@ public class BMatrix{
     public double analyze(){
         //TODO : heuristique, appréciation de la position
         //Heuristique actuelle très naive
+        Double score;
         if(winningPosition()){
             if(winner()==currentPlayer) {
                 //Log.d("DEBUG", "Computer winning");
-                return 1000.0;
+                score = 1000.0;
             }else {
                 //Log.d("DEBUG", "Player winning");
-                return -1000.0;
+                score = -1000.0;
             }
         }else {
-            double score = 0.0;
+            score = 0.0;
             score += getNumberPawns(currentPlayer);
             score -= getNumberPawns(!currentPlayer);
             //score += Math.random()-0.5
@@ -116,8 +117,8 @@ public class BMatrix{
             }else if(score < 0){
                 //Log.d("DEBUG","Player stronger");
             }
-            return score;
         }
+        return score;
     }
 
     public boolean winningPosition() {
