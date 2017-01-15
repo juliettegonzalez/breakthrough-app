@@ -16,7 +16,7 @@ public class MainGame {
     private Player mCurrentPlayer;
     private SquareBoard mSelectedSquare;
     private Board mBoard;
-    private Matrix mMatrix;
+    private BMatrix mMatrix;
 
     public interface GameStateListener {
         void onGameEnd(Player winner);
@@ -30,7 +30,7 @@ public class MainGame {
         this.mCurrentPlayer = player1;
         this.mSelectedSquare = null;
         this.mBoard = new Board(player1, computer);
-        this.mMatrix = new Matrix();
+        this.mMatrix = new BMatrix();
         this.listener = null;
     }
 
@@ -117,7 +117,7 @@ public class MainGame {
                 // Update AI
                 int[][] movement = {{mSelectedSquare.getI(), mSelectedSquare.getJ()},
                         {destination.getI(), destination.getJ()}};
-                mMatrix.applyMove(movement);
+                mMatrix.convertMove(movement);
 
                 mSelectedSquare = null;
 
@@ -149,14 +149,14 @@ public class MainGame {
         long startTime = System.currentTimeMillis();
         int actualDepth = 0;
         long newTime,duration;
-        Node nextMove;
-        Node bestMove = new Node(actualDepth,null,null, mMatrix, 0);
+        BNode nextMove;
+        BNode bestMove = new BNode(actualDepth,null,null, mMatrix, 0);
         bestMove.value = -1000.0;
         do{
             actualDepth++;
             //Log.d("DEBUG", "Depth increased "+actualDepth);
-            Matrix copy = new Matrix(mMatrix);
-            nextMove = new Node(actualDepth,null,null,copy, 0);
+            BMatrix copy = new BMatrix(mMatrix);
+            nextMove = new BNode(actualDepth,null,null,copy, 0);
             nextMove.process();
 
             newTime = System.currentTimeMillis();
@@ -165,9 +165,12 @@ public class MainGame {
             if(nextMove.move!=null && nextMove.value!=null && nextMove.value >= bestMove.value){
                 bestMove = nextMove;
             }
-
+            //Log.d("DEBUG","bestMove (white) : "+bestMove.move.getMatrix(true).toString(16));
+            //Log.d("DEBUG","bestMove (black) : "+bestMove.move.getMatrix(false).toString(16));
         }while(actualDepth < 5);
         //}while(duration < 5000);
+
+        int[][] finalMove = bestMove.convert(bestMove.move, mMatrix);
         mMatrix.applyMove(bestMove.move);
 
         /*
@@ -192,10 +195,11 @@ public class MainGame {
         }
         */
 
-        int iInit = bestMove.move[0][0];
-        int jInit = bestMove.move[0][1];
-        int iDest = bestMove.move[1][0];
-        int jDest = bestMove.move[1][1];
+
+        int iInit = finalMove[0][0];
+        int jInit = finalMove[0][1];
+        int iDest = finalMove[1][0];
+        int jDest = finalMove[1][1];
         //Log.d("DEBUG", "Départ = ("+ iInit + "," + jInit + ")");
         //Log.d("DEBUG", "Destination = ("+ iDest + "," + jDest + ")");
 

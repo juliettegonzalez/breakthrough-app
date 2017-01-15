@@ -1,8 +1,6 @@
 package com.juliettegonzalez.breakthroughapp.AI;
 
 import android.util.Log;
-
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -43,18 +41,6 @@ public class Matrix{
         }
     }
 
-    public int toBitboard(int[][] board){
-        byte[] array = new byte[64];
-
-        for(int i = 0; i < 7; i++) {
-            for(int j = 0; j < 7; j++){
-                array[j+i*8] = (byte) board[i][j];
-            }
-        }
-        ByteBuffer wrapper = ByteBuffer.wrap(array);
-        int num = wrapper.getInt();
-        return num;
-    }
 
     public int[][] getMatrix(boolean player){
         if(player){
@@ -130,7 +116,6 @@ public class Matrix{
             board[move[1][0]][move[1][1]] = 0;
         }
     }
-
 
     public double analyze(){
         //TODO : heuristique, appréciation de la position

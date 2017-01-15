@@ -41,6 +41,7 @@ public class Node {
             int offsetY = matrix.isComputerAI() ? 1 : -1;
             int[][] pawns = matrix.getPawns(matrix.isComputerAI());
 
+
             if (pawns.length == 0){
                 // Check if computer
                 if (matrix.isComputerAI()){
@@ -56,6 +57,7 @@ public class Node {
 
             Node node = null;
             for (int i=0;i<pawns.length;i++){
+
                 int[][] newMove1 = {pawns[i], {pawns[i][0]+offsetY, pawns[i][1]-1}}; //Front left move
                 if (!cut && newMove1[1][1]>=0 && matrix.validMove(newMove1, false)){
                     //Log.d("DEBUG", "Node 1, depth : " + depth + ", level : "+ childLevel +", move : "+ Arrays.deepToString(newMove1));
