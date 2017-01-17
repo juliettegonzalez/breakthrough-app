@@ -19,7 +19,7 @@ public class MainGame {
     private SquareBoard mSelectedSquare;
     private Board mBoard;
     private BMatrix mMatrix;
-    public static HashMap<BMatrix,Double> mMap;
+    //public static HashMap<BMatrix,Double> mMap;
 
     public interface GameStateListener {
         void onGameEnd(Player winner);
@@ -35,7 +35,7 @@ public class MainGame {
         this.mBoard = new Board(player1, computer);
         this.mMatrix = new BMatrix();
         this.listener = null;
-        this.mMap = new HashMap<BMatrix,Double>();
+        //this.mMap = new HashMap<BMatrix,Double>();
     }
 
 

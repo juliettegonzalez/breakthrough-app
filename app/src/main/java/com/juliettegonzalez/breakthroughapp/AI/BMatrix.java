@@ -96,7 +96,7 @@ public class BMatrix{
     }
 
     public double analyze(){
-        //TODO : heuristique, appréciation de la position
+        //heuristique, appréciation de la position
         //Heuristique actuelle très naive
         Double score;
         if(winningPosition()){

@@ -55,7 +55,7 @@ public class BNode {
                 if (this.parent != null){
                     propagate(this);
                 }
-                MainGame.mMap.put(matrix,value);
+                //MainGame.mMap.put(matrix,value);
                 return;
             }
             int pPawns = 0;
@@ -140,7 +140,7 @@ public class BNode {
                 Log.d("DEBUG", "parent value : " + (parent.value));
                 Log.d("DEBUG", "level : " + (level));*/
             }
-            MainGame.mMap.put(matrix,value);
+            //MainGame.mMap.put(matrix,value);
            /* String actualPlayer;
             if(matrix.isComputerAI()){
                 actualPlayer = "computer";
