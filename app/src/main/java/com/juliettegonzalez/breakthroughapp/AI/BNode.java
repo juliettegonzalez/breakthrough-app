@@ -63,6 +63,7 @@ public class BNode {
             int off;
             BigInteger playerBoard;
             BMatrix nextMove;
+            Boolean found = false;
             BNode node = null;
             for(int i = 0; i<64;i++){
                 playerBoard = matrix.getMatrix(matrix.isComputerAI());
@@ -97,6 +98,10 @@ public class BNode {
                                 nextMove = new BMatrix(playerBoard.setBit(i + offsetY * 7), matrix.getMatrix(!matrix.isComputerAI()),matrix.isComputerAI());
                                 node = new BNode(depth, this, nextMove, new BMatrix(matrix), childLevel);
                                 node.process();
+                                nextMove = null;
+                                node = null;
+                                System.gc();
+                                found = true;
                             }
                             //Vérification qu'il n'y a pas d'adversaire en face, ni de pion perso
                             if((!matrix.getMatrix(!matrix.isComputerAI()).testBit(i+offsetY*8)) && (!playerBoard.testBit(i+offsetY*8))){
@@ -104,6 +109,10 @@ public class BNode {
                                 nextMove = new BMatrix(playerBoard.setBit(i + offsetY * 8), matrix.getMatrix(!matrix.isComputerAI()),matrix.isComputerAI());
                                 node = new BNode(depth, this, nextMove, new BMatrix(matrix), childLevel);
                                 node.process();
+                                nextMove = null;
+                                node = null;
+                                System.gc();
+                                found = true;
                             }
 
                             //Log.d("DEBUG","modulo "+((i+offsetY*9)%8));
@@ -113,6 +122,10 @@ public class BNode {
                                 nextMove = new BMatrix(playerBoard.setBit(i + offsetY * 9), matrix.getMatrix(!matrix.isComputerAI()),matrix.isComputerAI());
                                 node = new BNode(depth, this, nextMove, new BMatrix(matrix), childLevel);
                                 node.process();
+                                nextMove = null;
+                                node = null;
+                                System.gc();
+                                found = true;
                             }
                         }
                     }
@@ -120,7 +133,7 @@ public class BNode {
                 }
             }
 
-            if (node != null && this.parent != null){
+            if (found && this.parent != null){
                 propagate(this);
             }
 
