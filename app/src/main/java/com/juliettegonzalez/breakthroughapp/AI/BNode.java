@@ -37,6 +37,7 @@ public class BNode {
             mat.changePlayer();
             depth--;
             matrix = new BMatrix(mat);
+            mat=null;
         }
 
 
@@ -64,8 +65,8 @@ public class BNode {
             BigInteger playerBoard;
             BMatrix nextMove;
             Boolean found = false;
-            BNode node = null;
-            for(int i = 0; i<64;i++){
+            BNode node;
+            for(int i = 63; 0<=i;i--){
                 playerBoard = matrix.getMatrix(matrix.isComputerAI());
                 //Log.d("DEBUG","playerBoard : "+playerBoard.toString(16));
                 //Log.d("DEBUG","testBit : "+(i)+", res : "+playerBoard.testBit(i));
@@ -77,7 +78,7 @@ public class BNode {
                         //Log.d("DEBUG","i : "+i);
                         off = i + offsetY * 8;
                         //Log.d("DEBUG","off : "+off);
-                        if(off >= 0 && off < 64){
+                        if(off >= 0 && off <= 63){
                             //Log.d("DEBUG","i : "+i);
                             //Log.d("DEBUG","playerBoard : "+playerBoard.toString(16));
                             playerBoard = playerBoard.clearBit(i);

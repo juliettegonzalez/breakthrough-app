@@ -13,6 +13,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MainGame {
 
+    public static int nb_play_predicted = 5;
+    public static int milliseconds_for_calcul = 5000;
+    public static boolean nb_or_time = true;
+
+
     private Player mPlayer1;
     private Player mComputer;
     private Player mCurrentPlayer;
@@ -176,8 +181,7 @@ public class MainGame {
             System.gc();
             //Log.d("DEBUG","bestMove (white) : "+bestMove.move.getMatrix(true).toString(16));
             //Log.d("DEBUG","bestMove (black) : "+bestMove.move.getMatrix(false).toString(16));
-        }while(actualDepth < 5);
-        //}while(duration < 5000);
+        }while((nb_or_time && actualDepth < nb_play_predicted)||(!nb_or_time && duration < milliseconds_for_calcul));
 
         int[][] finalMove = bestMove.convert(bestMove.move, mMatrix);
         mMatrix.applyMove(bestMove.move);
