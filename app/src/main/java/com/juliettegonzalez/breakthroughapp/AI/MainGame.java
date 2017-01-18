@@ -24,7 +24,7 @@ public class MainGame {
     private SquareBoard mSelectedSquare;
     private Board mBoard;
     private BMatrix mMatrix;
-    //public static HashMap<BMatrix,Double> mMap;
+    public static HashMap<TBMatrix,GameValue> mMap;
 
     public interface GameStateListener {
         void onGameEnd(Player winner);
