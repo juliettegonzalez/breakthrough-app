@@ -61,18 +61,18 @@ public class TBMatrix{
     }
 
 
-    public void applyMove(TBMatrix nextMove){
+    public void applyMove(TBMatrix nextMove, boolean player){
         //Log.d("DEBUG","whiteBoard : " + whiteBoard.toString(16));
         //Log.d("DEBUG","blackBoard : " + blackBoard.toString(16));
         //Log.d("DEBUG","wanted whiteBoard : " + nextMove.whiteBoard.toString(16));
         //Log.d("DEBUG","wanted blackBoard : " + nextMove.blackBoard.toString(16));
-        BigInteger oBoard = getMatrix(!currentPlayer);
-        BigInteger board = nextMove.getMatrix(nextMove.isComputerAI());
-        setMatrix(currentPlayer, board);
+        BigInteger oBoard = getMatrix(!player);
+        BigInteger board = nextMove.getMatrix(player);
+        setMatrix(player, board);
         if((board.and(oBoard))!=BigInteger.ZERO){
             oBoard = (board.and(oBoard)).xor(oBoard);
         }
-        setMatrix(!currentPlayer,oBoard);
+        setMatrix(!player,oBoard);
         //Log.d("DEBUG","whiteBoard : " + whiteBoard.toString(16));
         //Log.d("DEBUG","blackBoard : " + blackBoard.toString(16));
     }
@@ -82,7 +82,7 @@ public class TBMatrix{
         //Heuristique actuelle très naive
         Double score;
         if(winningPosition()){
-            if(winner()==currentPlayer) {
+            if(winner()==true) {
                 //Log.d("DEBUG", "Computer winning");
                 score = 1000.0;
             }else {
@@ -91,8 +91,8 @@ public class TBMatrix{
             }
         }else {
             score = 0.0;
-            score += getNumberPawns(currentPlayer);
-            score -= getNumberPawns(!currentPlayer);
+            score += getNumberPawns(true);
+            score -= getNumberPawns(false);
             //score += Math.random()-0.5
             if(0 < score){
                 //Log.d("DEBUG","Computer stronger");
@@ -134,14 +134,14 @@ public class TBMatrix{
         indicen = (7-movement[1][0])*8+(7-movement[1][1]);
         //Log.d("DEBUG","pboard : "+getMatrix(currentPlayer).toString(16));
         //Log.d("DEBUG","poboard : "+getMatrix(!currentPlayer).toString(16));
-        BigInteger oBoard = getMatrix(!currentPlayer);
-        BigInteger board = getMatrix(currentPlayer).clearBit(indicep);
+        BigInteger oBoard = whiteBoard;
+        BigInteger board = blackBoard.clearBit(indicep);
         board = board.setBit(indicen);
-        setMatrix(currentPlayer, board);
+        blackBoard = board;
         if((board.and(oBoard)) != BigInteger.ZERO){
             oBoard = (board.and(oBoard)).xor(oBoard);
         }
-        setMatrix(!currentPlayer,oBoard);
+        whiteBoard = oBoard;
         //Log.d("DEBUG","currentplayer"+currentPlayer);
         //Log.d("DEBUG","nboard : "+getMatrix(currentPlayer).toString(16));
         //Log.d("DEBUG","noboard : "+getMatrix(!currentPlayer).toString(16));

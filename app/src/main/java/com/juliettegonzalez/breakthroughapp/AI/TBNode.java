@@ -7,7 +7,6 @@ import java.math.BigInteger;
 /**
  * Created by Yvonnig on 17/01/2017.
  */
-        import java.util.Arrays;
 
 
 public class TBNode {
@@ -48,7 +47,7 @@ public class TBNode {
         }
 
         if(depth == 0 || matrix.winningPosition()){
-            return (color * matrix.analyze(level));
+            return (level/5 + color * matrix.analyze(level));
         }
 
 
@@ -72,7 +71,7 @@ public class TBNode {
                         if(((((i+offsetY*7)%8)<0 ?(i+offsetY*7)%8 + 8 : (i+offsetY*7)%8)!=((8-offsetY)%9)) && (!playerBoard.testBit(i+offsetY*7))){
                             nextMove = new TBMatrix(playerBoard.setBit(i + offsetY * 7), matrix.getMatrix(!player),player);
                             mat = new TBMatrix(matrix);
-                            mat.applyMove(nextMove);
+                            mat.applyMove(nextMove, player);
                             node = new TBNode(depth-1, mat, childLevel, -beta,-alpha,-color);
                             value = node.process();
                             best = Math.max(best,value);
@@ -89,7 +88,7 @@ public class TBNode {
                         if((!matrix.getMatrix(!player).testBit(i+offsetY*8)) && (!playerBoard.testBit(i+offsetY*8))){
                             nextMove = new TBMatrix(playerBoard.setBit(i + offsetY * 8), matrix.getMatrix(!player),player);
                             mat = new TBMatrix(matrix);
-                            mat.applyMove(nextMove);
+                            mat.applyMove(nextMove, player);
                             node = new TBNode(depth-1, mat, childLevel, -beta,-alpha,-color);
                             value = node.process();
                             best = Math.max(best,value);
@@ -107,7 +106,7 @@ public class TBNode {
                         if(((((i+offsetY*9)%8)<0 ?(i+offsetY*9)%8 + 8 : (i+offsetY*9)%8)!=((8+offsetY)%9)) && (!playerBoard.testBit(i+offsetY*9))){
                             nextMove = new TBMatrix(playerBoard.setBit(i + offsetY * 9), matrix.getMatrix(!player),player);
                             mat = new TBMatrix(matrix);
-                            mat.applyMove(nextMove);
+                            mat.applyMove(nextMove, player);
                             node = new TBNode(depth-1, mat, childLevel, -beta,-alpha,-color);
                             value = node.process();
                             best = Math.max(best,value);
