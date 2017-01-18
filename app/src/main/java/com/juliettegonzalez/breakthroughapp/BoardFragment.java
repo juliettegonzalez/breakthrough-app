@@ -70,8 +70,8 @@ public class BoardFragment extends Fragment {
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        Player player1 = new Player(false, Player.Color.BLACK, mPlayerPawn);
-        final Player computer = new Player(true, Player.Color.WHITE, Player.getRandomPawn(mPlayerPawn));
+        Player player1 = new Player(false, Player.Color.WHITE, mPlayerPawn);
+        final Player computer = new Player(true, Player.Color.BLACK, Player.getRandomPawn(mPlayerPawn));
 
         mGame = new MainGame(player1, computer);
         mSquareBoardList = mGame.getmBoard().matrixToList();
@@ -196,10 +196,10 @@ public class BoardFragment extends Fragment {
         protected void onPostExecute(Void result) {
             if (!mGame.isGameWon()){
                 mGame.endTurn();
+                gameStateTextView.animateText(getString(R.string.player_message));
             }
 
             ((BaseAdapter) mBoardGrid.getAdapter()).notifyDataSetChanged();
-            gameStateTextView.animateText(getString(R.string.player_message));
         }
     }
 
