@@ -113,12 +113,12 @@ public class Node {
             if(!matrix.isComputerAI()){
                 value = -value;
             }
-            if(value == -1000){
-                value = -1000.0 + level;
+            if(value < -900){
+                value += level;
                 //Log.d("DEBUG", "Player winning");
             }
-            if(value == 1000){
-                value = 1000.0 - level;
+            if(value > 1000){
+                value -= level;
                 /*Log.d("DEBUG", "Computer winning");
                 Log.d("DEBUG", "value : " + (value));
                 Log.d("DEBUG", "parent value : " + (parent.value));
