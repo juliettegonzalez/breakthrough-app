@@ -1,10 +1,5 @@
 package com.juliettegonzalez.breakthroughapp.AI;
 
-import android.util.Log;
-
-import java.util.Arrays;
-
-
 public class Node {
     public Node parent;
     public Double value;
@@ -56,6 +51,7 @@ public class Node {
             }
 
             Node node = null;
+            Boolean found = false;
             for (int i=0;i<pawns.length;i++){
 
                 int[][] newMove1 = {pawns[i], {pawns[i][0]+offsetY, pawns[i][1]-1}}; //Front left move
@@ -64,6 +60,9 @@ public class Node {
                     node = new Node(depth, this, newMove1, new Matrix(matrix), childLevel);
                     //Log.d("DEBUG", "N1 : Depth : "+depth+", level : "+childLevel);
                     node.process();
+                    node = null;
+                    System.gc();
+                    found = true;
                 }
 
                 int[][] newMove2 = {pawns[i], {pawns[i][0]+offsetY, pawns[i][1]}}; //Front move
@@ -72,6 +71,9 @@ public class Node {
                     node = new Node(depth, this, newMove2, new Matrix(matrix), childLevel);
                     //Log.d("DEBUG", "N2 : Depth : "+depth+", level : "+childLevel);
                     node.process();
+                    node = null;
+                    System.gc();
+                    found = true;
                 }
 
                 int[][] newMove3 = {pawns[i], {pawns[i][0]+offsetY, pawns[i][1]+1}}; //Front right move
@@ -80,6 +82,9 @@ public class Node {
                     node = new Node(depth, this, newMove3, new Matrix(matrix), childLevel);
                     //Log.d("DEBUG", "N3 : Depth : "+depth+", level : "+childLevel);
                     node.process();
+                    node = null;
+                    System.gc();
+                    found = true;
                 }
                 if (cut){
                     /*String actualPlayer;
@@ -97,7 +102,7 @@ public class Node {
             }
 
 
-            if (node != null && this.parent != null){
+            if (found && this.parent != null){
 
                 propagate(this);
             }

@@ -11,4 +11,5 @@
 
     <color name="light_grey">#e9e9e9</color>
     <color name="colorTextDark">#222d71</color>
+    <color name="buttonBackground">#DCDEE0</color>
 </resources>

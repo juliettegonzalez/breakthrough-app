@@ -22,7 +22,9 @@ public class MainGame {
     private Player mCurrentPlayer;
     private SquareBoard mSelectedSquare;
     private Board mBoard;
-    private BMatrix mMatrix;
+
+    //private BMatrix mMatrix;
+    private Matrix mMatrix;
     public static HashMap<TBMatrix,GameValue> mMap;
 
     public interface GameStateListener {
@@ -37,7 +39,8 @@ public class MainGame {
         this.mCurrentPlayer = player1;
         this.mSelectedSquare = null;
         this.mBoard = new Board(player1, computer);
-        this.mMatrix = new BMatrix();
+        //this.mMatrix = new BMatrix();
+        this.mMatrix = new Matrix();
         this.listener = null;
         //this.mMap = new HashMap<BMatrix,Double>();
     }
@@ -125,7 +128,9 @@ public class MainGame {
                 // Update AI
                 int[][] movement = {{mSelectedSquare.getI(), mSelectedSquare.getJ()},
                         {destination.getI(), destination.getJ()}};
-                mMatrix.convertMove(movement);
+
+                //mMatrix.convertMove(movement);
+                mMatrix.applyMove(movement);
 
                 mSelectedSquare = null;
 
@@ -161,14 +166,22 @@ public class MainGame {
         long startTime = System.currentTimeMillis();
         int actualDepth = 0;
         long newTime,duration;
-        BNode nextMove;
-        BNode bestMove = new BNode(actualDepth,null,null, mMatrix, 0);
+        //BNode nextMove;
+        //BNode bestMove = new BNode(actualDepth,null,null, mMatrix, 0);
+
+        Node nextMove;
+        Node bestMove = new Node(actualDepth,null,null, mMatrix, 0);
+
         bestMove.value = -1000.0;
         do{
             actualDepth++;
-            //Log.d("DEBUG", "Depth increased "+actualDepth);
-            BMatrix copy = new BMatrix(mMatrix);
-            nextMove = new BNode(actualDepth,null,null,copy, 0);
+
+            //BMatrix copy = new BMatrix(mMatrix);
+            //nextMove = new BNode(actualDepth,null,null,copy, 0);
+
+            Matrix copy = new Matrix(mMatrix);
+            nextMove = new Node(actualDepth,null,null,copy, 0);
+
             nextMove.process();
 
             newTime = System.currentTimeMillis();
@@ -182,7 +195,8 @@ public class MainGame {
             //Log.d("DEBUG","bestMove (black) : "+bestMove.move.getMatrix(false).toString(16));
         }while((nb_or_time && actualDepth < nb_play_predicted)||(!nb_or_time && duration < milliseconds_for_calcul));
 
-        int[][] finalMove = bestMove.convert(bestMove.move, mMatrix);
+        //int[][] finalMove = bestMove.convert(bestMove.move, mMatrix);
+        int[][] finalMove = bestMove.move;
         mMatrix.applyMove(bestMove.move);
 
         /*

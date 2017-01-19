@@ -1,9 +1,5 @@
 package com.juliettegonzalez.breakthroughapp.AI;
 
-import android.util.Log;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * Created by juliettegonzalez on 03/01/2017.
  */
@@ -13,6 +9,8 @@ public class Matrix{
     private int[][] whiteBoard;
     private int[][] blackBoard;
     private boolean currentPlayer;
+
+    private final double COLUMN_EMPTY_VALUE = 10.0;
 
     public Matrix(){
         int[][] whiteB = {{1,1,1,1,1,1,1,1},{1,1,1,1,1,1,1,1},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0}};
@@ -80,6 +78,7 @@ public class Matrix{
         return result;
     }
 
+
     public boolean isComputerAI(){
         return currentPlayer;
     }
@@ -120,26 +119,33 @@ public class Matrix{
     public double analyze(){
         //TODO : heuristique, appréciation de la position
         //Heuristique actuelle très naive
-        if(winningPosition()){
-            if(winner()==currentPlayer) {
-                //Log.d("DEBUG", "Computer winning");
-                return 1000.0;
-            }else {
-                //Log.d("DEBUG", "Player winning");
-                return -1000.0;
-            }
-        }else {
-            double score = 0.0;
-            score += getNumberPawns(currentPlayer);
-            score -= getNumberPawns(!currentPlayer);
-            //score += Math.random()-0.5
-            if(0 < score){
-                //Log.d("DEBUG","Computer stronger");
-            }else if(score < 0){
-                //Log.d("DEBUG","Player stronger");
-            }
-            return score;
+        double score = 0.0;
+
+        /*********************/
+        /* Trying to improve */
+        /*********************/
+
+        /*for (int j=0; j<8 ; j++){
+            // Check empty column (only once)
+            if (getNumberPawnsOnColumn(currentPlayer, j) == 0) score -= COLUMN_EMPTY_VALUE;
         }
+        score = score + getBoardValue(currentPlayer);
+        score = score - getBoardValue(!currentPlayer);*/
+
+
+        // Winning position
+        if(winningPosition()) {
+            if (winner() == currentPlayer) {
+                score += 1000.0;
+            } else {
+                score -= 1000.0;
+            }
+        }
+
+        score += getNumberPawns(currentPlayer);
+        score -= getNumberPawns(!currentPlayer);
+
+        return score;
     }
 
     public boolean winningPosition() {
@@ -168,6 +174,82 @@ public class Matrix{
         }else{
             return true;
         }
+    }
+
+    /*******************************************************/
+    /*              FEATURES IMPLEMENTATION                */
+    /*******************************************************/
+
+    /**
+     * Compute the number of pawns that own the player on a given column
+     * @param currentPlayer
+     * @param c
+     * @return
+     */
+    public double getNumberPawnsOnColumn(boolean currentPlayer, int c){
+        double nbPawn = 0.0;
+        for (int i=0; i<8; i++){
+            if (getMatrix(currentPlayer)[i][c] == 1) nbPawn = nbPawn+1;
+        }
+        return nbPawn;
+    }
+
+
+    public double getBoardValue(boolean player){
+        int[][] board = getMatrix(player);
+        double result = 0;
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                if(board[i][j]==1){
+                    if ((player && (i == 0 || i == 6)) ||
+                            (!player && (i == 7 || i == 1))) result = result + 0.5;
+                    result = result + 1;
+                }
+            }
+        }
+        return result;
+    }
+
+
+
+    // Ce truc est trop long
+
+    /**
+     * Return a value depending on its position on the board and mouvement possibilities
+     * @param i
+     * @param j
+     * @param player
+     * @return double value
+     */
+    public double getPawnValue(int i, int j, boolean player){
+        double value = 0.0;
+        if (player){
+            // WHITE
+            if (i == 0 || i == 6) {
+                value += 1.5;
+            }else {
+                value += 1;
+            }
+
+            // Add point depending on the liberty degree
+            if (i<8 && j>0 && getMatrix(player)[i+1][j-1] == 0) value += 0.5;
+            if (i<8 && getMatrix(player)[i+1][j] == 0 && getMatrix(!player)[i+1][j] == 0) value += 0.5;
+            if (i<8 && j<7 && getMatrix(player)[i+1][j+1] == 0) value += 0.5;
+        }else{
+            // BLACK
+            if (i == 7 || i == 1) {
+                value += 1.5;
+            }else {
+                value += 1;
+            }
+
+            // Add point depending on the liberty degree
+            if (i>0 && j>7 && getMatrix(!player)[i-1][j+1] == 0) value += 0.5;
+            if (i>0 && getMatrix(!player)[i-1][j] == 0 && getMatrix(player)[i-1][j] == 0) value += 0.5;
+            if (i>0 && j>0 && getMatrix(!player)[i-1][j-1] == 0) value += 0.5;
+        }
+
+        return value;
     }
 
 }
