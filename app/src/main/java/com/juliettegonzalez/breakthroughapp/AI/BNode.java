@@ -7,7 +7,6 @@ package com.juliettegonzalez.breakthroughapp.AI;
 import android.util.Log;
 
 import java.math.BigInteger;
-import java.util.Arrays;
 
 
 public class BNode {
@@ -30,9 +29,7 @@ public class BNode {
     public void process(){
         System.gc();
         if (move != null){
-            //Log.d("DEBUG", "Maj move, depth left : "+(depth-1));
             BMatrix mat = new BMatrix(matrix);
-            //Log.d("DEBUG","tab matrix : "+Arrays.deepToString(matrix.getMatrix(true))+", bitboard : "+matrix.toBitboard(matrix.getMatrix(true)));
             mat.applyMove(move);
             mat.changePlayer();
             depth--;
@@ -42,7 +39,6 @@ public class BNode {
 
 
         if (depth > 0){
-            //Log.d("DEBUG", "Higher depths, level : " + (level+1));
             int childLevel = level + 1;
             int offsetY = matrix.isComputerAI() ? -1 : 1;
 
@@ -56,7 +52,6 @@ public class BNode {
                 if (this.parent != null){
                     propagate(this);
                 }
-                //MainGame.mMap.put(matrix,value);
                 return;
             }
             int pPawns = 0;
@@ -68,34 +63,16 @@ public class BNode {
             BNode node;
             for(int i = 63; 0<=i;i--){
                 playerBoard = matrix.getMatrix(matrix.isComputerAI());
-                //Log.d("DEBUG","playerBoard : "+playerBoard.toString(16));
-                //Log.d("DEBUG","testBit : "+(i)+", res : "+playerBoard.testBit(i));
                 if(playerBoard.testBit(i)){
                     pPawns++;
                     if(cut){break;}
                     else{
                         //Vérification qu'un pion n'a pas atteint la ligne opposée
-                        //Log.d("DEBUG","i : "+i);
                         off = i + offsetY * 8;
-                        //Log.d("DEBUG","off : "+off);
                         if(off >= 0 && off <= 63){
-                            //Log.d("DEBUG","i : "+i);
-                            //Log.d("DEBUG","playerBoard : "+playerBoard.toString(16));
                             playerBoard = playerBoard.clearBit(i);
-
-                            //Log.d("DEBUG","playerBoard : "+playerBoard.toString(16));
-                            //Log.d("DEBUG","playerBoard.setBit(i + 16) : " + playerBoard.setBit(i+16).toString(16));
-                            //Log.d("DEBUG","playerBoard.setBit(i + 17) : " + playerBoard.setBit(i+17).toString(16));
-
-                            //Log.d("DEBUG","testBit : "+(1+i+offsetY*7));
-                            //Log.d("DEBUG","res : "+playerBoard.testBit(1+i+offsetY*7));
-                            //Log.d("DEBUG","currentPlayer : "+matrix.isComputerAI());
-                            //Log.d("DEBUG","Tests pions persos (7): " + playerBoard.testBit(i+offsetY*7));
-                            //Log.d("DEBUG","Tests pions persos (8): " + playerBoard.testBit(i+offsetY*8));
-                            //Log.d("DEBUG","Tests pions persos (9): " + playerBoard.testBit(i+offsetY*9));
                             //Test dépassement à droite et non-présence d'un pion perso
                             if(((((i+offsetY*7)%8)<0 ?(i+offsetY*7)%8 + 8 : (i+offsetY*7)%8)!=((8-offsetY)%9)) && (!playerBoard.testBit(i+offsetY*7))){
-                                //Log.d("DEBUG","Move7 : "+(i + offsetY * 7));
                                 nextMove = new BMatrix(playerBoard.setBit(i + offsetY * 7), matrix.getMatrix(!matrix.isComputerAI()),matrix.isComputerAI());
                                 node = new BNode(depth, this, nextMove, new BMatrix(matrix), childLevel);
                                 node.process();
@@ -106,7 +83,6 @@ public class BNode {
                             }
                             //Vérification qu'il n'y a pas d'adversaire en face, ni de pion perso
                             if((!matrix.getMatrix(!matrix.isComputerAI()).testBit(i+offsetY*8)) && (!playerBoard.testBit(i+offsetY*8))){
-                                //Log.d("DEBUG","Move8 : "+(i + offsetY * 8));
                                 nextMove = new BMatrix(playerBoard.setBit(i + offsetY * 8), matrix.getMatrix(!matrix.isComputerAI()),matrix.isComputerAI());
                                 node = new BNode(depth, this, nextMove, new BMatrix(matrix), childLevel);
                                 node.process();
@@ -115,11 +91,8 @@ public class BNode {
                                 System.gc();
                                 found = true;
                             }
-
-                            //Log.d("DEBUG","modulo "+((i+offsetY*9)%8));
                             //Test dépassement à gauche et non-présence d'un pion perso
                             if(((((i+offsetY*9)%8)<0 ?(i+offsetY*9)%8 + 8 : (i+offsetY*9)%8)!=((8+offsetY)%9)) && (!playerBoard.testBit(i+offsetY*9))){
-                                //Log.d("DEBUG","Move9 : "+(i + offsetY * 9));
                                 nextMove = new BMatrix(playerBoard.setBit(i + offsetY * 9), matrix.getMatrix(!matrix.isComputerAI()),matrix.isComputerAI());
                                 node = new BNode(depth, this, nextMove, new BMatrix(matrix), childLevel);
                                 node.process();
@@ -143,26 +116,12 @@ public class BNode {
             if(!matrix.isComputerAI()){
                 value = -value;
             }
-            if(value == -1000){
-                value = -1000.0 + level;
-                //Log.d("DEBUG", "Player winning");
+            if(value <= -900){
+                value += level;
             }
-            if(value == 1000){
-                value = 1000.0 - level;
-                /*Log.d("DEBUG", "Computer winning");
-                Log.d("DEBUG", "value : " + (value));
-                Log.d("DEBUG", "parent value : " + (parent.value));
-                Log.d("DEBUG", "level : " + (level));*/
+            if(value >= 900){
+                value -= level;
             }
-            //MainGame.mMap.put(matrix,value);
-           /* String actualPlayer;
-            if(matrix.isComputerAI()){
-                actualPlayer = "computer";
-            }else{
-                actualPlayer = "human";
-            }
-            Log.d("DEBUG", "Analyze "+actualPlayer+" level "+level+", Move : "+ Arrays.deepToString(move) +", score : "+ value);
-            */
             if (parent != null){
                 propagate(this);
             }
@@ -171,19 +130,7 @@ public class BNode {
 
     public void propagate(BNode node){
         //negamax
-        //if (node.parent.value == null || ((node.level%2==0) && node.value < node.parent.value) || ((node.level%2==1) && node.value > node.parent.value) || ((node.value.equals(node.parent.value)) && (Math.random() < 0.5))){
         if (node.parent.value == null || ((node.level%2==0) && node.value < node.parent.value) || ((node.level%2==1) && node.value > node.parent.value)){
-            /*String actualPlayer;
-            if(node.matrix.isComputerAI()){
-                actualPlayer = "computer";
-            }else{
-                actualPlayer = "human";
-            }
-            if(node.parent.value == null){
-                actualPlayer+=" new value";
-            }else{
-                actualPlayer+=", old value : "+node.parent.value;
-            }*/
             node.parent.value = node.value;
 
             //coupe
@@ -191,8 +138,6 @@ public class BNode {
                     ((node.level%2==0 && node.parent.value <= node.parent.parent.value) ||
                             (node.level%2==1 && node.parent.value >= node.parent.parent.value))){
                 node.parent.cut = true;
-                //Log.d("DEBUG","same ? "+ ((node.level%2==0)&&(node.matrix.isComputerAI())));
-                //Log.d("DEBUG", "Propagate Cut, player : "+ actualPlayer +", value : "+ node.value +", grand-parent value : "+ node.parent.parent.value);
             }
 
             if (node.level == 1){
@@ -201,11 +146,7 @@ public class BNode {
         }
     }
 
-    public int[][] convert(BMatrix move, BMatrix previous) {
-        //Log.d("DEBUG","previous black : "+previous.getMatrix(false).toString(16));
-        //Log.d("DEBUG","previous white : "+previous.getMatrix(true).toString(16));
-        //Log.d("DEBUG","wanted black : "+move.getMatrix(false).toString(16));
-        //Log.d("DEBUG","wanted white : "+move.getMatrix(true).toString(16));
+    public static int[][] convert(BMatrix move, BMatrix previous) {
         int[][] res = {{-1,-1},{-1,-1}};
         BigInteger pMatrix = previous.getMatrix(true);
         BigInteger nMatrix = move.getMatrix(true);
@@ -216,31 +157,19 @@ public class BNode {
                 indice = (7-i)*8+(7-j);
                 n = nMatrix.testBit(indice);
                 p = pMatrix.testBit(indice);
-                //Log.d("DEBUG","indice : "+indice+", n : "+n+", p : "+p);
-                //Log.d("DEBUG","n : "+nMatrix.testBit(47));
                 if(n && !p){
                     res[1][0]=i;
                     res[1][1]=j;
-                    //Log.d("DEBUG","!p & n : "+indice);
                 }else if(p && !n){
                     res[0][0]=i;
                     res[0][1]=j;
-                    //Log.d("DEBUG","p & !n : "+indice);
                 }
             }
         }
         if(res[0][0]==-1 || res[1][0]==-1){
             Log.d("DEBUG","Conversion BMatrix to coordinates failed");
-            //Log.d("DEBUG","pMatrix : "+pMatrix.toString(2));
-            //Log.d("DEBUG","nMatrix : "+nMatrix.toString(2));
-            //Log.d("DEBUG","res : "+res[0][0]+", "+res[0][1]+", "+res[1][0]+", "+res[1][1]);
 
         }
-        //BigInteger test = new BigInteger("fffe020000000000",16);
-        //for(int i = 0; i < 64;i++){
-        //    Log.d("DEBUG", "nMatrix.testBit(indice) : "+test.testBit(i)+", i = "+i);
-        //}
-        //Log.d("DEBUG","res : "+res[0][0]+", "+res[0][1]+", "+res[1][0]+", "+res[1][1]);
         return res;
     }
 }

@@ -8,10 +8,12 @@ import java.util.HashMap;
  */
 
 public class MainGame {
+    // 0 for Matrix, 1 for BMatrix, 2 for TBMatrix
+    private static int algoType = 2;
+    private static int nb_play_predicted = 8;
+    private static int milliseconds_for_calcul = 5000;
+    private static boolean nb_or_time = true;
 
-    public static int nb_play_predicted = 7;
-    public static int milliseconds_for_calcul = 5000;
-    public static boolean nb_or_time = true;
 
     private Player mPlayer1;
     private Player mComputer;
@@ -19,8 +21,9 @@ public class MainGame {
     private SquareBoard mSelectedSquare;
     private Board mBoard;
 
-    private TBMatrix mMatrix;
-    //private Matrix mMatrix;
+    private TBMatrix tbmMatrix;
+    private Matrix mMatrix;
+    private BMatrix bmMatrix;
     public static HashMap<TBMatrix,GameValue> mMap;
     public static TBMatrix best = null;
     public static double bestValue = -1000.0;
@@ -37,10 +40,14 @@ public class MainGame {
         this.mCurrentPlayer = player1;
         this.mSelectedSquare = null;
         this.mBoard = new Board(player1, computer);
-        this.mMatrix = new TBMatrix();
-        //this.mMatrix = new Matrix();
+        if(algoType == 2){
+            this.tbmMatrix = new TBMatrix();
+        }else if(algoType == 1){
+            this.bmMatrix = new BMatrix();
+        }else{
+            this.mMatrix = new Matrix();
+        }
         this.listener = null;
-        //this.mMap = new HashMap<BMatrix,Double>();
     }
 
 
@@ -115,28 +122,24 @@ public class MainGame {
             ArrayList<SquareBoard> possibleMoves = getPossibleMoves();
             if(possibleMoves.contains(destination)){
                 if (destination.getOwner() == mComputer) {
-                    // Eating the enemy
-                    //Log.d("DEBUG", "Eating computer");
                     mComputer.getPawns().remove(destination);
                     destination.setFree();
                 }
-
                 mSelectedSquare.movePawn(destination);
 
                 // Update AI
                 int[][] movement = {{mSelectedSquare.getI(), mSelectedSquare.getJ()},
                         {destination.getI(), destination.getJ()}};
 
-                mMatrix.convertMove(movement);
-                //mMatrix.applyMove(movement);
-
-                mSelectedSquare = null;
-
-                //End of player's turn
-                if (!isGameWon()) {
-
+                if(algoType == 2){
+                    tbmMatrix.convertMove(movement);
+                }else if(algoType == 1){
+                    bmMatrix.convertMove(movement);
+                }else{
+                    mMatrix.applyMove(movement);
                 }
 
+                mSelectedSquare = null;
                 return true;
             }else{
                 return false;
@@ -152,7 +155,11 @@ public class MainGame {
         }else{
             mCurrentPlayer = mPlayer1;
         }
-        //mMatrix.changePlayer();
+        if(algoType == 0){
+            mMatrix.changePlayer();
+        }else if(algoType == 1){
+            bmMatrix.changePlayer();
+        }
     }
 
 
@@ -164,42 +171,58 @@ public class MainGame {
         long startTime = System.currentTimeMillis();
         int actualDepth = 1;
         long newTime,duration;
-        TBNode nextMove;
+        TBNode tbnextMove;
+        BNode bnextMove, bbestMove = null;
+        Node nextMove, bestMove = null;
+        TBMatrix tbcopy;
+        BMatrix bcopy;
+        Matrix copy;
         int[][] finalMove;
-        //BNode bestMove = new BNode(actualDepth,null,null, mMatrix, 0);
-
-        //Node nextMove;
-        //Node bestMove = new Node(actualDepth,null,null, mMatrix, 0);
-
-        //bestMove.value = -1000.0;
+        if(algoType == 0){
+            bestMove = new Node(actualDepth,null,null, mMatrix, 0);
+            bestMove.value = -1000.0;
+        }else if(algoType == 1){
+            bbestMove = new BNode(actualDepth,null,null, bmMatrix, 0);
+            bbestMove.value = -1000.0;
+        }
         do{
             actualDepth++;
-
-            TBMatrix copy = new TBMatrix(mMatrix);
-            nextMove = new TBNode(actualDepth,copy,0,-1000,1000,1);
-
-            //Matrix copy = new Matrix(mMatrix);
-            //nextMove = new Node(actualDepth,null,null,copy, 0);
-            mMap = new HashMap<TBMatrix,GameValue>();
-            double value = nextMove.process();
-
-
+            if(algoType == 2){
+                tbcopy = new TBMatrix(tbmMatrix);
+                tbnextMove = new TBNode(actualDepth,tbcopy,0,-1000,1000,1);
+                mMap = new HashMap<TBMatrix,GameValue>();
+                tbnextMove.process();
+                finalMove = TBNode.convert(best, tbmMatrix);
+            }else if(algoType == 1){
+                bcopy = new BMatrix(bmMatrix);
+                bnextMove = new BNode(actualDepth,null,null,bcopy,0);
+                bnextMove.process();
+                if(bnextMove.move!=null && bnextMove.value!=null && bnextMove.value >= bbestMove.value){
+                    bbestMove = bnextMove;
+                }
+                finalMove = BNode.convert(bbestMove.move,bmMatrix);
+            }else{
+                copy = new Matrix(mMatrix);
+                nextMove = new Node(actualDepth,null,null,copy, 0);
+                nextMove.process();
+                if(nextMove.move!=null && nextMove.value!=null && nextMove.value >= bestMove.value){
+                    bestMove = nextMove;
+                }
+                finalMove = bestMove.move;
+            }
             newTime = System.currentTimeMillis();
             duration = newTime - startTime;
-
-            /*if(nextMove.move!=null && nextMove.value!=null && nextMove.value >= bestMove.value){
-                bestMove = nextMove;
-            }*/
-
-            finalMove = TBNode.convert(best, mMatrix);
             System.gc();
-
         }while((nb_or_time && actualDepth < nb_play_predicted)||(!nb_or_time && duration < milliseconds_for_calcul));
 
+        if(algoType == 2){
+            tbmMatrix = new TBMatrix(best);
+        }else if(algoType == 1){
+            bmMatrix.applyMove(bbestMove.move);
+        }else{
+            mMatrix.applyMove(bestMove.move);
+        }
 
-        //int[][] finalMove = bestMove.move;
-        //mMatrix.applyMove(bestMove.move);
-        mMatrix = new TBMatrix(best);
         best = null;
         bestValue = -1000;
 

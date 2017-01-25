@@ -12,16 +12,12 @@ import java.util.Arrays;
 public class TBMatrix{
 
     private long whiteBoard;
-    //private BigInteger whiteBoard;
     private long blackBoard;
-    //private BigInteger blackBoard;
     public static double COLUMN_EMPTY_VALUE = 0.4;
 
     public TBMatrix(){
         whiteBoard = 0xFFFF000000000000L;
-        //whiteBoard = new BigInteger("FFFF000000000000",16);
         blackBoard = 0xFFFFL;
-        //blackBoard = new BigInteger("FFFF",16);
     }
 
     //constructeur de recopie
@@ -62,15 +58,10 @@ public class TBMatrix{
 
     public int getNumberPawns(boolean player){
         return Long.bitCount(getMatrix(player));
-        //return getMatrix(player).bitCount();
     }
 
 
     public void applyMove(TBMatrix nextMove, boolean player){
-        //Log.d("DEBUG","whiteBoard : " + whiteBoard.toString(16));
-        //Log.d("DEBUG","blackBoard : " + blackBoard.toString(16));
-        //Log.d("DEBUG","wanted whiteBoard : " + nextMove.whiteBoard.toString(16));
-        //Log.d("DEBUG","wanted blackBoard : " + nextMove.blackBoard.toString(16));
         long oBoard = getMatrix(!player);
         long board = nextMove.getMatrix(player);
         setMatrix(player, board);
@@ -78,8 +69,6 @@ public class TBMatrix{
             oBoard = (board & (oBoard)) ^ (oBoard);
         }
         setMatrix(!player,oBoard);
-        //Log.d("DEBUG","whiteBoard : " + whiteBoard.toString(16));
-        //Log.d("DEBUG","blackBoard : " + blackBoard.toString(16));
     }
 
     public double analyze(int level){
@@ -109,7 +98,6 @@ public class TBMatrix{
 
     public boolean winningPosition() {
         if((whiteBoard & 0xFFL) > 0L || (blackBoard & 0xFF00000000000000L) > 0L){
-        //if((whiteBoard.getLowestSetBit()<9) || (blackBoard.compareTo(new BigInteger("FFFFFFFFFFFFFF",16))==1)){
             return true;
         }
         if(getNumberPawns(true) == 0 || getNumberPawns(false) == 0){
@@ -161,33 +149,17 @@ public class TBMatrix{
         return Long.bitCount(matrix);
     }
 
-
-
-
-
-
-
     public void convertMove(int[][] movement) {
-        //Log.d("DEBUG","movement : "+ movement[0][0]+", "+movement[0][1]+", "+movement[1][0]+", "+movement[1][1]);
         int indicep, indicen;
         indicep = (7-movement[0][0])*8+(7-movement[0][1]);
         indicen = (7-movement[1][0])*8+(7-movement[1][1]);
-        //Log.d("DEBUG","pboard : "+getMatrix(currentPlayer).toString(16));
-        //Log.d("DEBUG","poboard : "+getMatrix(!currentPlayer).toString(16));
         long oBoard = whiteBoard;
-
-        //playerBoard &= ~(1L << i);
         long board = blackBoard & ~(1L << indicep);
-        //long board = blackBoard.clearBit(indicep);
         board |= (1L << (long)(indicen));
-        //board = board.setBit(indicen);
         blackBoard = board;
         if((board & (oBoard)) != 0){
             oBoard = (board & (oBoard)) ^ (oBoard);
         }
         whiteBoard = oBoard;
-        //Log.d("DEBUG","currentplayer"+currentPlayer);
-        //Log.d("DEBUG","nboard : "+getMatrix(currentPlayer).toString(16));
-        //Log.d("DEBUG","noboard : "+getMatrix(!currentPlayer).toString(16));
     }
 }
