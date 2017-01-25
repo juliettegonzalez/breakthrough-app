@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MainGame {
 
-    public static int nb_play_predicted = 6;
+    public static int nb_play_predicted = 8;
     public static int milliseconds_for_calcul = 5000;
     public static boolean nb_or_time = true;
 

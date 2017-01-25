@@ -11,25 +11,28 @@ import java.util.Arrays;
 
 public class TBMatrix{
 
-
-    private BigInteger whiteBoard;
-    private BigInteger blackBoard;
+    private long whiteBoard;
+    //private BigInteger whiteBoard;
+    private long blackBoard;
+    //private BigInteger blackBoard;
 
     public TBMatrix(){
-        whiteBoard = new BigInteger("FFFF000000000000",16);
-        blackBoard = new BigInteger("FFFF",16);
+        whiteBoard = 0xFFFF000000000000L;
+        //whiteBoard = new BigInteger("FFFF000000000000",16);
+        blackBoard = 0xFFFFL;
+        //blackBoard = new BigInteger("FFFF",16);
     }
 
     //constructeur de recopie
     public TBMatrix(TBMatrix mat){
-        BigInteger whiteB = mat.getMatrix(true);
-        BigInteger blackB = mat.getMatrix(false);
+        long whiteB = mat.getMatrix(true);
+        long blackB = mat.getMatrix(false);
         whiteBoard = whiteB;
         blackBoard = blackB;
     }
 
 
-    public TBMatrix(BigInteger board1, BigInteger board2, boolean order){
+    public TBMatrix(long board1, long board2, boolean order){
         if(order){
             whiteBoard = board1;
             blackBoard = board2;
@@ -40,7 +43,7 @@ public class TBMatrix{
     }
 
 
-    public BigInteger getMatrix(boolean player){
+    public long getMatrix(boolean player){
         if(player){
             return whiteBoard;
         }else{
@@ -48,7 +51,7 @@ public class TBMatrix{
         }
     }
 
-    public void setMatrix(boolean player,BigInteger b){
+    public void setMatrix(boolean player, long b){
         if(player){
             whiteBoard = b;
         }else{
@@ -57,7 +60,8 @@ public class TBMatrix{
     }
 
     public int getNumberPawns(boolean player){
-        return getMatrix(player).bitCount();
+        return Long.bitCount(getMatrix(player));
+        //return getMatrix(player).bitCount();
     }
 
 
@@ -66,11 +70,11 @@ public class TBMatrix{
         //Log.d("DEBUG","blackBoard : " + blackBoard.toString(16));
         //Log.d("DEBUG","wanted whiteBoard : " + nextMove.whiteBoard.toString(16));
         //Log.d("DEBUG","wanted blackBoard : " + nextMove.blackBoard.toString(16));
-        BigInteger oBoard = getMatrix(!player);
-        BigInteger board = nextMove.getMatrix(player);
+        long oBoard = getMatrix(!player);
+        long board = nextMove.getMatrix(player);
         setMatrix(player, board);
-        if((board.and(oBoard))!=BigInteger.ZERO){
-            oBoard = (board.and(oBoard)).xor(oBoard);
+        if((board & (oBoard))!=0){
+            oBoard = (board & (oBoard)) ^ (oBoard);
         }
         setMatrix(!player,oBoard);
         //Log.d("DEBUG","whiteBoard : " + whiteBoard.toString(16));
@@ -104,7 +108,8 @@ public class TBMatrix{
     }
 
     public boolean winningPosition() {
-        if((whiteBoard.getLowestSetBit()<9) || (blackBoard.compareTo(new BigInteger("FFFFFFFFFFFFFF",16))==1)){
+        if((whiteBoard & 0xFFL) > 0L || (blackBoard & 0xFF00000000000000L) > 0L){
+        //if((whiteBoard.getLowestSetBit()<9) || (blackBoard.compareTo(new BigInteger("FFFFFFFFFFFFFF",16))==1)){
             return true;
         }
         if(getNumberPawns(true) == 0 || getNumberPawns(false) == 0){
@@ -115,9 +120,10 @@ public class TBMatrix{
 
     //on suppose que l'on sait déjà qu'il y a un vainqueur
     public boolean winner() {
-        if(whiteBoard.getLowestSetBit()<9){
+
+        if((whiteBoard & 0xFFL) > 0L){
             return true;
-        }else if((blackBoard.compareTo(new BigInteger("FFFFFFFFFFFFFF",16))==1)){
+        }else if((blackBoard & 0xFF00000000000000L) > 0L){
             return false;
         }
         if(getNumberPawns(true) == 0){
@@ -134,12 +140,16 @@ public class TBMatrix{
         indicen = (7-movement[1][0])*8+(7-movement[1][1]);
         //Log.d("DEBUG","pboard : "+getMatrix(currentPlayer).toString(16));
         //Log.d("DEBUG","poboard : "+getMatrix(!currentPlayer).toString(16));
-        BigInteger oBoard = whiteBoard;
-        BigInteger board = blackBoard.clearBit(indicep);
-        board = board.setBit(indicen);
+        long oBoard = whiteBoard;
+
+        //playerBoard &= ~(1L << i);
+        long board = blackBoard & ~(1L << indicep);
+        //long board = blackBoard.clearBit(indicep);
+        board |= (1L << (long)(indicen));
+        //board = board.setBit(indicen);
         blackBoard = board;
-        if((board.and(oBoard)) != BigInteger.ZERO){
-            oBoard = (board.and(oBoard)).xor(oBoard);
+        if((board & (oBoard)) != 0){
+            oBoard = (board & (oBoard)) ^ (oBoard);
         }
         whiteBoard = oBoard;
         //Log.d("DEBUG","currentplayer"+currentPlayer);
