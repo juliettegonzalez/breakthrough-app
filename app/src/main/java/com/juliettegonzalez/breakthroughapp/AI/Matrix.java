@@ -10,7 +10,7 @@ public class Matrix{
     private int[][] blackBoard;
     private boolean currentPlayer;
 
-    private final double COLUMN_EMPTY_VALUE = 10.0;
+    private final double COLUMN_EMPTY_VALUE = 5.0;
 
     public Matrix(){
         int[][] whiteB = {{1,1,1,1,1,1,1,1},{1,1,1,1,1,1,1,1},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0}};
@@ -125,12 +125,19 @@ public class Matrix{
         /* Trying to improve */
         /*********************/
 
+
+        // Check empty column
         /*for (int j=0; j<8 ; j++){
-            // Check empty column (only once)
-            if (getNumberPawnsOnColumn(currentPlayer, j) == 0) score -= COLUMN_EMPTY_VALUE;
-        }
-        score = score + getBoardValue(currentPlayer);
-        score = score - getBoardValue(!currentPlayer);*/
+            if (getNumberPawnsOnColumn(currentPlayer, j) == 0) score = score - COLUMN_EMPTY_VALUE;
+        }*/
+
+
+        // Pawn value
+        score += getBoardValue(currentPlayer);
+        score -= getBoardValue(!currentPlayer);
+
+        /*score += getNumberPawns(currentPlayer);
+        score -= getNumberPawns(!currentPlayer);*/
 
 
         // Winning position
@@ -141,9 +148,6 @@ public class Matrix{
                 score -= 1000.0;
             }
         }
-
-        score += getNumberPawns(currentPlayer);
-        score -= getNumberPawns(!currentPlayer);
 
         return score;
     }
@@ -211,9 +215,6 @@ public class Matrix{
     }
 
 
-
-    // Ce truc est trop long
-
     /**
      * Return a value depending on its position on the board and mouvement possibilities
      * @param i
@@ -232,9 +233,10 @@ public class Matrix{
             }
 
             // Add point depending on the liberty degree
-            if (i<8 && j>0 && getMatrix(player)[i+1][j-1] == 0) value += 0.5;
+            /*if (i<8 && j>0 && getMatrix(player)[i+1][j-1] == 0) value += 0.5;
             if (i<8 && getMatrix(player)[i+1][j] == 0 && getMatrix(!player)[i+1][j] == 0) value += 0.5;
-            if (i<8 && j<7 && getMatrix(player)[i+1][j+1] == 0) value += 0.5;
+            if (i<8 && j<7 && getMatrix(player)[i+1][j+1] == 0) value += 0.5;*/
+
         }else{
             // BLACK
             if (i == 7 || i == 1) {
@@ -244,9 +246,9 @@ public class Matrix{
             }
 
             // Add point depending on the liberty degree
-            if (i>0 && j>7 && getMatrix(!player)[i-1][j+1] == 0) value += 0.5;
+            /*if (i>0 && j>7 && getMatrix(!player)[i-1][j+1] == 0) value += 0.5;
             if (i>0 && getMatrix(!player)[i-1][j] == 0 && getMatrix(player)[i-1][j] == 0) value += 0.5;
-            if (i>0 && j>0 && getMatrix(!player)[i-1][j-1] == 0) value += 0.5;
+            if (i>0 && j>0 && getMatrix(!player)[i-1][j-1] == 0) value += 0.5;*/
         }
 
         return value;
