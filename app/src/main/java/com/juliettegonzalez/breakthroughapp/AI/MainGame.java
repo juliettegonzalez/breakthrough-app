@@ -1,10 +1,7 @@
 package com.juliettegonzalez.breakthroughapp.AI;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by juliettegonzalez on 18/12/2016.
@@ -193,12 +190,10 @@ public class MainGame {
             /*if(nextMove.move!=null && nextMove.value!=null && nextMove.value >= bestMove.value){
                 bestMove = nextMove;
             }*/
-            //Log.d("DEBUG","value found : "+value);
-            finalMove = TBNode.convert(best, mMatrix);
 
+            finalMove = TBNode.convert(best, mMatrix);
             System.gc();
-            //Log.d("DEBUG","bestMove (white) : "+bestMove.move.getMatrix(true).toString(16));
-            //Log.d("DEBUG","bestMove (black) : "+bestMove.move.getMatrix(false).toString(16));
+
         }while((nb_or_time && actualDepth < nb_play_predicted)||(!nb_or_time && duration < milliseconds_for_calcul));
 
 
@@ -212,13 +207,10 @@ public class MainGame {
         int jInit = finalMove[0][1];
         int iDest = finalMove[1][0];
         int jDest = finalMove[1][1];
-        //Log.d("DEBUG", "Départ = ("+ iInit + "," + jInit + ")");
-        //Log.d("DEBUG", "Destination = ("+ iDest + "," + jDest + ")");
 
         SquareBoard destination = mBoard.getSquareAt(iDest, jDest);
         if (destination.getOwner() == mPlayer1) {
             // Eating the enemy
-            //Log.d("DEBUG", "Eating player");
             mPlayer1.getPawns().remove(destination);
             destination.setFree();
         }
@@ -257,70 +249,5 @@ public class MainGame {
         return false;
 
     }
-
-
-    /**
-     * OLD AI
-     */
-
-
-    public void aiPlays(){
-        Log.v("DEBUG", "AI's turn");
-        if (anySolutionForAI(mComputer)) {
-            int posI, posJ;
-            do {
-                posI = ThreadLocalRandom.current().nextInt(0, Board.MAX_LENGHT_BOARD);
-                posJ = ThreadLocalRandom.current().nextInt(0, Board.MAX_LENGHT_BOARD);
-            }
-            while (mBoard.getSquareAt(posI,posJ).getOwner() != mComputer || !isPossibleToMoveAI(mBoard.getSquareAt(posI,posJ)));
-
-            if (mBoard.getSquareAt(posI+1, posJ).isFree()) {
-                mBoard.getSquareAt(posI,posJ).movePawn(mBoard.getSquareAt(posI+1,posJ));
-
-            } else if (posJ > 0 &&
-                    mBoard.getSquareAt(posI+1, posJ-1).isFree()) {
-                mBoard.getSquareAt(posI,posJ).movePawn(mBoard.getSquareAt(posI+1, posJ-1));
-
-            } else if (posJ < Board.MAX_LENGHT_BOARD - 1 &&
-                    mBoard.getSquareAt(posI+1, posJ+1).isFree()) {
-                mBoard.getSquareAt(posI, posJ).movePawn(mBoard.getSquareAt(posI+1, posJ+1));
-            }
-        }
-
-        if (!isGameWon()) mCurrentPlayer = mPlayer1;
-
-    }
-
-
-
-
-    public boolean anySolutionForAI(Player player){
-        for (SquareBoard square : player.getPawns()) {
-            if (isPossibleToMoveAI(square)) return true;
-        }
-        return false;
-    }
-
-    public boolean isPossibleToMoveAI(SquareBoard square){
-
-        int posI = square.getI();
-        int posJ = square.getJ();
-
-        if (mBoard.getSquareAt(posI+1, posJ).isFree())
-            return true;
-
-        if (posJ > 0 &&
-                mBoard.getSquareAt(posI+1, posJ-1).isFree())
-            return true;
-
-        if (posJ < Board.MAX_LENGHT_BOARD-1 &&
-                mBoard.getSquareAt(posI+1, posJ+1).isFree())
-            return true;
-
-        return false;
-    }
-
-
-
 
 }
