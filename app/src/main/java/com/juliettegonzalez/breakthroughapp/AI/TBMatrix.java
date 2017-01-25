@@ -15,6 +15,7 @@ public class TBMatrix{
     //private BigInteger whiteBoard;
     private long blackBoard;
     //private BigInteger blackBoard;
+    public static double COLUMN_EMPTY_VALUE = 0.4;
 
     public TBMatrix(){
         whiteBoard = 0xFFFF000000000000L;
@@ -82,27 +83,26 @@ public class TBMatrix{
     }
 
     public double analyze(int level){
-        //heuristique, appréciation de la position
-        //Heuristique actuelle très naive
-        Double score;
+        Double score = 0.0;
         if(winningPosition()){
             if(winner()==true) {
-                //Log.d("DEBUG", "Computer winning");
-                score = 1000.0 - level;
+                score += 1000.0 - level;
             }else {
-                //Log.d("DEBUG", "Player winning");
-                score = -1000.0 + level;
+                score += -1000.0 + level;
             }
         }else {
-            score = 0.0;
             score += getNumberPawns(true);
             score -= getNumberPawns(false);
-            //score += Math.random()-0.5
-            if(0 < score){
-                //Log.d("DEBUG","Computer stronger");
-            }else if(score < 0){
-                //Log.d("DEBUG","Player stronger");
-            }
+            //score += 0.1*(Math.random()-0.5)
+
+            /*score += getNumberPawnsOnRow(true,0)*0.5;
+            score += getNumberPawnsOnRow(true,6)*0.5;
+            score += getNumberPawnsOnRow(true,5)*0.25;
+            for (int j=0; j<8 ; j++){
+                // Check empty column (only once)
+                if (getNumberPawnsOnColumn(true, j) == 0) score -= COLUMN_EMPTY_VALUE;
+                if (getNumberPawnsOnColumn(false, j) == 0) score += COLUMN_EMPTY_VALUE;
+            }*/
         }
         return score;
     }
@@ -148,6 +148,17 @@ public class TBMatrix{
             }
         }
         return nbPawn;
+    }
+
+    /**
+     * Compute the number of pawns that own the player on a given row
+     * @param c
+     * @return
+     */
+    public double getNumberPawnsOnRow(boolean player, int c){
+        long matrix = getMatrix(player);
+        matrix &= (0xFFL << 8*(7-c));
+        return Long.bitCount(matrix);
     }
 
 
