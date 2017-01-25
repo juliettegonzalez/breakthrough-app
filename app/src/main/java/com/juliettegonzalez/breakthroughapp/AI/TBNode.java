@@ -13,7 +13,6 @@ public class TBNode {
     public int level;
     public TBMatrix matrix;
     public int depth;
-    public boolean cut = false;
     public double alpha;
     public double beta;
     public int color;
@@ -47,7 +46,8 @@ public class TBNode {
         }
 
         if(depth == 0 || matrix.winningPosition()){
-            return (level/5 + color * matrix.analyze(level));
+            return(color * matrix.analyze(level));
+            //return ( matrix.analyze(level));
         }
 
 
@@ -73,8 +73,12 @@ public class TBNode {
                             mat = new TBMatrix(matrix);
                             mat.applyMove(nextMove, player);
                             node = new TBNode(depth-1, mat, childLevel, -beta,-alpha,-color);
-                            value = node.process();
+                            value = - node.process();
                             best = Math.max(best,value);
+                            if(level == 0 && (MainGame.best == null || best > MainGame.bestValue)){
+                                MainGame.best = new TBMatrix(mat);
+                                MainGame.bestValue = best;
+                            }
                             alpha = Math.max(alpha,value);
                             if(alpha >= beta){
                                 break;
@@ -90,8 +94,12 @@ public class TBNode {
                             mat = new TBMatrix(matrix);
                             mat.applyMove(nextMove, player);
                             node = new TBNode(depth-1, mat, childLevel, -beta,-alpha,-color);
-                            value = node.process();
+                            value = - node.process();
                             best = Math.max(best,value);
+                            if(level == 0 && (MainGame.best == null || best > MainGame.bestValue)){
+                                MainGame.best = new TBMatrix(mat);
+                                MainGame.bestValue = best;
+                            }
                             alpha = Math.max(alpha,value);
                             if(alpha >= beta){
                                 break;
@@ -108,8 +116,12 @@ public class TBNode {
                             mat = new TBMatrix(matrix);
                             mat.applyMove(nextMove, player);
                             node = new TBNode(depth-1, mat, childLevel, -beta,-alpha,-color);
-                            value = node.process();
+                            value = - node.process();
                             best = Math.max(best,value);
+                            if(level == 0 && (MainGame.best == null || best > MainGame.bestValue)){
+                                MainGame.best = new TBMatrix(mat);
+                                MainGame.bestValue = best;
+                            }
                             alpha = Math.max(alpha,value);
                             if(alpha >= beta){
                                 break;
@@ -131,11 +143,15 @@ public class TBNode {
             type = "Exact";
         }
         GameValue new_gv = new GameValue(type,best,depth);
+        //Log.d("DEBUG", "Nouvelle GameValue stockée, AI "+ matrix.getMatrix(true).toString(16)+", Player "+matrix.getMatrix(false).toString(16)+", type "+type+", value "+best+", depth "+depth+", player "+color);
         MainGame.mMap.put(matrix,new_gv);
+        new_gv = null;
+        matrix = null;
+        System.gc();
         return best;
     }
 
-    public int[][] convert(TBMatrix move, TBMatrix previous) {
+    public static int[][] convert(TBMatrix move, TBMatrix previous) {
         int[][] res = {{-1,-1},{-1,-1}};
         BigInteger pMatrix = previous.getMatrix(true);
         BigInteger nMatrix = move.getMatrix(true);

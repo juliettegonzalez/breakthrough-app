@@ -84,10 +84,10 @@ public class TBMatrix{
         if(winningPosition()){
             if(winner()==true) {
                 //Log.d("DEBUG", "Computer winning");
-                score = 1000.0;
+                score = 1000.0 - level;
             }else {
                 //Log.d("DEBUG", "Player winning");
-                score = -1000.0;
+                score = -1000.0 + level;
             }
         }else {
             score = 0.0;
