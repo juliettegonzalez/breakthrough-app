@@ -133,6 +133,29 @@ public class TBMatrix{
         }
     }
 
+    /**
+     * Compute the number of pawns that own the player on a given column
+     * @param c
+     * @return
+     */
+    public double getNumberPawnsOnColumn(boolean player, int c){
+        double nbPawn = 0.0;
+        for(int j = 0; j < 63; j ++){
+            if(((getMatrix(player) >>> (long)j) & 1L) == 1L){
+                if(j%8 == 7-c){
+                    nbPawn++;
+                }
+            }
+        }
+        return nbPawn;
+    }
+
+
+
+
+
+
+
     public void convertMove(int[][] movement) {
         //Log.d("DEBUG","movement : "+ movement[0][0]+", "+movement[0][1]+", "+movement[1][0]+", "+movement[1][1]);
         int indicep, indicen;
