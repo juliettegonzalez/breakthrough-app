@@ -117,7 +117,7 @@ public class Node {
                 value += level;
                 //Log.d("DEBUG", "Player winning");
             }
-            if(value > 1000){
+            if(value > 900){
                 value -= level;
                 /*Log.d("DEBUG", "Computer winning");
                 Log.d("DEBUG", "value : " + (value));

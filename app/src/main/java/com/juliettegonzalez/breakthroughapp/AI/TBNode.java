@@ -13,7 +13,6 @@ public class TBNode {
     public int level;
     public TBMatrix matrix;
     public int depth;
-    public boolean cut = false;
     public double alpha;
     public double beta;
     public int color;
@@ -47,7 +46,8 @@ public class TBNode {
         }
 
         if(depth == 0 || matrix.winningPosition()){
-            return (level/5 + color * matrix.analyze(level));
+            return(color * matrix.analyze(level));
+            //return ( matrix.analyze(level));
         }
 
 
@@ -55,26 +55,35 @@ public class TBNode {
         int childLevel = level + 1;
         int offsetY = player ? -1 : 1;
         int off;
-        BigInteger playerBoard;
+        long playerBoard;
+        //BigInteger playerBoard;
         TBMatrix nextMove,mat;
         TBNode node;
         double best = -1000.0;
         double value;
         for(int i=63;0<=i;i--){
             playerBoard = matrix.getMatrix(player);
-            if(playerBoard.testBit(i)){
+            if(((playerBoard >>> (long)i) & 1L) == 1L){
+            //if(playerBoard.testBit(i)){
                     //Vérification qu'un pion n'a pas atteint la ligne opposée
                     off = i + offsetY * 8;
                     if(off >= 0 && off <= 63){
-                        playerBoard = playerBoard.clearBit(i);
+                        playerBoard &= ~(1L << i);
+                        //playerBoard = playerBoard.clearBit(i);
                         //Test dépassement à droite et non-présence d'un pion perso
-                        if(((((i+offsetY*7)%8)<0 ?(i+offsetY*7)%8 + 8 : (i+offsetY*7)%8)!=((8-offsetY)%9)) && (!playerBoard.testBit(i+offsetY*7))){
-                            nextMove = new TBMatrix(playerBoard.setBit(i + offsetY * 7), matrix.getMatrix(!player),player);
+                        if(((((i+offsetY*7)%8)<0 ?(i+offsetY*7)%8 + 8 : (i+offsetY*7)%8)!=((8-offsetY)%9)) && ((((playerBoard >>> (long)(i+offsetY*7)) & 1L) == 0L))){
+                        //if(((((i+offsetY*7)%8)<0 ?(i+offsetY*7)%8 + 8 : (i+offsetY*7)%8)!=((8-offsetY)%9)) && (!playerBoard.testBit(i+offsetY*7))){
+                            nextMove = new TBMatrix((playerBoard | (1L << (long)(i + offsetY * 7))), matrix.getMatrix(!player),player);
+                            //nextMove = new TBMatrix(playerBoard.setBit(i + offsetY * 7), matrix.getMatrix(!player),player);
                             mat = new TBMatrix(matrix);
                             mat.applyMove(nextMove, player);
                             node = new TBNode(depth-1, mat, childLevel, -beta,-alpha,-color);
-                            value = node.process();
+                            value = - node.process();
                             best = Math.max(best,value);
+                            if(level == 0 && (MainGame.best == null || best > MainGame.bestValue)){
+                                MainGame.best = new TBMatrix(mat);
+                                MainGame.bestValue = best;
+                            }
                             alpha = Math.max(alpha,value);
                             if(alpha >= beta){
                                 break;
@@ -85,13 +94,19 @@ public class TBNode {
                             System.gc();
                         }
                         //Vérification qu'il n'y a pas d'adversaire en face, ni de pion perso
-                        if((!matrix.getMatrix(!player).testBit(i+offsetY*8)) && (!playerBoard.testBit(i+offsetY*8))){
-                            nextMove = new TBMatrix(playerBoard.setBit(i + offsetY * 8), matrix.getMatrix(!player),player);
+                        if((((matrix.getMatrix(!player) >>> (long)(i+offsetY*8)) & 1L) == 0L) &&  ((((playerBoard >>> (long)(i+offsetY*8)) & 1L) == 0L))){
+                        //if((!matrix.getMatrix(!player).testBit(i+offsetY*8)) && (!playerBoard.testBit(i+offsetY*8))){
+                            nextMove = new TBMatrix((playerBoard | (1L << (long)(i + offsetY * 8))), matrix.getMatrix(!player),player);
+                            //nextMove = new TBMatrix(playerBoard.setBit(i + offsetY * 8), matrix.getMatrix(!player),player);
                             mat = new TBMatrix(matrix);
                             mat.applyMove(nextMove, player);
                             node = new TBNode(depth-1, mat, childLevel, -beta,-alpha,-color);
-                            value = node.process();
+                            value = - node.process();
                             best = Math.max(best,value);
+                            if(level == 0 && (MainGame.best == null || best > MainGame.bestValue)){
+                                MainGame.best = new TBMatrix(mat);
+                                MainGame.bestValue = best;
+                            }
                             alpha = Math.max(alpha,value);
                             if(alpha >= beta){
                                 break;
@@ -103,13 +118,19 @@ public class TBNode {
                         }
 
                         //Test dépassement à gauche et non-présence d'un pion perso
-                        if(((((i+offsetY*9)%8)<0 ?(i+offsetY*9)%8 + 8 : (i+offsetY*9)%8)!=((8+offsetY)%9)) && (!playerBoard.testBit(i+offsetY*9))){
-                            nextMove = new TBMatrix(playerBoard.setBit(i + offsetY * 9), matrix.getMatrix(!player),player);
+                        if(((((i+offsetY*9)%8)<0 ?(i+offsetY*9)%8 + 8 : (i+offsetY*9)%8)!=((8+offsetY)%9)) && ((((playerBoard >>> (long)(i+offsetY*9)) & 1L) == 0L))){
+                        //if(((((i+offsetY*9)%8)<0 ?(i+offsetY*9)%8 + 8 : (i+offsetY*9)%8)!=((8+offsetY)%9)) && (!playerBoard.testBit(i+offsetY*9))){
+                            nextMove = new TBMatrix((playerBoard | (1L << (long)(i + offsetY * 9))), matrix.getMatrix(!player),player);
+                            //nextMove = new TBMatrix(playerBoard.setBit(i + offsetY * 9), matrix.getMatrix(!player),player);
                             mat = new TBMatrix(matrix);
                             mat.applyMove(nextMove, player);
                             node = new TBNode(depth-1, mat, childLevel, -beta,-alpha,-color);
-                            value = node.process();
+                            value = - node.process();
                             best = Math.max(best,value);
+                            if(level == 0 && (MainGame.best == null || best > MainGame.bestValue)){
+                                MainGame.best = new TBMatrix(mat);
+                                MainGame.bestValue = best;
+                            }
                             alpha = Math.max(alpha,value);
                             if(alpha >= beta){
                                 break;
@@ -131,21 +152,29 @@ public class TBNode {
             type = "Exact";
         }
         GameValue new_gv = new GameValue(type,best,depth);
+        //Log.d("DEBUG", "Nouvelle GameValue stockée, AI "+ matrix.getMatrix(true).toString(16)+", Player "+matrix.getMatrix(false).toString(16)+", type "+type+", value "+best+", depth "+depth+", player "+color);
         MainGame.mMap.put(matrix,new_gv);
+        new_gv = null;
+        matrix = null;
+        System.gc();
         return best;
     }
 
-    public int[][] convert(TBMatrix move, TBMatrix previous) {
+    public static int[][] convert(TBMatrix move, TBMatrix previous) {
         int[][] res = {{-1,-1},{-1,-1}};
-        BigInteger pMatrix = previous.getMatrix(true);
-        BigInteger nMatrix = move.getMatrix(true);
+        long pMatrix = previous.getMatrix(true);
+        //BigInteger pMatrix = previous.getMatrix(true);
+        long nMatrix = move.getMatrix(true);
+        //BigInteger nMatrix = move.getMatrix(true);
         int indice;
         boolean n,p;
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 indice = (7-i)*8+(7-j);
-                n = nMatrix.testBit(indice);
-                p = pMatrix.testBit(indice);
+                n = (((nMatrix >>> (long)(indice)) & 1L) == 1L);
+                p = (((pMatrix >>> (long)(indice)) & 1L) == 1L);
+                //n = nMatrix.testBit(indice);
+                //p = pMatrix.testBit(indice);
                 if(n && !p){
                     res[1][0]=i;
                     res[1][1]=j;
