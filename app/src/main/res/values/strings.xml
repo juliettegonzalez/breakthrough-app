@@ -23,10 +23,10 @@
     <string name="action_quit_game">Quitter</string>
 
     <!-- Board view -->
-    <string name="winning_message">Bravo tu as battu l\'IA !</string>
-    <string name="losing_message">Désolé, l\'IA t\'as battu...</string>
+    <string name="winning_message">Bravo tu as battu l\'ordi !</string>
+    <string name="losing_message">Désolé, l\'ordi t\'as battu...</string>
     <string name="player_message">C\'est à toi de jouer !</string>
-    <string name="ai_message">L\'IA réfléchit... </string>
+    <string name="ai_message">L\'ordi réfléchit... </string>
 
     <!-- Credits view -->
     <string name="credits_header">Crédits</string>

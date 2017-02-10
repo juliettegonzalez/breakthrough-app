@@ -76,17 +76,21 @@ public class TBMatrix{
         }else {
             score += getNumberPawns(true);
             score -= getNumberPawns(false);
-            //score += 0.1*(Math.random()-0.5)
+            // Avoid AI playing always the same
+            score += 0.1*(Math.random()-0.4);
 
-            score += getNumberPawnsOnRow(true,0)*0.5;
-            score += getNumberPawnsOnRow(true,6)*0.5;
-            score += getNumberPawnsOnRow(true,5)*0.25;
+            // Score depending on the position of the pawns
+            score += getNumberPawnsOnRow(true,0)*0.4;
+            score += getNumberPawnsOnRow(true,6)*0.4;
 
-            for (int j=0; j<8 ; j++){
+
+            //score += getNumberPawnsOnRow(true,5)*0.20;
+
+            /*for (int j=0; j<8 ; j++){
                 // Check empty column (only once)
                 if (getNumberPawnsOnColumn(true, j) == 0) score -= COLUMN_EMPTY_VALUE;
                 if (getNumberPawnsOnColumn(false, j) == 0) score += COLUMN_EMPTY_VALUE;
-            }
+            }*/
         }
         return score;
     }

@@ -16,7 +16,7 @@ public class RulesActivity extends AppIntro2 {
 
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
-        addSlide(AppIntroFragment.newInstance("COUCOU TEST",
+        addSlide(AppIntroFragment.newInstance("Breakthrough",
                 "Breakthrough est un jeu de stratégie sur un plateau 8x8",
                 R.drawable.rules_board,
                 getResources().getColor(R.color.colorAccentMid)));
