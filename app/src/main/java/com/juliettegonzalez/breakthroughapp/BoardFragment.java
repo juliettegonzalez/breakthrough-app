@@ -44,7 +44,7 @@ public class BoardFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param playerPawn Parameter 1.
+     * @param playerPawn
      * @return A new instance of fragment BoardFragment.
      */
     public static BoardFragment newInstance(Player.PawnType playerPawn) {
@@ -91,7 +91,7 @@ public class BoardFragment extends Fragment {
                 SquareBoard selectedSquare = mSquareBoardList.get(position);
 
                 // Forbid click if not player's turn
-                if (mGame.isHumanTurn()){
+                if (mGame.isFirstPlayerTurn()){
                     // Getting suggestion
                     if (selectedSquare.getOwner() != null &&
                             selectedSquare.getOwner().equals(mGame.getmPlayer1())){
@@ -101,7 +101,7 @@ public class BoardFragment extends Fragment {
                         selectedView = view;
 
                         mGame.setmSelectedSquare(selectedSquare);
-                        ArrayList<SquareBoard> possibleMoves = mGame.getPossibleMoves();
+                        ArrayList<SquareBoard> possibleMoves = mGame.getPossibleMoves(mGame.getmPlayer1());
                         clearSuggestions();
 
                         if (!possibleMoves.isEmpty()){

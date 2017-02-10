@@ -34,10 +34,16 @@
     <string name="player_message">C\'est à toi de jouer !</string>
     <string name="ai_message">L\'ordi réfléchit... </string>
 
+    <!-- Multiplayer view -->
+    <string name="winning1_message">Félicitation, joueur 1 tu as gagné !</string>
+    <string name="losing1_message">Le joueur 2 a gagné !</string>
+    <string name="player1_message">C\'est au joueur 1 de jouer !</string>
+    <string name="player2_message">Au tour du joueur 2 ! </string>
+
     <!-- Credits view -->
     <string name="credits_header">Crédits</string>
     <string name="credits_subtitle_pictures">Illustrations</string>
-    <string name="credits_pictures">Les illustrations pour les quatres catégories de pions ont été designés par Till Teenck sous licence Creative Commons et sont issus du site The Noun Project.</string>
+    <string name="credits_pictures">Les illustrations pour les quatres catégories de pions ont été designées par Till Teenck sous licence Creative Commons et sont issues du site The Noun Project.</string>
     <string name="credits_subtitle_app">Application</string>
     <string name="credits_app">L\'application et intelligence artificielle du jeu ont été réalisées conjointement par Yvonnig Jan et Juliette Gonzalez dans le cadre d\'un projet d\'étude sur l\'intelligence artificielle.</string>
 

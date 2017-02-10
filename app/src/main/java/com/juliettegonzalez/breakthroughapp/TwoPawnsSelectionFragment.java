@@ -143,9 +143,9 @@ public class TwoPawnsSelectionFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-                BoardFragment boardFragment = BoardFragment.newInstance(mWhiteSelectedPawn);
+                MultiplayerFragment multiplayerFragment = MultiplayerFragment.newInstance(mWhiteSelectedPawn, mBlackSelectedPawn);
                 fragmentManager.beginTransaction()
-                        .replace(R.id.fragment, boardFragment)
+                        .replace(R.id.fragment, multiplayerFragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .commit();
             }

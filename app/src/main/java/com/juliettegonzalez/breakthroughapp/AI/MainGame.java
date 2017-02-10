@@ -16,7 +16,7 @@ public class MainGame {
 
 
     private Player mPlayer1;
-    private Player mComputer;
+    private Player mPlayer2;
     private Player mCurrentPlayer;
     private SquareBoard mSelectedSquare;
     private Board mBoard;
@@ -34,12 +34,12 @@ public class MainGame {
 
     private GameStateListener listener;
 
-    public MainGame(Player player1, Player computer){
+    public MainGame(Player player1, Player player2){
         this.mPlayer1 = player1;
-        this.mComputer = computer;
+        this.mPlayer2 = player2;
         this.mCurrentPlayer = player1;
         this.mSelectedSquare = null;
-        this.mBoard = new Board(player1, computer);
+        this.mBoard = new Board(player1, player2);
         if(algoType == 2){
             this.tbmMatrix = new TBMatrix();
         }else if(algoType == 1){
@@ -55,16 +55,24 @@ public class MainGame {
         return mCurrentPlayer;
     }
 
-    public void setmCurrentPlayer(Player mCurrentPlayer) {
-        this.mCurrentPlayer = mCurrentPlayer;
+    public Player getOpponent() {
+        if (mCurrentPlayer == mPlayer1){
+            return mPlayer2;
+        }else{
+            return mPlayer1;
+        }
+    }
+
+    public void setmCurrentPlayer(Player currentPlayer) {
+        this.mCurrentPlayer = currentPlayer;
     }
 
     public Player getmPlayer1() {
         return mPlayer1;
     }
 
-    public Player getmComputer() {
-        return mComputer;
+    public Player getmPlayer2() {
+        return mPlayer2;
     }
 
     public SquareBoard getmSelectedSquare() {
@@ -79,7 +87,7 @@ public class MainGame {
         return mBoard;
     }
 
-    public boolean isHumanTurn(){
+    public boolean isFirstPlayerTurn(){
         return mCurrentPlayer == mPlayer1;
     }
 
@@ -92,26 +100,27 @@ public class MainGame {
      * Return the possible moves for the selected pawn
      * @return ArrayList<SquareBoard>
      */
-    public ArrayList<SquareBoard> getPossibleMoves(){
+    public ArrayList<SquareBoard> getPossibleMoves(Player player){
         ArrayList<SquareBoard> possibleMoves = new ArrayList<>();
+        int offsetI = (player == mPlayer1) ? -1 : 1;
 
         int posI =  mSelectedSquare.getI();
         int posJ = mSelectedSquare.getJ();
 
-        if (mBoard.getSquareAt(posI-1, posJ).isFree())
-            possibleMoves.add(mBoard.getSquareAt(posI-1, posJ));
+        if (mBoard.getSquareAt(posI+offsetI, posJ).isFree())
+            possibleMoves.add(mBoard.getSquareAt(posI+offsetI, posJ));
 
         if (posJ > 0 &&
-                (mBoard.getSquareAt(posI-1, posJ-1).isFree() ||
-                        mBoard.getSquareAt(posI-1, posJ-1).getOwner() == mComputer)){
-            possibleMoves.add(mBoard.getSquareAt(posI-1, posJ-1));
+                (mBoard.getSquareAt(posI+offsetI, posJ-1).isFree() ||
+                        mBoard.getSquareAt(posI+offsetI, posJ-1).getOwner() == getOpponent())){
+            possibleMoves.add(mBoard.getSquareAt(posI+offsetI, posJ-1));
         }
 
 
         if (posJ < Board.MAX_LENGHT_BOARD-1 &&
-                (mBoard.getSquareAt(posI-1, posJ+1).isFree()||
-                mBoard.getSquareAt(posI-1, posJ+1).getOwner() == mComputer)) {
-            possibleMoves.add(mBoard.getSquareAt(posI-1, posJ+1));
+                (mBoard.getSquareAt(posI+offsetI, posJ+1).isFree()||
+                mBoard.getSquareAt(posI+offsetI, posJ+1).getOwner() == getOpponent())) {
+            possibleMoves.add(mBoard.getSquareAt(posI+offsetI, posJ+1));
         }
 
         return possibleMoves;
@@ -119,10 +128,10 @@ public class MainGame {
 
     public boolean movePawn(SquareBoard destination){
         if (mSelectedSquare != null){
-            ArrayList<SquareBoard> possibleMoves = getPossibleMoves();
+            ArrayList<SquareBoard> possibleMoves = getPossibleMoves(mCurrentPlayer);
             if(possibleMoves.contains(destination)){
-                if (destination.getOwner() == mComputer) {
-                    mComputer.getPawns().remove(destination);
+                if (destination.getOwner() == mPlayer2) {
+                    mPlayer2.getPawns().remove(destination);
                     destination.setFree();
                 }
                 mSelectedSquare.movePawn(destination);
@@ -151,7 +160,7 @@ public class MainGame {
 
     public void endTurn(){
         if (mCurrentPlayer == mPlayer1){
-            mCurrentPlayer = mComputer;
+            mCurrentPlayer = mPlayer2;
         }else{
             mCurrentPlayer = mPlayer1;
         }
@@ -251,21 +260,21 @@ public class MainGame {
             }
         }
 
-        if (mComputer.getPawns().isEmpty()){
+        if (mPlayer2.getPawns().isEmpty()){
             listener.onGameEnd(mPlayer1);
             return true;
         }
 
         // Check computer's victory
         for (int j=0; j<Board.MAX_LENGHT_BOARD; j++){
-            if (mBoard.getSquareAt(Board.MAX_LENGHT_BOARD-1, j).getOwner() == mComputer) {
-                listener.onGameEnd(mComputer);
+            if (mBoard.getSquareAt(Board.MAX_LENGHT_BOARD-1, j).getOwner() == mPlayer2) {
+                listener.onGameEnd(mPlayer2);
                 return true;
             }
         }
 
         if (mPlayer1.getPawns().isEmpty()){
-            listener.onGameEnd(mComputer);
+            listener.onGameEnd(mPlayer2);
             return true;
         }
 

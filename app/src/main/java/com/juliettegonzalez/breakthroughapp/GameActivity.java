@@ -27,6 +27,7 @@ public class GameActivity extends AppCompatActivity {
     public static final String REVEAL_Y="REVEAL_Y";
     public static final String MODE="TWO_PLAYERS";
 
+    private boolean twoPlayerMode;
     private View revealView;
     private CoordinatorLayout activityGameRoot;
 
@@ -48,7 +49,7 @@ public class GameActivity extends AppCompatActivity {
         activityGameRoot = (CoordinatorLayout) findViewById(R.id.activity_game_root);
         revealView = activityGameRoot;
 
-        boolean twoPlayerMode = getIntent().getBooleanExtra("TWO_PLAYERS", false);
+        twoPlayerMode = getIntent().getBooleanExtra("TWO_PLAYERS", false);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment gameSelectionFragment;
@@ -75,9 +76,18 @@ public class GameActivity extends AppCompatActivity {
 
             case R.id.action_new_game:
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                BoardFragment boardFragment = BoardFragment.newInstance(PawnSelectionFragment.mSelectedPawn);
+                Fragment gameFragment;
+
+                if (twoPlayerMode){
+                    gameFragment = MultiplayerFragment.newInstance(
+                            TwoPawnsSelectionFragment.mWhiteSelectedPawn,
+                            TwoPawnsSelectionFragment.mBlackSelectedPawn);
+                }else{
+                    gameFragment = BoardFragment.newInstance(PawnSelectionFragment.mSelectedPawn);
+                }
+
                 fragmentManager.beginTransaction()
-                        .replace(R.id.fragment, boardFragment)
+                        .replace(R.id.fragment, gameFragment)
                         .commit();
                 return true;
 
@@ -118,6 +128,10 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animator animator) {
                 rootView.setVisibility(View.INVISIBLE);
+                if (twoPlayerMode) {
+                    TwoPawnsSelectionFragment.mWhiteSelectedPawn = null;
+                    TwoPawnsSelectionFragment.mBlackSelectedPawn = null;
+                }
                 finishAfterTransition();
                 overridePendingTransition(0,0);
             }
