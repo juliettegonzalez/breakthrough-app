@@ -21,7 +21,7 @@ public class RulesActivity extends AppIntro2 {
                 R.drawable.rules_board,
                 getResources().getColor(R.color.colorAccentMid)));
         addSlide(AppIntroFragment.newInstance("Déplacement",
-                "Les pions peuvent se déplacer uniquement en avant, tout droit ou en diagonale",
+                "Les pions ne peuvent pas reculer, ils peuvent se déplacer uniquement tout droit ou en diagonale.",
                 R.drawable.rules_move,
                 getResources().getColor(R.color.colorAccentMid)));
         addSlide(AppIntroFragment.newInstance("Attaquer",

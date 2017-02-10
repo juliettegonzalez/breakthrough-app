@@ -4,11 +4,7 @@ package com.juliettegonzalez.breakthroughapp.AI;
  * Created by Yvonnig on 14/01/2017.
  */
 
-        import android.util.Log;
-
         import java.math.BigInteger;
-        import java.util.ArrayList;
-        import java.util.Arrays;
 
 public class BMatrix{
 
@@ -111,12 +107,6 @@ public class BMatrix{
             score = 0.0;
             score += getNumberPawns(currentPlayer);
             score -= getNumberPawns(!currentPlayer);
-            //score += Math.random()-0.5
-            if(0 < score){
-                //Log.d("DEBUG","Computer stronger");
-            }else if(score < 0){
-                //Log.d("DEBUG","Player stronger");
-            }
         }
         return score;
     }

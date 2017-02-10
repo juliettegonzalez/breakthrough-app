@@ -133,11 +133,11 @@ public class Matrix{
 
 
         // Pawn value
-        score += getBoardValue(currentPlayer);
-        score -= getBoardValue(!currentPlayer);
+        /*score += getBoardValue(currentPlayer);
+        score -= getBoardValue(!currentPlayer);*/
 
-        /*score += getNumberPawns(currentPlayer);
-        score -= getNumberPawns(!currentPlayer);*/
+        score += getNumberPawns(currentPlayer);
+        score -= getNumberPawns(!currentPlayer);
 
 
         // Winning position

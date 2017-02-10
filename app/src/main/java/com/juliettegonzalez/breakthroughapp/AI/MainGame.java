@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class MainGame {
     // 0 for Matrix, 1 for BMatrix, 2 for TBMatrix
     private static int algoType = 2;
-    private static int nb_play_predicted = 8;
+    private static int nb_play_predicted = 5;
     private static int milliseconds_for_calcul = 5000;
     private static boolean nb_or_time = true;
 

@@ -3,12 +3,6 @@ package com.juliettegonzalez.breakthroughapp.AI;
 /**
  * Created by Yvonnig on 17/01/2017.
  */
-import android.util.Log;
-
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class TBMatrix{
 
     private long whiteBoard;
@@ -84,14 +78,15 @@ public class TBMatrix{
             score -= getNumberPawns(false);
             //score += 0.1*(Math.random()-0.5)
 
-            /*score += getNumberPawnsOnRow(true,0)*0.5;
+            score += getNumberPawnsOnRow(true,0)*0.5;
             score += getNumberPawnsOnRow(true,6)*0.5;
             score += getNumberPawnsOnRow(true,5)*0.25;
+
             for (int j=0; j<8 ; j++){
                 // Check empty column (only once)
                 if (getNumberPawnsOnColumn(true, j) == 0) score -= COLUMN_EMPTY_VALUE;
                 if (getNumberPawnsOnColumn(false, j) == 0) score += COLUMN_EMPTY_VALUE;
-            }*/
+            }
         }
         return score;
     }
