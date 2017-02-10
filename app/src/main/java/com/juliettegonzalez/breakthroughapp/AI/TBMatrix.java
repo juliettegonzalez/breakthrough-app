@@ -79,6 +79,7 @@ public class TBMatrix{
             // Avoid AI playing always the same
             score += 0.1*(Math.random()-0.4);
 
+            
             // Score depending on the position of the pawns
             score += getNumberPawnsOnRow(true,0)*0.4;
             score += getNumberPawnsOnRow(true,6)*0.4;
