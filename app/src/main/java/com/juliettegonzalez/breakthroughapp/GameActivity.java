@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +25,7 @@ public class GameActivity extends AppCompatActivity {
 
     public static final String REVEAL_X="REVEAL_X";
     public static final String REVEAL_Y="REVEAL_Y";
+    public static final String MODE="TWO_PLAYERS";
 
     private View revealView;
     private CoordinatorLayout activityGameRoot;
@@ -46,8 +48,16 @@ public class GameActivity extends AppCompatActivity {
         activityGameRoot = (CoordinatorLayout) findViewById(R.id.activity_game_root);
         revealView = activityGameRoot;
 
+        boolean twoPlayerMode = getIntent().getBooleanExtra("TWO_PLAYERS", false);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-        PawnSelectionFragment gameSelectionFragment = new PawnSelectionFragment();
+        Fragment gameSelectionFragment;
+
+        if (twoPlayerMode){
+            gameSelectionFragment = new TwoPawnsSelectionFragment();
+        }else{
+            gameSelectionFragment = new PawnSelectionFragment();
+        }
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment, gameSelectionFragment)
                 .commit();
@@ -92,9 +102,6 @@ public class GameActivity extends AppCompatActivity {
     private void destroyCircularRevealActivity(final View rootView, int duration) {
         int cx = getIntent().getIntExtra(REVEAL_X, 0);
         int cy = getIntent().getIntExtra(REVEAL_Y, 0);
-
-        Log.d("DEBUG", "REVEAL_X = " + cx);
-        Log.d("DEBUG", "REVEAL_Y = " + cy);
 
         float finalRadius = Math.max(rootView.getWidth(), rootView.getHeight());
 
