@@ -3,6 +3,10 @@ package com.juliettegonzalez.breakthroughapp.AI;
 /**
  * Created by Yvonnig on 17/01/2017.
  */
+<<<<<<< HEAD
+=======
+
+>>>>>>> 09c71e9def109e5b73d6d600d7b4a4cf575b916c
 public class TBMatrix{
 
     private long whiteBoard;
@@ -68,7 +72,7 @@ public class TBMatrix{
     public double analyze(int level){
         Double score = 0.0;
         if(winningPosition()){
-            if(winner()==true) {
+            if(winner()) {
                 score += 1000.0 - level;
             }else {
                 score += -1000.0 + level;
@@ -95,25 +99,18 @@ public class TBMatrix{
         if((whiteBoard & 0xFFL) > 0L || (blackBoard & 0xFF00000000000000L) > 0L){
             return true;
         }
-        if(getNumberPawns(true) == 0 || getNumberPawns(false) == 0){
-            return(true);
-        }
-        return false;
+        return(getNumberPawns(true) == 0 || getNumberPawns(false) == 0);
+
     }
 
     //on suppose que l'on sait déjà qu'il y a un vainqueur
     public boolean winner() {
-
         if((whiteBoard & 0xFFL) > 0L){
             return true;
         }else if((blackBoard & 0xFF00000000000000L) > 0L){
             return false;
         }
-        if(getNumberPawns(true) == 0){
-            return false;
-        }else{
-            return true;
-        }
+        return(getNumberPawns(true) == 0);
     }
 
     /**
