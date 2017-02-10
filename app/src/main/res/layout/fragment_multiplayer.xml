@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:htext="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.juliettegonzalez.breakthroughapp.BoardFragment">
+
+    <GridView
+        android:id="@+id/multiplayer_board_grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numColumns="8"
+        android:verticalSpacing="5dp"
+        android:padding="10dp"
+        android:layout_marginTop="@dimen/board_top_margin"
+        android:layout_alignParentTop="true"
+        >
+    </GridView>
+
+
+    <com.hanks.htextview.HTextView
+        android:id="@+id/multiplayer_game_state_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/text_margin_bottom"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_size"
+        htext:fontAsset="fonts/CaviarDreams_Bold.ttf"
+        htext:animateType="scale" />
+
+</RelativeLayout>
