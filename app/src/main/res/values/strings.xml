@@ -4,19 +4,25 @@
 
     <!-- Welcome screen -->
     <string name="new_game_btn">Nouveau jeu</string>
+    <string name="multiplayer_btn">2 joueurs</string>
     <string name="rules_btn">Règles du jeu</string>
     <string name="credits_link">Crédits</string>
     <string name="title_activity_game">GameActivity</string>
     <string name="transition_home">transition_new_game</string>
 
 
-    <!-- Selection screen -->
+    <!-- Selection single screen -->
     <string name="selection_game_title">Quel joueur es-tu ?</string>
     <string name="dragon_pawn">Dragon</string>
     <string name="grandpa_pawn">Papi</string>
     <string name="king_pawn">Roi</string>
     <string name="wizard_pawn">Magicien</string>
     <string name="start_game_btn">C\'est parti !</string>
+
+    <!-- Selection single screen -->
+    <string name="selection_white_title">Qui est le joueur 1 ?</string>
+    <string name="selection_black_title">Qui est le joueur 2 ?</string>
+
 
     <!-- Option Menu -->
     <string name="action_new_game">Nouveau jeu</string>
@@ -28,11 +34,20 @@
     <string name="player_message">C\'est à toi de jouer !</string>
     <string name="ai_message">L\'ordi réfléchit... </string>
 
+    <!-- Multiplayer view -->
+    <string name="winning1_message">Félicitation, joueur 1 tu as gagné !</string>
+    <string name="losing1_message">Le joueur 2 a gagné !</string>
+    <string name="player1_message">C\'est au joueur 1 de jouer !</string>
+    <string name="player2_message">Au tour du joueur 2 ! </string>
+
     <!-- Credits view -->
     <string name="credits_header">Crédits</string>
     <string name="credits_subtitle_pictures">Illustrations</string>
-    <string name="credits_pictures">Les illustrations pour les quatres catégories de pions ont été designés par Till Teenck sous licence Creative Commons et sont issus du site The Noun Project.</string>
+    <string name="credits_pictures">Les illustrations pour les quatres catégories de pions ont été designées par Till Teenck sous licence Creative Commons et sont issues du site The Noun Project.</string>
     <string name="credits_subtitle_app">Application</string>
     <string name="credits_app">L\'application et intelligence artificielle du jeu ont été réalisées conjointement par Yvonnig Jan et Juliette Gonzalez dans le cadre d\'un projet d\'étude sur l\'intelligence artificielle.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

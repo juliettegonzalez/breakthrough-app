@@ -50,6 +50,17 @@
                 android:text="@string/new_game_btn"/>
 
             <Button
+                android:id="@+id/multiplayer_btn"
+                android:layout_width="@dimen/start_button_size"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/start_button_margin"
+                android:paddingTop="@dimen/start_button_padding"
+                android:paddingBottom="@dimen/start_button_padding"
+                android:backgroundTint="@android:color/white"
+                android:text="@string/multiplayer_btn"/>
+
+            <Button
                 android:id="@+id/rules_btn"
                 android:layout_width="@dimen/start_button_size"
                 android:layout_height="wrap_content"

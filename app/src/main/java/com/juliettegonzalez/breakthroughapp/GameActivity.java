@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,7 +25,9 @@ public class GameActivity extends AppCompatActivity {
 
     public static final String REVEAL_X="REVEAL_X";
     public static final String REVEAL_Y="REVEAL_Y";
+    public static final String MODE="TWO_PLAYERS";
 
+    private boolean twoPlayerMode;
     private View revealView;
     private CoordinatorLayout activityGameRoot;
 
@@ -46,8 +49,16 @@ public class GameActivity extends AppCompatActivity {
         activityGameRoot = (CoordinatorLayout) findViewById(R.id.activity_game_root);
         revealView = activityGameRoot;
 
+        twoPlayerMode = getIntent().getBooleanExtra("TWO_PLAYERS", false);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-        PawnSelectionFragment gameSelectionFragment = new PawnSelectionFragment();
+        Fragment gameSelectionFragment;
+
+        if (twoPlayerMode){
+            gameSelectionFragment = new TwoPawnsSelectionFragment();
+        }else{
+            gameSelectionFragment = new PawnSelectionFragment();
+        }
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment, gameSelectionFragment)
                 .commit();
@@ -65,9 +76,18 @@ public class GameActivity extends AppCompatActivity {
 
             case R.id.action_new_game:
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                BoardFragment boardFragment = BoardFragment.newInstance(PawnSelectionFragment.mSelectedPawn);
+                Fragment gameFragment;
+
+                if (twoPlayerMode){
+                    gameFragment = MultiplayerFragment.newInstance(
+                            TwoPawnsSelectionFragment.mWhiteSelectedPawn,
+                            TwoPawnsSelectionFragment.mBlackSelectedPawn);
+                }else{
+                    gameFragment = BoardFragment.newInstance(PawnSelectionFragment.mSelectedPawn);
+                }
+
                 fragmentManager.beginTransaction()
-                        .replace(R.id.fragment, boardFragment)
+                        .replace(R.id.fragment, gameFragment)
                         .commit();
                 return true;
 
@@ -93,9 +113,6 @@ public class GameActivity extends AppCompatActivity {
         int cx = getIntent().getIntExtra(REVEAL_X, 0);
         int cy = getIntent().getIntExtra(REVEAL_Y, 0);
 
-        Log.d("DEBUG", "REVEAL_X = " + cx);
-        Log.d("DEBUG", "REVEAL_Y = " + cy);
-
         float finalRadius = Math.max(rootView.getWidth(), rootView.getHeight());
 
         // create the animator for this view (the start radius is zero)
@@ -111,6 +128,10 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animator animator) {
                 rootView.setVisibility(View.INVISIBLE);
+                if (twoPlayerMode) {
+                    TwoPawnsSelectionFragment.mWhiteSelectedPawn = null;
+                    TwoPawnsSelectionFragment.mBlackSelectedPawn = null;
+                }
                 finishAfterTransition();
                 overridePendingTransition(0,0);
             }

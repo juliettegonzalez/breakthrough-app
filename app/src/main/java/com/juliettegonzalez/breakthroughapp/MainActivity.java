@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         expand_hidden_content = (LinearLayout) findViewById(R.id.expand_hidden_content);
 
 
+        // Solo Game activity
         final Button newGameBtn = (Button) findViewById(R.id.new_game_btn);
         newGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,10 +47,27 @@ public class MainActivity extends AppCompatActivity {
                 int[] location = new int[2];
                 location[0] = getResources().getDisplayMetrics().widthPixels / 2;
                 location[1] = getResources().getDisplayMetrics().heightPixels / 2;
-                startTransition(location);
+                boolean twoPlayersMode = false;
+                startTransition(location, twoPlayersMode);
             }
         });
 
+        // 2 players Game activity
+        final Button multiplayerBtn = (Button) findViewById(R.id.multiplayer_btn);
+        multiplayerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int[] location = new int[2];
+                location[0] = getResources().getDisplayMetrics().widthPixels / 2;
+                location[1] = getResources().getDisplayMetrics().heightPixels / 2;
+                boolean twoPlayersMode = true;
+                startTransition(location, twoPlayersMode);
+            }
+        });
+
+
+
+        // Rules activity
         Button rulesBtn = (Button) findViewById(R.id.rules_btn);
         rulesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void startTransition(final int[] location){
+    private void startTransition(final int[] location, final boolean twoPlayersMode){
         expand_hidden_content.animate()
                 .alpha(0)
                 .setDuration(200)
@@ -93,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
                                         intent.putExtra(GameActivity.REVEAL_X, location[0]);
                                         intent.putExtra(GameActivity.REVEAL_Y, location[1]);
+                                        intent.putExtra(GameActivity.MODE, twoPlayersMode);
 
                                         startActivity(intent);
                                         overridePendingTransition(0,0);

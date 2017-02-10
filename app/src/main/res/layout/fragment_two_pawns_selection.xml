@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_game"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorBackground"
+    tools:context="com.juliettegonzalez.breakthroughapp.TwoPawnsSelectionFragment"
+    tools:showIn="@layout/activity_game"
+    android:transitionName="@string/transition_home">
+
+    <!-- Player 1 -->
+    <TextView
+        android:id="@+id/white_pawn_selection_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:textSize="@dimen/multiplayer_selection_title_size"
+        android:textColor="@android:color/white"
+        android:text="@string/selection_white_title" />
+
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/whitePawnSelectionGrid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/white_pawn_selection_title"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/multiplayer_selection_panel_margin"
+        android:columnCount="4"
+        android:rowCount="1"
+        android:orientation="horizontal"
+        tools:context=".GridXMLActivity" >
+
+        <!-- Dragon selection -->
+        <LinearLayout
+            android:id="@+id/dragon_white_btn_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/multiplayer_btn_padding"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/dragon_white_pawn_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/multiplayer_pawn_btn_padding"
+                android:background="@drawable/white_rounded_button"
+                android:src="@drawable/ic_dragon_pawn_white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/pawn_description_padding"
+                android:textColor="@android:color/white"
+                android:text="@string/dragon_pawn"/>
+
+        </LinearLayout>
+
+        <!-- Grandpa selection -->
+        <LinearLayout
+            android:id="@+id/grandpa_white_btn_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/multiplayer_btn_padding"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/grandpa_white_pawn_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/multiplayer_pawn_btn_padding"
+                android:background="@drawable/white_rounded_button"
+                android:src="@drawable/ic_grandpa_pawn_white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/pawn_description_padding"
+                android:textColor="@android:color/white"
+                android:text="@string/grandpa_pawn"/>
+
+        </LinearLayout>
+
+        <!-- King selection -->
+        <LinearLayout
+            android:id="@+id/king_white_btn_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/multiplayer_btn_padding"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/king_white_pawn_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/multiplayer_pawn_btn_padding"
+                android:background="@drawable/white_rounded_button"
+                android:src="@drawable/ic_king_pawn_white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/pawn_description_padding"
+                android:textColor="@android:color/white"
+                android:text="@string/king_pawn"/>
+
+        </LinearLayout>
+
+        <!-- Wizard selection -->
+        <LinearLayout
+            android:id="@+id/wizard_white_btn_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/multiplayer_btn_padding"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/wizard_white_pawn_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/multiplayer_pawn_btn_padding"
+                android:background="@drawable/white_rounded_button"
+                android:scaleType="center"
+                android:src="@drawable/ic_wizard_pawn_white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/pawn_description_padding"
+                android:textColor="@android:color/white"
+                android:text="@string/wizard_pawn"/>
+
+        </LinearLayout>
+    </GridLayout>
+
+
+
+
+    <!-- Player 2 -->
+    <TextView
+        android:id="@+id/black_pawn_selection_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/whitePawnSelectionGrid"
+        android:layout_marginTop="@dimen/selection_panel_margin"
+        android:textSize="@dimen/multiplayer_selection_title_size"
+        android:textColor="@android:color/white"
+        android:text="@string/selection_black_title" />
+
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/blackPawnSelectionGrid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/black_pawn_selection_title"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/multiplayer_selection_panel_margin"
+        android:columnCount="4"
+        android:rowCount="1"
+        android:orientation="horizontal"
+        tools:context=".GridXMLActivity" >
+
+        <!-- Dragon selection -->
+        <LinearLayout
+            android:id="@+id/dragon_black_btn_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/multiplayer_btn_padding"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/dragon_black_pawn_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/multiplayer_pawn_btn_padding"
+                android:background="@drawable/white_rounded_button"
+                android:src="@drawable/ic_dragon_pawn_black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/pawn_description_padding"
+                android:textColor="@android:color/white"
+                android:text="@string/dragon_pawn"/>
+
+        </LinearLayout>
+
+        <!-- Grandpa selection -->
+        <LinearLayout
+            android:id="@+id/grandpa_black_btn_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/multiplayer_btn_padding"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/grandpa_black_pawn_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/multiplayer_pawn_btn_padding"
+                android:background="@drawable/white_rounded_button"
+                android:src="@drawable/ic_grandpa_pawn_black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/pawn_description_padding"
+                android:textColor="@android:color/white"
+                android:text="@string/grandpa_pawn"/>
+
+        </LinearLayout>
+
+        <!-- King selection -->
+        <LinearLayout
+            android:id="@+id/king_black_btn_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/multiplayer_btn_padding"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/king_black_pawn_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/multiplayer_pawn_btn_padding"
+                android:background="@drawable/white_rounded_button"
+                android:src="@drawable/ic_king_pawn_black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/pawn_description_padding"
+                android:textColor="@android:color/white"
+                android:text="@string/king_pawn"/>
+
+        </LinearLayout>
+
+        <!-- Wizard selection -->
+        <LinearLayout
+            android:id="@+id/wizard_black_btn_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/multiplayer_btn_padding"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/wizard_black_pawn_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/multiplayer_pawn_btn_padding"
+                android:background="@drawable/white_rounded_button"
+                android:scaleType="center"
+                android:src="@drawable/ic_wizard_pawn_black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/pawn_description_padding"
+                android:textColor="@android:color/white"
+                android:text="@string/wizard_pawn"/>
+
+        </LinearLayout>
+    </GridLayout>
+
+    <Button
+        android:id="@+id/start_multiplayer_game_btn"
+        android:layout_width="@dimen/start_button_size"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/blackPawnSelectionGrid"
+        android:paddingTop="@dimen/start_button_padding"
+        android:paddingBottom="@dimen/start_button_padding"
+        android:backgroundTint="@android:color/white"
+        android:enabled="false"
+        android:text="@string/start_game_btn"/>
+
+
+</RelativeLayout>
