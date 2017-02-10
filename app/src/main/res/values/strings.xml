@@ -46,8 +46,7 @@
     <string name="credits_pictures">Les illustrations pour les quatres catégories de pions ont été designées par Till Teenck sous licence Creative Commons et sont issues du site The Noun Project.</string>
     <string name="credits_subtitle_app">Application</string>
     <string name="credits_app">L\'application et intelligence artificielle du jeu ont été réalisées conjointement par Yvonnig Jan et Juliette Gonzalez dans le cadre d\'un projet d\'étude sur l\'intelligence artificielle.</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
