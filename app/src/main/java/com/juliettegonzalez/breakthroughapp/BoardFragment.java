@@ -190,7 +190,7 @@ public class BoardFragment extends Fragment {
             long startTime = System.currentTimeMillis();
             mGame.aiPlaying();
             long difference = System.currentTimeMillis() - startTime;
-            Log.d("TIME MEASURE" , "Time : " + difference/1000 + "s");
+            Log.d("TIME MEASURE" , "Time : " + difference + "ms");
             return null;
         }
 
