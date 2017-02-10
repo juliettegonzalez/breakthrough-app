@@ -3,10 +3,6 @@ package com.juliettegonzalez.breakthroughapp.AI;
 /**
  * Created by Yvonnig on 17/01/2017.
  */
-<<<<<<< HEAD
-=======
-
->>>>>>> 09c71e9def109e5b73d6d600d7b4a4cf575b916c
 public class TBMatrix{
 
     private long whiteBoard;
