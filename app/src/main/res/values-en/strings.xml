@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="new_game_btn">New game</string>
+    <string name="multiplayer_btn">2 players</string>
+    <string name="rules_btn">Rules of the game</string>
+    <string name="credits_link">Credits</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="transition_home">transition_new_game</string>
+
+
+    <!-- Selection single screen -->
+    <string name="selection_game_title">What player are you ?</string>
+    <string name="dragon_pawn">Dragon</string>
+    <string name="grandpa_pawn">GrandPa</string>
+    <string name="king_pawn">King</string>
+    <string name="wizard_pawn">Wizard</string>
+    <string name="start_game_btn">Let\'s go !</string>
+
+    <!-- Selection single screen -->
+    <string name="selection_white_title">Who is player 1 ?</string>
+    <string name="selection_black_title">Who is player 2 ?</string>
+
+
+    <!-- Option Menu -->
+    <string name="action_new_game">New game</string>
+    <string name="action_quit_game">Quit</string>
+
+    <!-- Board view -->
+    <string name="winning_message">Well done, you beat the computer !</string>
+    <string name="losing_message">Sorry, the computer beat you...</string>
+    <string name="player_message">It\'s your turn !</string>
+    <string name="ai_message">The computer is thinking...</string>
+
+    <!-- Multiplayer view -->
+    <string name="winning1_message">Amazing player 1, you won !</string>
+    <string name="losing1_message">Player 2 won !</string>
+    <string name="player1_message">It\'s player 1's turn !</string>
+    <string name="player2_message">Player 2, your turn ! </string>
+
+    <!-- Credits view -->
+    <string name="credits_header">Credits</string>
+    <string name="credits_subtitle_pictures">Illustrations</string>
+    <string name="credits_pictures">Les illustrations pour les quatres catégories de pions ont été designées par Till Teenck sous licence Creative Commons et sont issues du site The Noun Project.</string>
+    <string name="credits_subtitle_app">Application</string>
+    <string name="credits_app">L\'application et intelligence artificielle du jeu ont été réalisées conjointement par Yvonnig Jan et Juliette Gonzalez dans le cadre d\'un projet d\'étude sur l\'intelligence artificielle.</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
