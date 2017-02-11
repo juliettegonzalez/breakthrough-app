@@ -194,10 +194,6 @@ public class TwoPawnsSelectionFragment extends Fragment {
                     }
                     blackPawnBtn.setBackgroundResource(R.drawable.white_rounded_button_selected);
 
-                    Log.d("DEBUG", "BlackSelected = " + mBlackSelectedPawn);
-                    Log.d("DEBUG", "WhiteSelected = " + mWhiteSelectedPawn);
-
-
                     if (mWhiteSelectedPawn != null) startGameBtn.setEnabled(true);
                 }
             });

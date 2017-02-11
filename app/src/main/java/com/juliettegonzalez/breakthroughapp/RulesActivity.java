@@ -17,19 +17,19 @@ public class RulesActivity extends AppIntro2 {
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
         addSlide(AppIntroFragment.newInstance("Breakthrough",
-                "Breakthrough est un jeu de stratégie sur un plateau 8x8",
+                getResources().getString(R.string.rules_presentation),
                 R.drawable.rules_board,
                 getResources().getColor(R.color.colorAccentMid)));
-        addSlide(AppIntroFragment.newInstance("Déplacement",
-                "Les pions ne peuvent pas reculer, ils peuvent se déplacer uniquement tout droit ou en diagonale.",
+        addSlide(AppIntroFragment.newInstance(getResources().getString(R.string.rules_title_movement),
+                getResources().getString(R.string.rules_movement),
                 R.drawable.rules_move,
                 getResources().getColor(R.color.colorAccentMid)));
-        addSlide(AppIntroFragment.newInstance("Attaquer",
-                "Il est possible de manger un adversaire uniquement s'il est en diagonale, sinon il est impossible de bouger",
+        addSlide(AppIntroFragment.newInstance(getResources().getString(R.string.rules_title_attack),
+                getResources().getString(R.string.rules_attack),
                 R.drawable.rules_eat,
                 getResources().getColor(R.color.colorAccentMid)));
-        addSlide(AppIntroFragment.newInstance("Gagner",
-                "Pour gagner, il faut atteindre la ligne adverse ou manger tous les adversaires",
+        addSlide(AppIntroFragment.newInstance(getResources().getString(R.string.rules_title_win),
+                getResources().getString(R.string.rules_win),
                 R.drawable.rules_win,
                 getResources().getColor(R.color.colorAccentMid)));
 

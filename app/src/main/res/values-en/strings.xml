@@ -35,15 +35,32 @@
     <!-- Multiplayer view -->
     <string name="winning1_message">Amazing player 1, you won !</string>
     <string name="losing1_message">Player 2 won !</string>
-    <string name="player1_message">It\'s player 1's turn !</string>
+    <string name="player1_message">It\'s player 1\'s turn !</string>
     <string name="player2_message">Player 2, your turn ! </string>
 
     <!-- Credits view -->
     <string name="credits_header">Credits</string>
     <string name="credits_subtitle_pictures">Illustrations</string>
-    <string name="credits_pictures">Les illustrations pour les quatres catégories de pions ont été designées par Till Teenck sous licence Creative Commons et sont issues du site The Noun Project.</string>
+    <string name="credits_pictures">The illustrations for the four categories of pawns have been designed by Till Teenck, covered by a Creative Commons license on the website The Noun Project.</string>
     <string name="credits_subtitle_app">Application</string>
-    <string name="credits_app">L\'application et intelligence artificielle du jeu ont été réalisées conjointement par Yvonnig Jan et Juliette Gonzalez dans le cadre d\'un projet d\'étude sur l\'intelligence artificielle.</string>
+    <string name="credits_app">The application and artificial intelligence of the game have been realized jointly by Yvonnig Jan and Juliette Gonzalez as part of a study project on artificial intelligence. The Spanish translation had been realized with the help of Miguel Abadía.</string>
+
+
+    <!-- Rules -->
+    <string name="rules_title_movement">Move</string>
+    <string name="rules_title_attack">Attack</string>
+    <string name="rules_title_win">Win</string>
+
+    <string name="rules_presentation">Breakthrough is a game of strategy on a 8x8 board.</string>
+    <string name="rules_movement">Pawns cannot go backward, they can move straight or diagonally.</string>
+    <string name="rules_attack">You can eat an enemy only if it\'s in your front diagonal, if it\'s in straight front of you, you cannot move.</string>
+    <string name="rules_win">To win, you have to either reach the opposite last line or eat all your enemies.</string>
+
+
+    <!-- End game pop up -->
+    <string name="popup_title">End of the game</string>
+    <string name="popup_button">Back home</string>
+
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

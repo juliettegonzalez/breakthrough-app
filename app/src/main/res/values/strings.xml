@@ -45,7 +45,23 @@
     <string name="credits_subtitle_pictures">Illustrations</string>
     <string name="credits_pictures">Les illustrations pour les quatres catégories de pions ont été designées par Till Teenck sous licence Creative Commons et sont issues du site The Noun Project.</string>
     <string name="credits_subtitle_app">Application</string>
-    <string name="credits_app">L\'application et intelligence artificielle du jeu ont été réalisées conjointement par Yvonnig Jan et Juliette Gonzalez dans le cadre d\'un projet d\'étude sur l\'intelligence artificielle.</string>
+    <string name="credits_app">L\'application et intelligence artificielle du jeu ont été réalisées conjointement par Yvonnig Jan et Juliette Gonzalez dans le cadre d\'un projet d\'étude sur l\'intelligence artificielle. La traduction espagnole a été réalisée avec l\'aide de Miguel Abadía.</string>
+
+    <!-- Rules -->
+    <string name="rules_title_movement">Se déplacer</string>
+    <string name="rules_title_attack">Attaquer</string>
+    <string name="rules_title_win">Gagner</string>
+
+    <string name="rules_presentation">Breakthrough est un jeu de stratégie sur un plateau 8x8.</string>
+    <string name="rules_movement">Les pions ne peuvent pas reculer, ils peuvent se déplacer uniquement tout droit ou en diagonale.</string>
+    <string name="rules_attack">Il est possible de manger un adversaire uniquement s\'il est en diagonale, sinon il est impossible de bouger</string>
+    <string name="rules_win">Pour gagner, il faut atteindre la ligne adverse ou manger tous les adversaires</string>
+
+
+    <!-- End game pop up -->
+    <string name="popup_title">Fin du jeu</string>
+    <string name="popup_button">Retour à l\'accueil</string>
+
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

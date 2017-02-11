@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -156,9 +155,6 @@ public class GameActivity extends AppCompatActivity {
 
         int cx = getIntent().getIntExtra(REVEAL_X, 0);
         int cy = getIntent().getIntExtra(REVEAL_Y, 0);
-
-        Log.d("DEBUG", "REVEAL_X = " + cx);
-        Log.d("DEBUG", "REVEAL_Y = " + cy);
 
         float finalRadius = Math.max(rootView.getWidth(), rootView.getHeight());
 

@@ -28,8 +28,8 @@
 
     <!-- Board view -->
     <string name="winning_message">¡Increíble ganaste contra el ordenador!</string>
-    <string name="losing_message">Sorry the computer beat you</string>
-    <string name="player_message">Your turn !</string>
+    <string name="losing_message">Lo siento, la computadora te golpeó</string>
+    <string name="player_message">¡Tu turno !</string>
     <string name="ai_message">The computer is thinking... </string>
 
     <!-- Multiplayer view -->
@@ -41,9 +41,25 @@
     <!-- Credits view -->
     <string name="credits_header">Créditos</string>
     <string name="credits_subtitle_pictures">Imágenes</string>
-    <string name="credits_pictures">Les illustrations pour les quatres catégories de pions ont été designées par Till Teenck sous licence Creative Commons et sont issues du site The Noun Project.</string>
+    <string name="credits_pictures">The illustrations for the four categories of pawns have been designed by Till Teenck, covered by a Creative Commons license on the website The Noun Project.</string>
     <string name="credits_subtitle_app">Aplicación</string>
-    <string name="credits_app">L\'application et intelligence artificielle du jeu ont été réalisées conjointement par Yvonnig Jan et Juliette Gonzalez dans le cadre d\'un projet d\'étude sur l\'intelligence artificielle.</string>
+    <string name="credits_app">The application and artificial intelligence of the game have been realized jointly by Yvonnig Jan and Juliette Gonzalez as part of a study project on artificial intelligence. The Spanish translation had been realized with the help of Miguel Abadía.</string>
+
+
+    <!-- Rules -->
+    <string name="rules_title_movement">Mover</string>
+    <string name="rules_title_attack">Atacar</string>
+    <string name="rules_title_win">Ganar</string>
+
+    <string name="rules_presentation">Breakthrough es un juego de estrategia en un tablero 8x8.</string>
+    <string name="rules_movement">Los peones no pueden retroceder, pueden moverse en línea recta o diagonal.</string>
+    <string name="rules_attack">Puedes comer a un enemigo solamente si está en tu diagonal delantera, si está en frente derecho de tú, no puedes moverte.</string>
+    <string name="rules_win">Para ganar, tienes que llegar a la última línea opuesta o comer a todos tus enemigos.</string>
+
+
+    <!-- End game pop up -->
+    <string name="popup_title">Fín del juego</string>
+    <string name="popup_button">Vuelve al inicio</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
