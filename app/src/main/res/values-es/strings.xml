@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">Breakthrough</string>
+    <string name="game_name">Breakthrough</string>
+
     <string name="new_game_btn">Nuevo juego</string>
     <string name="multiplayer_btn">2 jugadores</string>
     <string name="rules_btn">Reglas del juego</string>

@@ -205,6 +205,12 @@ public class GameActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        MainActivity.cancelTransition();
+        finish();
+    }
+
 
 
 }
