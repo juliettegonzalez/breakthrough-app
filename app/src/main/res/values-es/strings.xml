@@ -13,16 +13,16 @@
 
 
     <!-- Selection single screen -->
-    <string name="selection_game_title">Que jugador estás?</string>
+    <string name="selection_game_title">Que jugador eres?</string>
     <string name="dragon_pawn">Dragón</string>
     <string name="grandpa_pawn">Abuelo</string>
     <string name="king_pawn">Rey</string>
     <string name="wizard_pawn">Mago</string>
-    <string name="start_game_btn">¡Vámonos!</string>
+    <string name="start_game_btn">¡Vamos!</string>
 
     <!-- Selection single screen -->
-    <string name="selection_white_title">Quien está el jugador 1 ?</string>
-    <string name="selection_black_title">Quien está el jugador 2 ?</string>
+    <string name="selection_white_title">Quien es el jugador 1 ?</string>
+    <string name="selection_black_title">Quien es el jugador 2 ?</string>
 
 
     <!-- Option Menu -->
@@ -33,10 +33,10 @@
     <string name="winning_message">¡Increíble ganaste contra el ordenador!</string>
     <string name="losing_message">Lo siento, la computadora te golpeó</string>
     <string name="player_message">¡Tu turno !</string>
-    <string name="ai_message">The computer is thinking... </string>
+    <string name="ai_message">El oponente está pensando </string>
 
     <!-- Multiplayer view -->
-    <string name="winning1_message">Amazing, player 1 you won !</string>
+    <string name="winning1_message">Increíble, player 1 you won !</string>
     <string name="losing1_message">Player 2 won !</string>
     <string name="player1_message">Player 1, your turn !</string>
     <string name="player2_message">It\'s player 2\'s turn ! </string>
@@ -56,7 +56,7 @@
 
     <string name="rules_presentation">Breakthrough es un juego de estrategia en un tablero 8x8.</string>
     <string name="rules_movement">Los peones no pueden retroceder, pueden moverse en línea recta o diagonal.</string>
-    <string name="rules_attack">Puedes comer a un enemigo solamente si está en tu diagonal delantera, si está en frente derecho de tú, no puedes moverte.</string>
+    <string name="rules_attack">Puedes comer a un enemigo únicamente si está en tu diagonal delantera. Si está enfrente de ti, no puedes moverte.</string>
     <string name="rules_win">Para ganar, tienes que llegar a la última línea opuesta o comer a todos tus enemigos.</string>
 
 
