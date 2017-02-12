@@ -31,22 +31,22 @@
 
     <!-- Board view -->
     <string name="winning_message">¡Increíble ganaste contra el ordenador!</string>
-    <string name="losing_message">Lo siento, la computadora te golpeó</string>
+    <string name="losing_message">Lo siento, la computadora te golpeó...</string>
     <string name="player_message">¡Tu turno !</string>
-    <string name="ai_message">El oponente está pensando </string>
+    <string name="ai_message">El oponente está pensando...</string>
 
     <!-- Multiplayer view -->
-    <string name="winning1_message">Increíble, player 1 you won !</string>
-    <string name="losing1_message">Player 2 won !</string>
-    <string name="player1_message">Player 1, your turn !</string>
-    <string name="player2_message">It\'s player 2\'s turn ! </string>
+    <string name="winning1_message">Increíble, ¡jugador 1 ganaste!</string>
+    <string name="losing1_message">¡Jugador 2 ganaste!</string>
+    <string name="player1_message">Jugador 1, es tu turno</string>
+    <string name="player2_message">Es jugador 2 turno</string>
 
     <!-- Credits view -->
     <string name="credits_header">Créditos</string>
     <string name="credits_subtitle_pictures">Imágenes</string>
-    <string name="credits_pictures">The illustrations for the four categories of pawns have been designed by Till Teenck, covered by a Creative Commons license on the website The Noun Project.</string>
+    <string name="credits_pictures">Las ilustraciones para las cuatro categorías de peones han sido diseñadas por Till Teenck, cubiertas por una licencia Creative Commons en el sitio web The Noun Project.</string>
     <string name="credits_subtitle_app">Aplicación</string>
-    <string name="credits_app">The application and artificial intelligence of the game have been realized jointly by Yvonnig Jan and Juliette Gonzalez as part of a study project on artificial intelligence. The Spanish translation had been realized with the help of Miguel Abadía.</string>
+    <string name="credits_app">La aplicación y la inteligencia artificial del juego han sido realizadas conjuntamente por Yvonnig Jan y Juliette Gonzalez como parte de un proyecto de estudio sobre inteligencia artificial. La traducción al español se había realizado con la ayuda de Miguel Abadía.</string>
 
 
     <!-- Rules -->
@@ -62,7 +62,7 @@
 
     <!-- End game pop up -->
     <string name="popup_title">Fín del juego</string>
-    <string name="popup_button">Vuelve al inicio</string>
+    <string name="popup_button">Volver al inicio</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
