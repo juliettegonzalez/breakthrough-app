@@ -129,4 +129,10 @@ public class MainActivity extends AppCompatActivity {
         expand_start_layout.setScaleY(1);
         expand_start_layout.setScaleX(1);
     }
+
+    @Override
+    public void onBackPressed() {
+        MainActivity.cancelTransition();
+        finish();
+    }
 }

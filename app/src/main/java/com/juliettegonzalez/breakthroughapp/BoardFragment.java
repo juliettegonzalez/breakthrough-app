@@ -142,6 +142,7 @@ public class BoardFragment extends Fragment {
                 android.app.AlertDialog alertDialog = builder.create();
 
                 alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.setCancelable(false);
                 alertDialog.show();
 
                 if (winner.isComputer()) {
@@ -157,10 +158,9 @@ public class BoardFragment extends Fragment {
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
+                        getActivity().finish();
                     }
                 });
-
-
             }
         });
 
