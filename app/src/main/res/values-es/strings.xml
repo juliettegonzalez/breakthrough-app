@@ -31,7 +31,7 @@
 
     <!-- Board view -->
     <string name="winning_message">¡Increíble ganaste contra el ordenador!</string>
-    <string name="losing_message">Lo siento, la computadora te golpeó...</string>
+    <string name="losing_message">Lo siento, perdiste el juego...</string>
     <string name="player_message">¡Tu turno !</string>
     <string name="ai_message">El oponente está pensando...</string>
 
@@ -46,7 +46,7 @@
     <string name="credits_subtitle_pictures">Imágenes</string>
     <string name="credits_pictures">Las ilustraciones para las cuatro categorías de peones han sido diseñadas por Till Teenck, cubiertas por una licencia Creative Commons en el sitio web The Noun Project.</string>
     <string name="credits_subtitle_app">Aplicación</string>
-    <string name="credits_app">La aplicación y la inteligencia artificial del juego han sido realizadas conjuntamente por Yvonnig Jan y Juliette Gonzalez como parte de un proyecto de estudio sobre inteligencia artificial. La traducción al español se había realizado con la ayuda de Miguel Abadía.</string>
+    <string name="credits_app">La aplicación y la inteligencia artificial del juego han sido realizadas conjuntamente por Yvonnig Jan y Juliette Gonzalez como parte de un proyecto de estudio sobre inteligencia artificial. La traducción se ha realizado con la ayuda de Miguel Abadía.</string>
 
 
     <!-- Rules -->
