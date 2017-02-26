@@ -19,7 +19,7 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements BoardFragment.OnGameFragmentListener {
 
 
     public static final String REVEAL_X="REVEAL_X";
@@ -64,6 +64,12 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
+    public void onActivityEnd(){
+        destroyActivity(revealView, 600);
+        MainActivity.cancelTransition();
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -99,7 +105,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private void destroyActivity(View rootView, int duration) {
+    public void destroyActivity(View rootView, int duration) {
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP)
             destroyCircularRevealActivity(rootView, duration);
         else

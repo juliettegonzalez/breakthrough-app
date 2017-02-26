@@ -1,6 +1,5 @@
 package com.juliettegonzalez.breakthroughapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -46,8 +45,6 @@ public class RulesActivity extends AppIntro2 {
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
         finish();
         // Do something when users tap on Skip button.
     }
@@ -55,8 +52,6 @@ public class RulesActivity extends AppIntro2 {
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
         finish();
         // Do something when users tap on Done button.
     }

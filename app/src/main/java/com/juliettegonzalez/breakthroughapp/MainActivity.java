@@ -132,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        MainActivity.cancelTransition();
         finish();
     }
 }

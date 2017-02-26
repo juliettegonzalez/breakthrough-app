@@ -1,6 +1,6 @@
 package com.juliettegonzalez.breakthroughapp;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -36,6 +36,11 @@ public class BoardFragment extends Fragment {
     private View selectedView = null;
     private ArrayList<View> possibleMoveView = new ArrayList<>();
 
+    public interface OnGameFragmentListener {
+        void onActivityEnd();
+    }
+
+    private OnGameFragmentListener mListener;
 
     public BoardFragment() {}
 
@@ -130,7 +135,7 @@ public class BoardFragment extends Fragment {
             }
         });
 
-        // Implement the listener
+        // Implement the mListener
         mGame.setGameStateListener(new MainGame.GameStateListener() {
             @Override
             public void onGameEnd(Player winner) {
@@ -139,7 +144,7 @@ public class BoardFragment extends Fragment {
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
                 LayoutInflater inflater =  LayoutInflater.from(getActivity());
                 builder.setView(inflater.inflate(R.layout.end_game_alertdialog, null));
-                android.app.AlertDialog alertDialog = builder.create();
+                final android.app.AlertDialog alertDialog = builder.create();
 
                 alertDialog.setCanceledOnTouchOutside(false);
                 alertDialog.setCancelable(false);
@@ -156,9 +161,8 @@ public class BoardFragment extends Fragment {
                 backBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
+                        alertDialog.dismiss();
+                        mListener.onActivityEnd();
                     }
                 });
             }
@@ -210,6 +214,23 @@ public class BoardFragment extends Fragment {
 
             ((BaseAdapter) mBoardGrid.getAdapter()).notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnGameFragmentListener) {
+            mListener = (OnGameFragmentListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement BoardFragmentListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
 }

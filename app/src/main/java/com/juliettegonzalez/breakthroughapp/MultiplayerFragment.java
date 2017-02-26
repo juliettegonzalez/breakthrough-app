@@ -1,6 +1,6 @@
 package com.juliettegonzalez.breakthroughapp;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +38,7 @@ public class MultiplayerFragment extends Fragment {
     private View selectedView = null;
     private ArrayList<View> possibleMoveView = new ArrayList<>();
 
+    private BoardFragment.OnGameFragmentListener mListener;
 
     public MultiplayerFragment() {}
 
@@ -180,9 +181,10 @@ public class MultiplayerFragment extends Fragment {
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
                 LayoutInflater inflater =  LayoutInflater.from(getActivity());
                 builder.setView(inflater.inflate(R.layout.end_game_alertdialog, null));
-                android.app.AlertDialog alertDialog = builder.create();
+                final android.app.AlertDialog alertDialog = builder.create();
 
                 alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.setCancelable(false);
                 alertDialog.show();
 
                 if (winner == mGame.getmPlayer1() ) {
@@ -196,8 +198,8 @@ public class MultiplayerFragment extends Fragment {
                 backBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        startActivity(intent);
+                        alertDialog.dismiss();
+                        mListener.onActivityEnd();
                     }
                 });
             }
@@ -216,6 +218,23 @@ public class MultiplayerFragment extends Fragment {
             }
             possibleMoveView.clear();
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof BoardFragment.OnGameFragmentListener) {
+            mListener = (BoardFragment.OnGameFragmentListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement BoardFragmentListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
 }

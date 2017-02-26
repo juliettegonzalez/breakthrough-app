@@ -34,6 +34,10 @@ public class MainGame {
 
     private GameStateListener listener;
 
+    public void setGameStateListener(GameStateListener listener) {
+        this.listener = listener;
+    }
+
     public MainGame(Player player1, Player player2){
         this.mPlayer1 = player1;
         this.mPlayer2 = player2;
@@ -89,10 +93,6 @@ public class MainGame {
 
     public boolean isFirstPlayerTurn(){
         return mCurrentPlayer == mPlayer1;
-    }
-
-    public void setGameStateListener(GameStateListener listener) {
-        this.listener = listener;
     }
 
 
